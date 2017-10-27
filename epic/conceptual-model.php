@@ -6,8 +6,20 @@
 	</head>
 
 	<body>
-		<main>
+		<header>
 			<h1>Conceptual Model</h1>
+			<nav>
+				<ul>
+					<li><a href="index.php">Home</a></li>
+					<li>Conceptual Model</li>
+					<li><a href="use-cases.php">Use Cases</a></li>
+					<li><a href="shannon.php">Shannon Persona</a></li>
+					<li><a href="robert.php">Robert Persona</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main>
 			<h2>User</h2>
 			<ul>
 				<li>userId (primary key)</li>
