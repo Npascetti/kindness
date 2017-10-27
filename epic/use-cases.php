@@ -23,7 +23,7 @@
 			<h2>Robert</h2>
 			<p>Wants to be able donate food and supplies with no hassle</p>
 			<ol>
-				<li>Robert ppens up the website</li>
+				<li>Robert opens up the website</li>
 				<li>Website displays home page</li>
 				<li>User chooses a hub</li>
 				<li>Website displays hub information</li>
