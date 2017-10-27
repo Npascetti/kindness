@@ -7,7 +7,7 @@
 
 	<body>
 		<header>
-			<h1>Robert Lopex</h1>
+			<h1>Robert Lopez</h1>
 			<nav>
 				<ul>
 					<li><a href="index.php">Home</a></li>
