@@ -23,8 +23,8 @@
 			<h2>Robert</h2>
 			<p>Wants to be able donate food and supplies with no hassle</p>
 			<ol>
-				<li>Opens up the website.</li>
-				<li>Website displays nearby open hubs</li>
+				<li>Robert ppens up the website</li>
+				<li>Website displays home page</li>
 				<li>User chooses a hub</li>
 				<li>Website displays hub information</li>
 				<li>Robert gathers donations and drives to the hub</li>
@@ -33,7 +33,21 @@
 			</ol>
 
 			<h2>Shannon</h2>
-			<p></p>
+			<p>Wants to open up a new hub</p>
+			<ol>
+				<li>Shannon opens up the website</li>
+				<li>Website displays home page</li>
+				<li>Shannon clicks on create a hub</li>
+				<li>Website takes her to login/create profile</li>
+				<li>Shannon clicks on create profile</li>
+				<li>Website takes her to create profile page</li>
+				<li>Shannon creates profile</li>
+				<li>Website takes her to create hub page</li>
+				<li>Shannon decides on hub location and hours</li>
+				<li>Webiste creates a space for the new hub</li>
+				<li>Shannon sets up the hub and deploys it</li>
+				<li>Webiste puts the hub on the listings</li>
+			</ol>
 		</main>
 	</body>
 </html>
