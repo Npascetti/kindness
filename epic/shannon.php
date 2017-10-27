@@ -20,6 +20,7 @@
 		</header>
 
 		<main>
+			<img src="./images/shannon.png" alt="Shannon's Persona">
 		</main>
 	</body>
 </html>

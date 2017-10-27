@@ -20,6 +20,7 @@
 		</header>
 
 		<main>
+			<img src="./images/robert.png" alt="Robert Persona">
 		</main>
 	</body>
 </html>
