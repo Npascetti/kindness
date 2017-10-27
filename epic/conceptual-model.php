@@ -22,6 +22,7 @@
 			<li>hubUserId (foreign key)</li>
 			<li>hubLocation</li>
 			<li>hubItems</li>
+			<li>hubDateCreated</li>
 		</ul>
 	</body>
 </html>
