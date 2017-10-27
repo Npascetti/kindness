@@ -24,7 +24,7 @@
 					or can anonymously and easily donate to the hubs. The hubs will have centralized locations so that
 					those without easy internet access will know how to access them. The hubs will take in anything
 					users are willing to donate, and can supply everything from food to blankets and clothes and
-					everything inbetween.</p>
+					everything in between.</p>
 			</main>
 		</header>
 	</body>
