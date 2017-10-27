@@ -24,6 +24,9 @@
 				<li>hubLocation</li>
 				<li>hubItems</li>
 				<li>hubDateCreated</li>
+				<li>hubHours</li>
+				<li>hubName</li>
+				<li>hubImage</li>
 			</ul>
 		</main>
 	</body>
