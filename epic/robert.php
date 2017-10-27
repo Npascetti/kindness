@@ -6,8 +6,20 @@
 	</head>
 
 	<body>
+		<header>
+			<h1>Robert Lopex</h1>
+			<nav>
+				<ul>
+					<li><a href="index.php">Home</a></li>
+					<li><a href="conceptual-model.php">Conceptual Model</a></li>
+					<li><a href="use-cases.php">Use Cases</a></li>
+					<li><a href="shannon.php">Shannon Persona</a></li>
+					<li>Robert Persona</li>
+				</ul>
+			</nav>
+		</header>
+
 		<main>
-			<h1>Robert Lopez</h1>
 		</main>
 	</body>
 </html>
