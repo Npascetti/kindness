@@ -15,7 +15,6 @@
 				<li>userImage</li>
 				<li>userName</li>
 				<li>userEmail</li>
-				<li>userReputation</li>
 			</ul>
 			<h2>Hub</h2>
 			<ul>
@@ -27,6 +26,13 @@
 				<li>hubHours</li>
 				<li>hubName</li>
 				<li>hubImage</li>
+			</ul>
+			<h2>Reputation</h2>
+			<ul>
+				<li>repUserId (foreign key)</li>
+				<li>repHubId (foreign key)</li>
+				<li>rep</li>
+				<li>repLevel</li>
 			</ul>
 		</main>
 	</body>
