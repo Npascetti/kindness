@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-	<header>
+	<head>
 		<meta charset="utf-8"/>
 		<title>Conceptual Model</title>
-	</header>
+	</head>
 
 	<body>
 		<h1>Conceptual Model</h1>
