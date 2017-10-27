@@ -44,9 +44,9 @@
 				<li>Shannon creates profile</li>
 				<li>Website takes her to create hub page</li>
 				<li>Shannon decides on hub location and hours</li>
-				<li>Webiste creates a space for the new hub</li>
+				<li>Website creates a space for the new hub</li>
 				<li>Shannon sets up the hub and deploys it</li>
-				<li>Webiste puts the hub on the listings</li>
+				<li>Website puts the hub on the listings</li>
 			</ol>
 		</main>
 	</body>
