@@ -14,5 +14,6 @@
 			<li>Expand services outside of food - portable showers, other services</li>
 			<li>Address affiliation???</li>
 			<li>User to user interaction</li>
+			<li>Geolocation</li>
 		</ul>
 	</body>
