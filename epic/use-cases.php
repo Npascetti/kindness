@@ -18,7 +18,6 @@
 				</ul>
 			</nav>
 		</header>
-
 		<main>
 			<h2>Robert</h2>
 			<p>Wants to be able donate food and supplies with no hassle</p>

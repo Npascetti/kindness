@@ -3,6 +3,7 @@
 	<head>
 		<title>Robert Persona</title>
 		<meta charset="utf-8"/>
+		<link type="text/css" href="css/robertstyle.css" rel="stylesheet" />
 	</head>
 
 	<body>
@@ -20,7 +21,7 @@
 		</header>
 
 		<main>
-			<img src="./images/robert.png" alt="Robert Persona">
+			<img class="resize" src="./images/robert.png" alt="Robert Persona">
 		</main>
 	</body>
 </html>
