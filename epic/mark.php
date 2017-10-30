@@ -31,11 +31,11 @@
 					<li>Tech: Moto E4(Android 7.1)</li>
 				</ul>
 
-    <p>Mark has been employed at Burger King for two years and he lives in Barelas. He commutes on his bicycle with a ten
-    ride to Lomas. His manager will only give him a part time position and has no other formal training to look for another
+    <p>Mark has been employed at Burger King for two years and he lives in Barelas. He commutes on his bicycle with a ten minute
+    ride to Lomas. His manager will only give him a part time position, and he has no other formal training to look for another
     job. He makes ends meet, but consistently pays child support for his two daughters that live in Texas. The payments are 90%
-    of his income. He is forced to skip dinner, he can't make trips to the laundromat as often sd he'd like, and continuously
-     wont have enough money to buy a full weeks worth of groceries. Mark just can't seem to make time for government assistance,
+    of his income. He is forced to skip dinner, he can't make trips to the laundromat as often as he'd like, and continuously
+     doesn't have enough money to buy a full weeks worth of groceries. Mark just can't seem to make time for government assistance, as
      he works during the day. Mark remains positive and knows that he can makes things work if he just had a little help.<p>
 <h2>Goals</h2>
 				<ul>
@@ -45,9 +45,9 @@
 				</ul>
 			<h2>Frustrations</h2>
 				<ul>
-					<li>Hassle and time sink bureaucracy of government assistance programs. </li>
-					<li>proximity and availability of donation centers.</li>
-					<li>not being able to find full time work.</li>
+					<li>Hassle, time sink and bureaucracy of government assistance programs. </li>
+					<li>Proximity and availability of donation centers.</li>
+					<li>Not being able to find full time work.</li>
 				</ul>
 
 </main>
