@@ -37,7 +37,18 @@
     of his income. He is forced to skip dinner, he can't make trips to the laundromat as often sd he'd like, and continuously
      wont have enough money to buy a full weeks worth of groceries. Mark just can't seem to make time for government assistance,
      he works during the day. Mark remains positive and knows that he can makes things work if he just had a little help.<p>
-
+<h2>Goals</h2>
+				<ul>
+					<li>To be able to pick up food/necessities for himself, especially before payday.</li>
+					<li>Remain anonymous</li>
+					<li>Quickly obtain items within close proximity to him, as bike is the only form or transportation.</li>
+				</ul>
+			<h2>Frustrations</h2>
+				<ul>
+					<li>Hassle and time sink bureaucracy of government assistance programs. </li>
+					<li>proximity and availability of donation centers.</li>
+					<li>not being able to find full time work.</li>
+				</ul>
 
 </main>
 </body>
