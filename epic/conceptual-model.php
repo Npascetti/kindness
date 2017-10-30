@@ -28,6 +28,7 @@
 				<li>userName</li>
 				<li>userEmail</li>
 			</ul>
+
 			<h2>Hub</h2>
 			<ul>
 				<li>hubId (primary key)</li>
@@ -39,6 +40,7 @@
 				<li>hubName</li>
 				<li>hubImage</li>
 			</ul>
+
 			<h2>Reputation</h2>
 			<ul>
 				<li>repUserId (foreign key)</li>
@@ -46,6 +48,13 @@
 				<li>rep</li>
 				<li>repLevel</li>
 			</ul>
+
+			<h2>Manager</h2>
+			<ul>
+				<li>manageUserId (foreign key)</li>
+				<li>manageHubId (foreign key)</li>
+			</ul>
 		</main>
+
 	</body>
 </html>
