@@ -64,7 +64,7 @@
 				<li>itemName</li>
 				<li>itemHubId (foreign key)</li>
 				<li>itemAvailability</li>
-				<li>acceptingItem</li>
+				<li>itemRequested</li>
 			</ul>
 		</main>
 	</body>
