@@ -19,7 +19,7 @@
 				</ul>
 			</nav>
 		</header>
-		<img src="images" alt="robert.jpg">
+		<img src="images/robert.jpg" alt="robert">
 		<main>
 			<h2>Bio</h2>
 				<ul>
