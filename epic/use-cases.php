@@ -64,9 +64,19 @@
 				<li>Website displays hub information, including available items</li>
 				<li>Mark goes to the hub</li>
 				<li>Mark tells the hub manager what items he is in need of</li>
-				<li>Hub manager gives Mark some items of that nature</li>
+				<li>Hub manager gives Mark some items of that nature if in stock</li>
 				<li>Mark gives some reputation to the hub if they treated and provided for him well</li>
 				<li>Mark can retract some reputation if they do not</li>
+			</ol>
+
+			<p>Mark wants to request a specific item</p>
+			<ol>
+				<li>Mark goes to a hub</li>
+				<li>Mark tells the hub manager what items he is in need of</li>
+				<li>Hub manager sees that the item is not available</li>
+				<li>Hub manager asks Mark if he would like to request that item</li>
+				<li>Mark says he would like to request the item</li>
+				<li>Hub manager adds that item to the items requested in the hub</li>
 			</ol>
 		</main>
 	</body>
