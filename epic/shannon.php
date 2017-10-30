@@ -21,7 +21,7 @@
 		</header>
 
 		<main>
-			<img class="resize" src="shannonphoto.jpg" alt="Shannon's Persona">
+			<img class="resize" src="images/shannonphoto.jpg" alt="Shannon's Persona">
 		</main>
 	</body>
 </html>
