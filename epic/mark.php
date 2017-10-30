@@ -15,6 +15,7 @@
             <li><a href="conceptual-model.php">Conceptual Model</a></li>
             <li><a href="use-cases.php">Use Cases</a></li>
             <li><a href="shannon.php">Shannon Persona</a></li>
+			  <li><a href="robert.php">Robert Persona</a></li>
             <li>Mark Persona</li>
         </ul>
     </nav>
