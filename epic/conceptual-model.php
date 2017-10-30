@@ -58,6 +58,14 @@
 				<li>manageUserId (foreign key)</li>
 				<li>manageHubId (foreign key)</li>
 			</ul>
+
+			<h2>Item</h2>
+			<ul>
+				<li>itemName</li>
+				<li>itemHubId (foreign key)</li>
+				<li>itemAvailability</li>
+				<li>acceptingItem</li>
+			</ul>
 		</main>
 	</body>
 </html>
