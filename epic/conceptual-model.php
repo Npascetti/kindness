@@ -27,6 +27,11 @@
 				<li>userImage</li>
 				<li>userName</li>
 				<li>userEmail</li>
+				<li>userHash</li>
+				<li>userSalt</li>
+				<li>firstName</li>
+				<li>lastName</li>
+				<li>userCreated</li>
 			</ul>
 
 			<h2>Hub</h2>
@@ -55,6 +60,5 @@
 				<li>manageHubId (foreign key)</li>
 			</ul>
 		</main>
-
 	</body>
 </html>
