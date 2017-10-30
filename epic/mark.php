@@ -19,7 +19,7 @@
         </ul>
     </nav>
 </header>
-
+ 
 <main>
     <img src="images/mark.jpg" alt="picture of mark" />
 <h2>Bio</h2>
