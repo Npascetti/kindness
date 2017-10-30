@@ -22,8 +22,14 @@
 
 <main>
     <img class="epic/images/markAlbina.jpg">
-<h2>
-
+<h2>Bio</h2>
+				<ul>
+					<li>Age: 35</li>
+					<li>Occupation: Service Industry</li>
+					<li>Location: Barelas</li>
+					<li>Archetype: Working Poor</li>
+					<li>Tech: Moto E4(Android 7.1)</li>
+				</ul>
 
     <p>Mark has been employed at Burger King for two years and he lives in Barelas. He commutes on his bicycle with a ten
     ride to Lomas. His manager will only give him a part time position and has no other formal training to look for another
