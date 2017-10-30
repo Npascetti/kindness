@@ -21,7 +21,7 @@
 </header>
 
 <main>
-    <img class="epic/images/markAlbina.jpg">
+    <img src="images/mark.jpg" alt="picture of mark" />
 <h2>Bio</h2>
 				<ul>
 					<li>Age: 35</li>
