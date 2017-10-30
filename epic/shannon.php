@@ -3,6 +3,7 @@
 	<head>
 		<title>Shannon Persona</title>
 		<meta charset="utf-8"/>
+		<link type="text/css" href="css/shannonstyle.css" rel="stylesheet" />
 	</head>
 
 	<body>
@@ -20,7 +21,7 @@
 		</header>
 
 		<main>
-			<img src="./images/shannon.png" alt="Shannon's Persona">
+			<img class="resize" src="./images/shannon.png" alt="Shannon's Persona">
 		</main>
 	</body>
 </html>
