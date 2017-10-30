@@ -24,9 +24,8 @@
 			<ol>
 				<li>Robert opens up the website</li>
 				<li>Website displays home page</li>
-				<li>User chooses a hub</li>
-				<li>Website displays hub information</li>
-				<li>Robert sees that the hub is requesting toiletries</li>
+				<li>Robert chooses a hub</li>
+				<li>Website displays hub information, including any requested items</li>
 				<li>Robert gathers toiletries and drives to the hub</li>
 				<li>Robert takes donations to hub drop center</li>
 				<li>Hub manager takes donations and appraises them</li>
@@ -54,6 +53,20 @@
 				<li>If yes: Website takes Shannon to hub creation page</li>
 				<li>Shannon creates a new hub</li>
 				<li>Website displays home page, now with Shannon's new hub displayed</li>
+			</ol>
+
+			<h2>Mark</h2>
+			<p>Wants to collect a donation</p>
+			<ol>
+				<li>Mark opens up the website</li>
+				<li>Website displays home page</li>
+				<li>Mark chooses a nearby hub</li>
+				<li>Website displays hub information, including available items</li>
+				<li>Mark goes to the hub</li>
+				<li>Mark tells the hub manager what items he is in need of</li>
+				<li>Hub manager gives Mark some items of that nature</li>
+				<li>Mark gives some reputation to the hub if they treated and provided for him well</li>
+				<li>Mark can retract some reputation if they do not</li>
 			</ol>
 		</main>
 	</body>
