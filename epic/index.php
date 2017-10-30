@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8"/>
-		<title>Operation: Kindness</title>
+		<title>KindHub</title>
 	</head>
 
 	<body>
