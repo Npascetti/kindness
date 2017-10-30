@@ -23,7 +23,7 @@
 			<h2>User</h2>
 			<ul>
 				<li>userId (primary key)</li>
-				<li>userHubs</li>
+				<li>userBio</li>
 				<li>userImage</li>
 				<li>userName</li>
 				<li>userEmail</li>
@@ -39,7 +39,6 @@
 				<li>hubId (primary key)</li>
 				<li>hubUserId (foreign key)</li>
 				<li>hubLocation</li>
-				<li>hubItems</li>
 				<li>hubDateCreated</li>
 				<li>hubHours</li>
 				<li>hubName</li>
