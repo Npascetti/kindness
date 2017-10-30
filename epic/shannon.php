@@ -34,7 +34,7 @@
 			<h2>Goals</h2>
 			<ul>
 				<li>Help those in need.</li>
-				<li>Make a direct impact<./li>
+				<li>Make a direct impact.</li>
 				<li>Be an active member of a beneficial social media site.</li>
 			</ul>
 			<h2>Frustrations</h2>
