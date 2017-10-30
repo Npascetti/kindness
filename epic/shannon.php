@@ -30,7 +30,7 @@
 				<li>Archetype: Yoga + Whole Foods Mom</li>
 				<li>Technology: iPhone 8, 2009 iMac 21inch, 2013 Macbook running Mac OS Sierra, and SMART T.V.</li>
 			</ul>
-			<p>It is in Shannon's nature to help others. She is an active member of several community outreach groups. She engages in community service along with her two daughters often. Shannon became dissatisfied working with previous nonprofit organizations. The large structure, actions, and questionable ethical choices were what turned her off. She believes those issues could be fixed by a more personal approach. In short, she thinks that direct donation and assistance is the best way for her to help. </p>
+			<p>It is in Shannon's nature to help others. She is an active member of several community outreach groups. She often engages in community service along with her two daughters. Shannon became dissatisfied working with previous nonprofit organizations. The large structure, actions, and questionable ethical choices were what turned her off. She believes those issues could be fixed by a more personal approach. In short, she thinks that direct donation and assistance is the best way for her to help.</p>
 			<h2>Goals</h2>
 			<ul>
 				<li>Help those in need.</li>
