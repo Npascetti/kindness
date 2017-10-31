@@ -44,6 +44,7 @@
 				<li>hubHours</li>
 				<li>hubName</li>
 				<li>hubImage</li>
+				<li>userBlacklisted</li>
 			</ul>
 
 			<h2>Reputation</h2>
