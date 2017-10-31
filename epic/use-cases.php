@@ -15,7 +15,7 @@
 					<li>Use Cases</li>
 					<li><a href="shannon.php">Shannon Persona</a></li>
 					<li><a href="robert.php">Robert Persona</a></li>
-					<li><a href="mark.php">Mark Persona</a>/li>
+					<li><a href="mark.php">Mark Persona</a></li>
 				</ul>
 			</nav>
 		</header>
