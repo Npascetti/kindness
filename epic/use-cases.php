@@ -49,9 +49,7 @@
 				<li>Shannon opens up the website</li>
 				<li>Website displays home page</li>
 				<li>Shannon clicks on create new hub</li>
-				<li>Website checks if Shannon has sufficient reputation</li>
-				<li>If no: Website displays error stating she needs more reputation</li>
-				<li>If yes: Website takes Shannon to hub creation page</li>
+				<li>Website takes Shannon to hub creation page</li>
 				<li>Shannon creates a new hub</li>
 				<li>Website displays home page, now with Shannon's new hub displayed</li>
 			</ol>
