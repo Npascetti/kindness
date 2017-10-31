@@ -24,6 +24,7 @@
 			<h2>User</h2>
 			<ul>
 				<li>userId (primary key)</li>
+				<li>userLevelId (foreign key)</li>
 				<li>userActivationToken</li>
 				<li>userBio</li>
 				<li>userBlacklisted</li>
