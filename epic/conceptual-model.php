@@ -60,6 +60,7 @@
 			<ul>
 				<li>levelId (primary key)</li>
 				<li>levelRepId (foreign key)</li>
+				<li>levelUserId (foreign key)</li>
 				<li>level</li>
 				<li>levelBadge</li>
 			</ul>
