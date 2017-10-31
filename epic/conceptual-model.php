@@ -50,10 +50,10 @@
 
 			<h2>Reputation</h2>
 			<ul>
-				<li>repId (primary key)</li>
-				<li>repHubId (foreign key)</li>
-				<li>repUserId (foreign key)</li>
-				<li>repPositive</li>
+				<li>reputationId (primary key)</li>
+				<li>reputationHubId (foreign key)</li>
+				<li>reputationUserId (foreign key)</li>
+				<li>reputationPositive</li>
 			</ul>
 
 			<h2>Reputation Level</h2>
