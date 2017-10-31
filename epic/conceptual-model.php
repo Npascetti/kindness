@@ -60,8 +60,16 @@
 			<ul>
 				<li>levelId (primary key)</li>
 				<li>levelRepId (foreign key)</li>
+				<li>level</li>
 				<li>levelBadge</li>
-				<li></li>
+			</ul>
+
+			<h2>Achievements</h2>
+			<ul>
+				<li>achievementId (primary key)</li>
+				<li>achievementUserId (foreign key)</li>
+				<li>achievementDescription</li>
+				<li>achievementTitle</li>
 			</ul>
 
 			<h2>Manager</h2>
