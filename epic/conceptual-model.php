@@ -24,17 +24,15 @@
 			<h2>User</h2>
 			<ul>
 				<li>userId (primary key)</li>
-				<li>userLevelId (foreign key)</li>
 				<li>userActivationToken</li>
 				<li>userBio</li>
-				<li>userBlacklisted</li>
-				<li>userCreated</li>
+				<li>userDateTimeCreated</li>
 				<li>userEmail</li>
 				<li>userFirstName</li>
 				<li>userHash</li>
 				<li>userImage</li>
 				<li>userLastName</li>
-				<li>userName</li>
+				<li>userUserName</li>
 				<li>userSalt</li>
 			</ul>
 
@@ -42,7 +40,7 @@
 			<ul>
 				<li>hubId (primary key)</li>
 				<li>hubUserId (foreign key)</li>
-				<li>hubDateCreated</li>
+				<li>hubDateTimeCreated</li>
 				<li>hubHours</li>
 				<li>hubImage</li>
 				<li>hubLocation</li>
@@ -55,13 +53,12 @@
 				<li>reputationHubId (foreign key)</li>
 				<li>reputationLevelId (foreign key)</li>
 				<li>reputationUserId (foreign key)</li>
-				<li>reputationPositive</li>
+				<li>reputationPoint</li>
 			</ul>
 
 			<h2>Level</h2>
 			<ul>
 				<li>levelId (primary key)</li>
-				<li>levelUserId (foreign key)</li>
 				<li>levelName</li>
 				<li>levelNumber</li>
 			</ul>
