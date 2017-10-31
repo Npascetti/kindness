@@ -61,6 +61,7 @@
 			<ul>
 				<li>levelId (primary key)</li>
 				<li>levelUserId (foreign key)</li>
+				<li>levelName</li>
 				<li>levelNumber</li>
 			</ul>
 
