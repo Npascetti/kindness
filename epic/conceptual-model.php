@@ -52,6 +52,7 @@
 			<ul>
 				<li>reputationId (primary key)</li>
 				<li>reputationHubId (foreign key)</li>
+				<li>reputationLevelId (foreign key)</li>
 				<li>reputationUserId (foreign key)</li>
 				<li>reputationPositive</li>
 			</ul>
@@ -59,7 +60,6 @@
 			<h2>Level</h2>
 			<ul>
 				<li>levelId (primary key)</li>
-				<li>levelRepId (foreign key)</li>
 				<li>levelUserId (foreign key)</li>
 				<li>levelNumber</li>
 			</ul>
