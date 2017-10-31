@@ -48,8 +48,8 @@
 			<ol>
 				<li>Shannon opens up the website</li>
 				<li>Website displays home page</li>
-				<li>Shannon clicks on create new hub</li>
-				<li>Website takes Shannon to hub creation page</li>
+				<li>Shannon clicks on create new hub.</li>
+				<li>Website takes Shannon to hub creation page as long as her reputation level is not below blacklist level.</li>
 				<li>Shannon creates a new hub</li>
 				<li>Website displays home page, now with Shannon's new hub displayed</li>
 			</ol>
