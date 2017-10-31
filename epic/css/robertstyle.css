@@ -1,5 +1,5 @@
 /* this will resize the image on the page but keep the aspect ratio the same*/
 .resize {
-	width: 350px;
+	width: 349px;
 	height: auto;
 }
