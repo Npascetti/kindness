@@ -30,8 +30,9 @@
 				<li>userEmail</li>
 				<li>userHash</li>
 				<li>userSalt</li>
-				<li>firstName</li>
-				<li>lastName</li>
+				<li>userFirstName</li>
+				<li>userLastName</li>
+				<li>userBlacklisted</li>
 				<li>userCreated</li>
 			</ul>
 
@@ -44,21 +45,28 @@
 				<li>hubHours</li>
 				<li>hubName</li>
 				<li>hubImage</li>
-				<li>userBlacklisted</li>
 			</ul>
 
 			<h2>Reputation</h2>
 			<ul>
+				<li>repId (primary key)</li>
 				<li>repUserId (foreign key)</li>
 				<li>repHubId (foreign key)</li>
 				<li>rep</li>
-				<li>repLevel</li>
+			</ul>
+
+			<h2>Reputation Level</h2>
+			<ul>
+				<li>levelId (primary key)</li>
+				<li>levelRepId (foreign key)</li>
+				<li>levelBadge</li>
+				<li></li>
 			</ul>
 
 			<h2>Manager</h2>
 			<ul>
-				<li>manageUserId (foreign key)</li>
-				<li>manageHubId (foreign key)</li>
+				<li>managerUserId (foreign key)</li>
+				<li>managerHubId (foreign key)</li>
 			</ul>
 
 			<h2>Item</h2>
