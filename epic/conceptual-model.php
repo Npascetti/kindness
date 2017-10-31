@@ -56,21 +56,12 @@
 				<li>reputationPositive</li>
 			</ul>
 
-			<h2>Reputation Level</h2>
+			<h2>Level</h2>
 			<ul>
 				<li>levelId (primary key)</li>
 				<li>levelRepId (foreign key)</li>
 				<li>levelUserId (foreign key)</li>
-				<li>levelBadge</li>
 				<li>levelNumber</li>
-			</ul>
-
-			<h2>Achievements</h2>
-			<ul>
-				<li>achievementId (primary key)</li>
-				<li>achievementUserId (foreign key)</li>
-				<li>achievementDescription</li>
-				<li>achievementTitle</li>
 			</ul>
 
 			<h2>Manager</h2>
@@ -81,7 +72,10 @@
 
 			<h2>Item</h2>
 			<ul>
+				<li>itemId (primary key)</li>
 				<li>itemHubId (foreign key)</li>
+				<li>itemManagerId (foreign key)</li>
+				<li>itemUserId (foreign key)</li>
 				<li>itemAvailability</li>
 				<li>itemName</li>
 				<li>itemRequested</li>
