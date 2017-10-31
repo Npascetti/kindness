@@ -53,7 +53,7 @@
 				<li>repId (primary key)</li>
 				<li>repHubId (foreign key)</li>
 				<li>repUserId (foreign key)</li>
-				<li>rep</li>
+				<li>repPositive</li>
 			</ul>
 
 			<h2>Reputation Level</h2>
@@ -61,8 +61,8 @@
 				<li>levelId (primary key)</li>
 				<li>levelRepId (foreign key)</li>
 				<li>levelUserId (foreign key)</li>
-				<li>level</li>
 				<li>levelBadge</li>
+				<li>levelNumber</li>
 			</ul>
 
 			<h2>Achievements</h2>
