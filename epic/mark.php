@@ -29,7 +29,7 @@
 					<li>Occupation: Service Industry</li>
 					<li>Location: Barelas</li>
 					<li>Archetype: Working Poor</li>
-					<li>Tech: Moto E4(Android 7.1)</li>
+					<li>Tech: Moto E4(Android 7.1), Dell OptiPlex 780 Mini Tower (Library Computer)</li>
 				</ul>
 
     <p>Mark has been employed at Burger King for two years and he lives in Barelas. He commutes on his bicycle with a ten minute
