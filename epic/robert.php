@@ -28,7 +28,7 @@
 					<li>Occupation: Entrepreneur</li>
 					<li>Location: Northwest Albuquerque</li>
 					<li>Archetype: Upper Class Soccer Dad </li>
-					<li>Tech: iPhone X and Windows surface running windows10</li>
+					<li>Tech: Galaxy Samsung S6 running android OS oreo and Windows surface running windows10</li>
 				</ul>
 			<p>Robert grew up in a single parent household where he didn't get to eat every meal. His mother worked hard
 				and he saw the struggle his mother went through. He now is in a position to give back to the local Albuquerque
