@@ -40,9 +40,11 @@
 			<ul>
 				<li>hubId (primary key)</li>
 				<li>hubUserId (foreign key)</li>
+				<!-- kill hub hours, image & datetime created
 				<li>hubDateTimeCreated</li>
 				<li>hubHours</li>
 				<li>hubImage</li>
+				-->
 				<li>hubLocation</li>
 				<li>hubName</li>
 			</ul>
@@ -62,7 +64,7 @@
 				<li>levelName</li>
 				<li>levelNumber</li>
 			</ul>
-
+<!-- Add this in the future
 			<h2>Manager</h2>
 			<ul>
 				<li>managerHubId (foreign key)</li>
@@ -79,6 +81,7 @@
 				<li>itemName</li>
 				<li>itemRequested</li>
 			</ul>
+			-->
 		</main>
 	</body>
 </html>
