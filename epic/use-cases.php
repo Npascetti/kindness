@@ -78,6 +78,7 @@
 				<li>Mark says he would like to request the item</li>
 				<li>Hub manager adds that item to the items requested in the hub</li>
 			</ol>
+			-->
 		</main>
 	</body>
 </html>
