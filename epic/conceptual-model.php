@@ -81,6 +81,8 @@
 				<li>itemRequested</li>
 			</ul>
 			-->
+			<h2>KindHub ERD</h2>
+			<img src="images/kindhuberd2.svg">
 		</main>
 	</body>
 </html>
