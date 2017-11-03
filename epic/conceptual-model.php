@@ -26,7 +26,6 @@
 				<li>userId (primary key)</li>
 				<li>userActivationToken</li>
 				<li>userBio</li>
-				<li>userDateTimeCreated</li>
 				<li>userEmail</li>
 				<li>userFirstName</li>
 				<li>userHash</li>
