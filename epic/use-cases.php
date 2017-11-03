@@ -20,6 +20,7 @@
 			</nav>
 		</header>
 		<main>
+			<!-- add later
 			<h2>Robert</h2>
 			<p>Wants to be able donate food and supplies with no hassle</p>
 			<ol>
@@ -32,7 +33,7 @@
 				<li>Hub manager takes donations and appraises them</li>
 				<li>If Robert has an account, hub manager can award him reputation if donations are valid</li>
 			</ol>
-
+			-->
 			<h2>Shannon</h2>
 			<p>Wants to create a new account</p>
 			<ol>
@@ -60,14 +61,14 @@
 				<li>Mark opens up the website</li>
 				<li>Website displays home page</li>
 				<li>Mark chooses a nearby hub</li>
-				<li>Website displays hub information, including available items</li>
+				<li>Website displays hub information</li>
 				<li>Mark goes to the hub</li>
 				<li>Mark tells the hub manager what items he is in need of</li>
 				<li>Hub manager gives Mark some items of that nature if in stock</li>
 				<li>Mark gives some reputation to the hub if they treated and provided for him well</li>
 				<li>Mark can retract some reputation if they do not</li>
 			</ol>
-
+			<!--
 			<p>Mark wants to request a specific item</p>
 			<ol>
 				<li>Mark goes to a hub</li>
