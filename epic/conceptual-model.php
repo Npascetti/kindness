@@ -82,7 +82,7 @@
 			</ul>
 			-->
 			<h2>KindHub ERD</h2>
-			<img src="images/kindhuberd2.svg">
+			<img src="images/kindhuberd3.svg">
 		</main>
 	</body>
 </html>
