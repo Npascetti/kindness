@@ -39,10 +39,10 @@
 			<ul>
 				<li>hubId (primary key)</li>
 				<li>hubUserId (foreign key)</li>
-				<!-- kill hub hours, image & datetime created
-				<li>hubDateTimeCreated</li>
 				<li>hubHours</li>
 				<li>hubImage</li>
+				<!-- kill hub hours, image & datetime created
+				<li>hubDateTimeCreated</li>
 				-->
 				<li>hubLocation</li>
 				<li>hubName</li>
