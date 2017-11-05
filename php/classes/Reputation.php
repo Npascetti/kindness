@@ -41,5 +41,35 @@ class Reputation implements \JsonSerializable {
 	 * @var string $reputationPoint
 	 */
 	private $reputationPoint;
-}
 
+
+	/**
+	 * constructor for Reputation
+	 *
+	 * @param Uuid $newReputationId id of the reputation
+	 * @param Uuid $newReputationHubId id of the hub that gets reputation
+	 * @param Uuid $newReputationLevelId id of the level the reputation is at
+	 * @param Uuid $newReputationUserId id of the user that has reputation
+	 * @param string $newReputationPoint string containing actual tweet data
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
+	 **/
+
+	public function __construct($newReputationId, $newReputationHubId, $newReputationLevelId, $newReputationUserId, string $newReputationPoint) {
+		try {
+			$this->setReputationId($newReputationId);
+			$this->setReputationHubId($newReputationHubId);
+			$this->setReputationLevelId($newReputationLevelId);
+			$this->setReputationUserId($newReputationUserId);
+			$this->setReputationPoint($newReputationPoint);
+		} //determine what exception type was thrown
+		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
+
+}
