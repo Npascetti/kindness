@@ -282,6 +282,44 @@ class Hub implements \JsonSerializable {
 	}
 
 	/**
+	 * Gets the hub by the hub name
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $hubName the name of the hub
+	 * @return hub|null the hub or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 */
+	public function getHubByHubName(\PDO $pdo, string $hubName): ?hub {
+		$hubName = trim($hubName);
+		$hubName = filter_var($hubName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($hubName)) {
+			throw(new \PDOException("Hub name is invalid or empty"));
+		}
+
+		$hubName = str_replace("_", "\\_", str_replace("%", "\\%", $hubName));
+
+		$query = "SELECT hubId, hubUserId, hubLocation, hubName FROM hub WHERE hubName LIKE :hubName";
+		$statement = $pdo->prepare($query);
+
+		$hubName = "%$hubName%";
+		$parameters = ["hubName" => $hubName];
+		$statement->execute($parameters);
+
+		try {
+			$hub = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row) {
+				$hub = new Hub($row["hubId"], $row["hubUserId"], $row["hubLocation"], $row["hubName"]);
+			}
+		} catch(\Exception $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($hub);
+	}
+
+	/**
 	 * Formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
