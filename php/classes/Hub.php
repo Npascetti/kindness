@@ -8,6 +8,7 @@
  * @author Calder Benjamin <calderbenjamin@gmail.com>
  */
 class Hub implements \JsonSerializable {
+	use \Edu\Cnm\KindHub\ValidateUuid;
 
 	/**
 	 * ID of the hub; primary key
@@ -82,7 +83,7 @@ class Hub implements \JsonSerializable {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-		$this->hubId = $newHubId;
+		$this->hubId = $uuid;
 	}
 
 	/**
