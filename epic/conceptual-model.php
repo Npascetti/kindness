@@ -34,7 +34,7 @@
 				<li>userUserName</li>
 				<li>userSalt</li>
 			</ul>
-
+ 
 			<h2>Hub</h2>
 			<ul>
 				<li>hubId (primary key)</li>
