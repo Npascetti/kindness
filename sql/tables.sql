@@ -45,6 +45,6 @@ CREATE TABLE reputation (
 CREATE TABLE 'level' (
 	levelId BINARY(16) NOT NULL,
 	levelName VARCHAR(64) NOT NULL,
-	levelNumber TINYINT UNSIGNED(8) NOT NULL,
+	levelNumber TINYINT(8) NOT NULL,
 	PRIMARY KEY (levelId)
 );
