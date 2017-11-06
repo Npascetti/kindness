@@ -217,4 +217,57 @@ class Reputation implements \JsonSerializable {
 		$this->reputationPoint = $newReputationPoint;
 	}
 
+	/**
+	 * inserts this Reputation into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo) : void {
+
+		// create query template
+		$query = "INSERT INTO reputation(reputationId,reputationHubId, reputationLevelId, reputationUserId, reputationPoint) VALUES(:reputationId, :reputationHubId, :reputationLevelId, :reputationUserId, :reputationPoint)";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$parameters = ["reputationId" => $this->reputationId->getBytes(), "reputationHubId" => $this->reputationHubId->getBytes(), "reputationLevelId" => $this->reputationLevelId->getBytes(), "reputationUserId" => $this->reputationUserId->getBytes(), "reputationPoint=> $this->reputationPoint"];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * updates this Reputation in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo) : void {
+
+		// create query template
+		$query = "UPDATE reputation SET reputationId = :reputationId, reputationHubId = :reputationHubId, reputationLevelId = :reputationLevelId, reputationUserId = :reputationUserId, reputationPoint = :reputationPoint WHERE reputationId = :reputationId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["reputationId" => $this->reputationId->getBytes(),"reputationHubId" => $this->reputationHubId->getBytes(), "reputationLevelId" => $this->reputationLevelId->getBytes(), "reputationUserId" => $this->reputationUserId->getBytes(), "reputationPoint" => $this->reputationPoint];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * deletes this Reputation from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo) : void {
+
+		// create query template
+		$query = "DELETE FROM reputation WHERE reputationId = :reputationId";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holder in the template
+		$parameters = ["reputationId" => $this->reputationId->getBytes()];
+		$statement->execute($parameters);
+	}
+
 }
