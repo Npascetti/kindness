@@ -9,6 +9,33 @@
  */
 class Hub implements \JsonSerializable {
 
+	/**
+	 * ID of the hub; primary key
+	 *
+	 * @var Uuid $hubId
+	 */
+	private $hubId;
+
+	/**
+	 * ID of the user who created the hub; foreign key
+	 *
+	 * @var Uuid $hubUserId
+	 */
+	private $hubUserId;
+
+	/**
+	 * Location of the hub
+	 *
+	 * @var string $hubLocation
+	 */
+	private $hubLocation;
+
+	/**
+	 * Name of the hub
+	 *
+	 * @var string $hubName
+	 */
+	private $hubName;
 
 	/**
 	 * formats the state variables for JSON serialization
