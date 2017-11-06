@@ -62,6 +62,30 @@ class Hub implements \JsonSerializable {
 	}
 
 	/**
+	 * accessor method for hubId
+	 *
+	 * @return Uuid value of the Hub ID
+	 */
+	public function getHubId(): Uuid {
+		return($this->hubId);
+	}
+
+	/**
+	 * mutator method for hubId
+	 *
+	 * @param Uuid $newHubId The new value of the hub ID
+	 */
+	public function setHubId($newHubId): void {
+		try {
+			$uuid = self::validateUuid($newHubId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		$this->hubId = $newHubId;
+	}
+
+	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
