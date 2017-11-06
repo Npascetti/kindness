@@ -246,8 +246,40 @@ class Hub implements \JsonSerializable {
 	}
 
 	/**
+	 * Gets hubs by hubUserId
 	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid $hubUserId Hub creator's ID to search for
+	 * @return \SplFixedArray SPLFixedArray of hubs found or null if none found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
 	 */
+	public function getHubsByHubUserId(\PDO $pdo, $hubUserId): \SplFixedArray {
+		try {
+			$hubUserId = self::validateUuid($hubUserId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		$query = "SELECT hubId, hubUserId, hubLocation, hubName FROM hub WHERE hubUserId = :hubUserId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["hubUserId" => $this->hubUserId->getBytes()];
+		$statement->execute($parameters);
+
+		$hubs = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while($row = $statement->fetch()) {
+			try {
+				$hub = new Hub($row["hubId"], $row["hubUserId"], $row["hubLocation"], $row["hubName"]);
+				$hub[$hubs->key()] = $hub;
+				$hubs->next();
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($hubs);
+	}
 
 	/**
 	 * Formats the state variables for JSON serialization
