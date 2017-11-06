@@ -9,7 +9,7 @@ use Ramsey\Uuid\Uuid;
 
 /**
  * This is the Reputation Entity. This entity handles reputation of the user and hub.
- * @author Michael Romeor <m.romero1989@gmail.com>
+ * @author Michael Romero <m.romero1989@gmail.com>
  * @version 1.0.0
  **/
 
