@@ -250,7 +250,7 @@ class Hub implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param Uuid $hubUserId Hub creator's ID to search for
-	 * @return \SplFixedArray SPLFixedArray of hubs found or null if none found
+	 * @return \SplFixedArray SplFixedArray of hubs found or null if none found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 */
@@ -317,6 +317,33 @@ class Hub implements \JsonSerializable {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return($hub);
+	}
+
+	/**
+	 * Gets all hubs
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of hubs found or null if none found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 */
+	public function getAllHubs(\PDO $pdo): \SplFixedArray {
+		$query = "SELECT hubId, hubUserId, hubLocation, hubName FROM hub";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		$hubs = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while($row = $statement->fetch()) {
+			try {
+				$hub = new Hub($row["hubId"], $row["hubUserId"], $row["hubLocation"], $row["hubName"]);
+				$hub[$hubs->key()] = $hub;
+				$hubs->next();
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($hubs);
 	}
 
 	/**
