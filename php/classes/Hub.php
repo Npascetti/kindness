@@ -229,6 +229,9 @@ class Hub implements \JsonSerializable {
 		$query = "SELECT hubId, hubUserId, hubLocation, hubName FROM hub WHERE hubId = :hubId";
 		$statement = $pdo->prepare($query);
 
+		$parameters = ["hubId" => $this->hubId->getBytes()];
+		$statement->execute($parameters);
+
 		try {
 			$hub = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
@@ -241,6 +244,10 @@ class Hub implements \JsonSerializable {
 		}
 		return($hub);
 	}
+
+	/**
+	 *
+	 */
 
 	/**
 	 * Formats the state variables for JSON serialization
