@@ -134,6 +134,29 @@ class Hub implements \JsonSerializable {
 	}
 
 	/**
+	 * accessor method for hubName
+	 *
+	 * @return string The name of the hub
+	 */
+	public function getHubName(): string {
+		return($this->hubName);
+	}
+
+	/**
+	 * mutator method for hubName
+	 * 
+	 * @param string $newHubName The new name of the hub
+	 */
+	public function setHubName($newHubName): void {
+		$newHubName = trim($newHubName);
+		$newHubName = filter_var($newHubName, FILTER_SANITIZE_STRING);
+		if(empty($newHubName)) {
+			throw(new \InvalidArgumentException("Name is empty or insecure"));
+		}
+		$this->hubName = $newHubName;
+	}
+
+	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
