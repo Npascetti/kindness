@@ -211,6 +211,38 @@ class Hub implements \JsonSerializable {
 	}
 
 	/**
+	 * Gets the hub by hubId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param  Uuid $hubId hubId to search for
+	 * @return hub|null hub found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 */
+	public function getHubByHubId(\PDO $pdo, $hubId): ?hub {
+		try {
+			$hubId = self::validateUuid($hubId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		$query = "SELECT hubId, hubUserId, hubLocation, hubName FROM hub WHERE hubId = :hubId";
+		$statement = $pdo->prepare($query);
+
+		try {
+			$hub = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row) {
+				$hub = new Hub($row["hubId"], $row["hubUserId"], $row["hubLocation"], $row["hubName"]);
+			}
+		} catch(\Exception $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($hub);
+	}
+
+	/**
 	 * Formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
