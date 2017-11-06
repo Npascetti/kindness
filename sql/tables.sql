@@ -47,4 +47,4 @@ CREATE TABLE 'level' (
 	levelName VARCHAR(64) NOT NULL,
 	levelNumber TINYINT UNSIGNED(8) NOT NULL,
 	PRIMARY KEY (levelId)
-)
+);
