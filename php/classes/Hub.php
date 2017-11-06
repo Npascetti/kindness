@@ -180,7 +180,22 @@ class Hub implements \JsonSerializable {
 	}
 
 	/**
-	 * formats the state variables for JSON serialization
+	 * Deletes this hub from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function delete(\PDO $pdo): void {
+		$query = "DELETE FROM hub WHERE hubId = :hubId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["hubId" => $this->hubId->getBytes()];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * Formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
 	 **/
