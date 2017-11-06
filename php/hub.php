@@ -38,6 +38,30 @@ class Hub implements \JsonSerializable {
 	private $hubName;
 
 	/**
+	 * Constructor method for the class
+	 *
+	 * @param Uuid $newHubId the ID of the hub
+	 * @param Uuid $newHubUserId the ID of the hub's creator
+	 * @param string $newHubLocation The location of the hub
+	 * @param string $newHubName The name of the hub
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 */
+	public function __construct($newHubId, $newHubUserId, string $newHubLocation, string $newHubName) {
+		try {
+			$this->setHubId($newHubId);
+			$this->setHubUserId($newHubUserId);
+			$this->setHubLocation($newHubLocation);
+			$this->setHubName($newHubName);
+		} catch(\InvalidArgumentException|\RangeException|\Exception|\TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
+
+	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
@@ -45,11 +69,9 @@ class Hub implements \JsonSerializable {
 	public function jsonSerialize() {
 		$fields = get_object_vars($this);
 
-		$fields["postId"] = $this->postId->toString();
-		$fields["postUserId"] = $this->postUserId->toString();
+		$fields["postId"] = $this->hubId->toString();
+		$fields["postUserId"] = $this->hubUserId->toString();
 
-		//format the date so that the front end can consume it
-		$fields["postDateTime"] = round(floatval($this->postDateTime->format("U.u")) * 1000);
 		return($fields);
 	}
 }
