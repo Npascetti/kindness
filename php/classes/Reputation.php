@@ -270,4 +270,58 @@ class Reputation implements \JsonSerializable {
 		$statement->execute($parameters);
 	}
 
+	/**
+	 * gets the Reputation by reputationId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $reputationId reputation id to search for
+	 * @return Reputation|null Reputation found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 **/
+	public static function getReputationByReputationId(\PDO $pdo, $reputationId) : ?Reputation {
+		// sanitize the reputationId before searching
+		try {
+			$reputationId = self::validateUuid($reputationId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		// create query template
+		$query = "SELECT reputationId, reputationHubId, reputationLevelId, reputationUserId, reputationPoint FROM reputation WHERE reputationId = :reputationId";
+		$statement = $pdo->prepare($query);
+
+		// bind the reputation id to the place holder in the template
+		$parameters = ["reputationId" => $reputationId->getBytes()];
+		$statement->execute($parameters);
+
+		// grab the reputation from mySQL
+		try {
+			$reputation = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($reputation);
+	}
+
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+
+		$fields["reputationId"] = $this->reputationId->toString();
+		$fields["reputationHubId"] = $this->reputationHubId->toString();
+		$fields["reputationLevelId"] = $this->reputationLevelId->toString();
+		$fields["reputationUserId"] = $this->reputationUserId->toString();
+		$fields["reputationPoint"] = $this->reputationPoint->toString();
+	}
 }
