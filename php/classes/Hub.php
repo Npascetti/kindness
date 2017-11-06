@@ -1,5 +1,5 @@
 <?php
-namespace EDU\Cnm\KindHub;
+namespace Edu\Cnm\KindHub;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
@@ -14,7 +14,7 @@ use Ramsey\Uuid\Uuid;
  * @author Calder Benjamin <calderbenjamin@gmail.com>
  */
 class Hub implements \JsonSerializable {
-	use \Edu\Cnm\KindHub\ValidateUuid;
+	use \Edu\Cnm\KindHub\ValidateUuid; /* FIX THE CAPITAL V */
 
 	/**
 	 * ID of the hub; primary key
