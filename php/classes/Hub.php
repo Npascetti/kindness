@@ -195,6 +195,22 @@ class Hub implements \JsonSerializable {
 	}
 
 	/**
+	 * Updates this hub in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function update(\PDO $pdo): void {
+		$query = "UPDATE hub SET hubLocation = :hubLocation, hubName = :hubName WHERE hubId = :hubId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["hubId" => $this->hubId->getBytes(), "hubLocation" => $this->hubLocation,
+			"hubName" => $this->hubName];
+		$statement->execute($parameters);
+	}
+
+	/**
 	 * Formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
