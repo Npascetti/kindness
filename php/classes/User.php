@@ -312,5 +312,39 @@ class User implements \JsonSerializable {
 		$this->profileSalt = $newProfileSalt;
 	}
 
+	/**
+	 * accessor method for user first name
+	 *
+	 * @return string value of user first name
+	 **/
+	public function getUserFirstName(): string {
+		return ($this->userFirstName);
+	}
+
+
+	/**
+	 * mutator method for user first name
+	 *
+	 * @param string $newUserFirstName new value of user first name
+	 * @throws \InvalidArgumentException if $newUserFirstName is not a string or insecure
+	 * @throws \RangeException if $newUserFirstName is > 64 characters
+	 * @throws \TypeError if $newUserFirstName is not a string
+	 */
+	public function setUserFirstName(string $newUserFirstName): void {
+		//verify the user first name is secure
+		$newUserFirstName = trim($newUserFirstName);
+		$newUserFirstName = filter_var($newUserFirstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserFirstName) === true) {
+			throw (new \InvalidArgumentException("user first name is empty or insecure"));
+		}
+		// verify the profile username will fit in database
+		if(strlen($newUserFirstName) > 64) {
+			throw(new \RangeException("user first name is too large"));
+		}
+
+		// store the username
+		$this->userFirstName = $newUserFirstName;
+	}
+
 }
 ?>
