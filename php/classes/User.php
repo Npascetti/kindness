@@ -156,29 +156,29 @@ class User implements \JsonSerializable {
 		$this->UserUserName = $newUserUserName;
 	}
 	/**
-	 * accessor method for the profile avatar
+	 * accessor method for the user image
 	 *
-	 * @param string $newProfileAvatar new value of profile avatar
-	 * @throws \InvalidArgumentException if $newProfileAvatar is not a string or insecure
-	 * @throws \RangeException if $newProfileAvatar is > 32 characters
-	 * @throws \TypeError if $newProfileAvatar is not a string
+	 * @param string $newUserImage new value of user image
+	 * @throws \InvalidArgumentException if $newUserImage is not a string or insecure
+	 * @throws \RangeException if $newUserImage is > 128 characters
+	 * @throws \TypeError if $newUserImage is not a string
 	 **/
-	public function setProfileAvatar(string $newProfileAvatar): void {
-		// verify the profile avatar is secure
-		$newProfileAvatar = trim($newProfileAvatar);
-		$newProfileAvatar = filter_var($newProfileAvatar, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newProfileAvatar) === true) {
-			throw(new \InvalidArgumentException("profile avatar is empty or insecure"));
+	public function setUserImage(string $newUserImage): void {
+		// verify the user image is secure
+		$newUserImage = trim($newUserImage);
+		$newUserImage = filter_var($newUserImage, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserImage) === true) {
+			throw(new \InvalidArgumentException("user image is empty or insecure"));
 
 		}
 
-		// verify the profile avatar will fit in the database
-		if(strlen($newProfileAvatar) > 32) {
-			throw(new \RangeException("profile avatar link is too large"));
+		// verify the user image will fit in the database
+		if(strlen($newUserImage) > 128) {
+			throw(new \RangeException("user image link is too large"));
 		}
 
-		// store the profile avatar
-		$this->profileAvatar = $newProfileAvatar;
+		// store the user image
+		$this->newUserImage = $newUserImage;
 	}
 }
 ?>
