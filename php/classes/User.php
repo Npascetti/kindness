@@ -149,7 +149,7 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUserUserName is > 128 characters
 	 * @throws \TypeError if $newUserUserName is not a string
 	 */
-	public function setProfileUserName(string $newUserUserName): void {
+	public function setUserUserName(string $newUserUserName): void {
 		//verify the profile username is secure
 		$newUserUserName = trim($newUserUserName);
 		$newUserUserName = filter_var($newUserUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
