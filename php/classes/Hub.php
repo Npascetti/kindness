@@ -354,8 +354,8 @@ class Hub implements \JsonSerializable {
 	public function jsonSerialize() {
 		$fields = get_object_vars($this);
 
-		$fields["postId"] = $this->hubId->toString();
-		$fields["postUserId"] = $this->hubUserId->toString();
+		$fields["hubId"] = $this->hubId->toString();
+		$fields["hubUserId"] = $this->hubUserId->toString();
 
 		return($fields);
 	}

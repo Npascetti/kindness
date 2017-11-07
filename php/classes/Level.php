@@ -10,7 +10,7 @@
 namespace Edu\Cnm\KindHub;
 
 
-	class Level { class Level implements \JsonSerializable {
+class Level implements \JsonSerializable {
 	use \Edu\Cnm\KindHub\ValidateUuid;
 
 	/**
@@ -21,7 +21,7 @@ namespace Edu\Cnm\KindHub;
 	private $levelId;
 
 	/**
-	 * Level of the user who created the hub; foreign key
+	 * ID of the user who created the hub; foreign key
 	 *
 	 * @var Uuid $levelName
 	 */
@@ -34,7 +34,17 @@ namespace Edu\Cnm\KindHub;
 	 */
 	private $levelNumber;
 
+	/**
+	 * Formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
 
+		$fields["levelId"] = $this->levelId->toString();
+		return($fields);
+	}
 }
 
 /**
