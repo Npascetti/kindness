@@ -44,71 +44,71 @@ class Level { class Level implements \JsonSerializable {
  * @param Uuid $newLevelName The Name of the user
  * @param Uuid $newLevelNumber
  */
-public function __construct ($newLevelId, $newLevelName, $newLevelNumber) {
-	try {
+		public function __construct ($newLevelId, $newLevelName, $newLevelNumber) {
+		try {
 		$this->setlevelId($newLevelId);
 		$this->setLevelName($newLevelName);
 		$this->setLevelNumber($newLevelNumber);
-		/**
-		 * accessor method for LevelId
-		 *
-		 * @return Uuid value of the Level ID
-		 */
+/**
+ * accessor method for LevelId
+ *
+ * @return Uuid value of the Level ID
+ */
 		public function getLevelId(): Uuid {
-			return($this->Level);
+		return($this->Level);
 		}
-		/**
-	 * mutator method for LevelId
-		 *
-		 * @param Uuid $newLevelId The new value of the Level ID
-		 */
+/**
+ * mutator method for LevelId
+ *
+ * @param Uuid $newLevelId The new value of the Level ID
+ */
 		public function setLevelId($newLevelId): void {
 		try {
 		$uuid = self::validateUuid($newLevelId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 		$exceptionType = get_class($exception);
 		throw(new $exceptionType($exception->getMessage(), 0, $exception));
-			}
-			$this->LevelId = $uuid;
 		}
-		/**
-		 * accessor method for LevelName
-		 *
-		 * @return Uuid The Name of the Hub or user
-		 */
+		$this->LevelId = $uuid;
+		}
+/**
+ * accessor method for LevelName
+ *
+ * @return Uuid The Name of the Hub or user
+ */
 		public function getLevelName(): Uuid {
-			return($this->LevelName);
+		return($this->LevelName);
 		}
-		/**
-		 * mutator method for LevelName
-		 *
-		 * @param string $newLevelName The new name of the hub
-		 */
+/**
+ * mutator method for LevelName
+ *
+ * @param string $newLevelName The new name of the hub
+ */
 		public function setHubName($newLevelName): void {
 		$newLevelName = trim($newLevelName);
 		$newLevelName = filter_var($newLevelName, FILTER_SANITIZE_STRING);
 		if(empty($newLevelName)) {throw(new \InvalidArgumentException("Name is empty or insecure"));
-			}
-			$this->LevelName = $newLevelName;
 		}
-		/**
-		 * accessor method for LevelNumber
-		 *
-		 * @return Uuid value of the Level Number
-		 */
+		$this->LevelName = $newLevelName;
+		}
+/**
+ * accessor method for LevelNumber
+ *
+ * @return Uuid value of the Level Number
+ */
 		public function getLevelNumber(): Uuid {
-			return($this->LevelNumber);
-		/**
-		 * mutator method for LevelNumber
-		 *
-		 * @param Uuid $newLevelNumber The new value of the Level number
-		 */
+		return($this->LevelNumber);
+/**
+ * mutator method for LevelNumber
+ *
+ * @param Uuid $newLevelNumber The new value of the Level number
+ */
 		public function setLevelId($newLevelNumber): void {
 		try {
 		$uuid = self::validateUuid($newLevelNumber);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 		$exceptionType = get_class($exception);
 		throw(new $exceptionType($exception->getMessage(), 0, $exception));
-				}
+		}
 		$this->LevelId = $uuid;
 }
