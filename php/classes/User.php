@@ -234,5 +234,44 @@ class User implements \JsonSerializable {
 		$this->userActivationToken = $newUserActivationToken;
 	}
 
+	/**
+	 * accessor method for user hash password
+	 *
+	 * @return string value of user hash
+	 **/
+	public function getUserHash() : string {
+		return($this->userHash);
+	}
+
+	/**
+	 * mutator method for user hash
+	 *
+	 * @param string $newUserHash
+	 * @throws \InvalidArgumentException if the hash is not secure
+	 * @throws \RangeException if the hash is not 128 characters
+	 * @throws \TypeError if profile hash is not a string
+	 **/
+	public function setUserHash(string $newUserHash) : void {
+		//enforce that the hash is properly formatted
+		$newUserHash = trim($newUserHash);
+		$newUserHash = strtolower($newUserHash);
+		if(empty($newUserHash) === true) {
+			throw(new \InvalidArgumentException("user password hash empty or insecure"));
+		}
+
+		//enforce that the hash is a string representation of a hexadecimal
+		if(!ctype_xdigit($newUserHash)) {
+			throw(new \InvalidArgumentException("user password hash is empty or insecure"));
+		}
+
+		//enforce that hash is exactly 128 characters
+		if(strlen($newUserHash) !== 128) {
+			throw(new \RangeException("profile hash must be 128 characters"));
+		}
+
+		//store the hash
+		$this->userHash = $newUserHash;
+	}
+
 }
 ?>
