@@ -274,42 +274,42 @@ class User implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for profile password salt
+	 * accessor method for profile user salt
 	 *
-	 * @return string value of profile salt
+	 * @return string value of user salt
 	 **/
-	public function getProfileSalt() : string {
-		return($this->profileSalt);
+	public function getUserSalt() : string {
+		return($this->userSalt);
 	}
 
 	/**
-	 * mutator method for profile password salt
+	 * mutator method for user password salt
 	 *
-	 * @return string $newProfileSalt
-	 * @throws \InvalidArgumentException if the salt is not secure
+	 * @return string $newUserSalt
+	 * @throws \InvalidArgumentException if the user is not secure
 	 * @throws \RangeException if the salt is not 64 characters
-	 * @throws \TypeError if profile salt is not a string
+	 * @throws \TypeError if user salt is not a string
 	 **/
-	public function setProfileSalt(string $newProfileSalt) : void {
+	public function setUser(string $newUserSalt) : void {
 		//enforce that the salt is properly formatted
-		$newProfileSalt = trim($newProfileSalt);
-		$newProfileSalt = strtolower($newProfileSalt);
-		if(empty($newProfileSalt) === true) {
-			throw(new \InvalidArgumentException("profile password salt empty or insecure"));
+		$newUserSalt = trim($newUserSalt);
+		$newUserSalt = strtolower($newUserSalt);
+		if(empty($newUserSalt) === true) {
+			throw(new \InvalidArgumentException("user password salt empty or insecure"));
 		}
 
 		//enforce that the salt is a string representation of hexadecimal
-		if(!ctype_xdigit($newProfileSalt)) {
+		if(!ctype_xdigit($newUserSalt)) {
 			throw(new \InvalidArgumentException("profile password salt is empty or insecure"));
 		}
 
 		//enforce that the salt is exactly 64 characters
-		if(strlen($newProfileSalt) !== 128) {
+		if(strlen($newUserSalt) !== 128) {
 			throw(new \RangeException("profile salt must be 64 characters"));
 		}
 
 		//store the salt
-		$this->profileSalt = $newProfileSalt;
+		$this->userSalt = $newUserSalt;
 	}
 
 	/**
@@ -346,5 +346,38 @@ class User implements \JsonSerializable {
 		$this->userFirstName = $newUserFirstName;
 	}
 
+}
+/**
+ * accessor method for user user last name
+ *
+ * @return string value of user user last name
+ **/
+public function getUserLastName(): string {
+    return ($this->userLastName);
+}
+
+
+/**
+ * mutator method for user last name
+ *
+ * @param string $newUserLastName new value of user last name
+ * @throws \InvalidArgumentException if $newUserLastName is not a string or insecure
+ * @throws \RangeException if $newUserLastName is > 128 characters
+ * @throws \TypeError if $newUserLastName is not a string
+ */
+public function setUserLastName(string $newUserLastName): void {
+    //verify the profile user last name is secure
+    $newUserLastName = trim($newUserLastName);
+    $newUserLastName = filter_var($newUserLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    if(empty($newUserLastName) === true) {
+        throw (new \InvalidArgumentException("username is empty or insecure"));
+    }
+    // verify the profile username will fit in database
+    if(strlen($newUserlastName) > 128) {
+        throw(new \RangeException("user last name is too large"));
+    }
+
+    // store the username
+    $this->userLastName = $newUserLastName;
 }
 ?>
