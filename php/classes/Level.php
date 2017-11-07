@@ -43,82 +43,95 @@ class Level implements \JsonSerializable {
 		$fields = get_object_vars($this);
 
 		$fields["levelId"] = $this->levelId->toString();
-		return($fields);
+		return ($fields);
 	}
-}
 
-/**
- * Constructor method for the class
- *
- * @param Uuid $newLevelId the ID of the user
- * @param Uuid $newLevelName The Name of the user
- * @param Uuid $newLevelNumber
- */
-		public function __construct ($newLevelId, $newLevelName, $newLevelNumber) {
+
+	/**
+	 * Constructor method for the Level Class
+	 *
+	 * @param Uuid $newLevelId the ID of the user
+	 * @param Uuid $newLevelName The Name of the user
+	 * @param Uuid $newLevelNumber
+	 */
+	public function __construct($newLevelId, $newLevelName, $newLevelNumber) {
 		try {
-		$this->setlevelId($newLevelId);
-		$this->setLevelName($newLevelName);
-		$this->setLevelNumber($newLevelNumber);
-/**
- * accessor method for LevelId
- *
- * @return Uuid value of the Level ID
- */
-		public function getLevelId(): Uuid {
-		return($this->Level);
-		}
-/**
- * mutator method for LevelId
- *
- * @param Uuid $newLevelId The new value of the Level ID
- */
-		public function setLevelId($newLevelId): void {
-		try {
-		$uuid = self::validateUuid($newLevelId);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$this->setlevelId($newLevelId);
+			$this->setLevelName($newLevelName);
+			$this->setLevelNumber($newLevelNumber);
+		} catch(\InvalidArgumentException | Exception | \RangeException | \TypeError $exception) {
 		$exceptionType = get_class($exception);
 		throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-		$this->LevelId = $uuid;
+	}
+	/**
+	 * accessor method for LevelId
+	 *
+	 * @return Uuid value of the Level ID
+	 */
+	public function getLevelId(): Uuid {
+		return ($this->levelId);
+	}
+
+	/**
+	 * mutator method for LevelId
+	 *
+	 * @param Uuid $newLevelId The new value of the Level ID
+	 */
+	public function setLevelId($newLevelId): void {
+		try {
+			$uuid = self::validateUuid($newLevelId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-/**
- * accessor method for LevelName
- *
- * @return Uuid The Name of the Hub or user
- */
-		public function getLevelName(): Uuid {
-		return($this->LevelName);
-		}
-/**
- * mutator method for LevelName
- *
- * @param string $newLevelName The new name of the hub
- */
-		public function setHubName($newLevelName): void {
+		$this->levelId = $uuid;
+	}
+
+	/**
+	 * accessor method for LevelName
+	 *
+	 * @return Uuid The Name of the Hub or user
+	 */
+	public function getLevelName(): Uuid {
+		return ($this->levelName);
+	}
+
+	/**
+	 * mutator method for LevelName
+	 *
+	 * @param string $newLevelName The new name of the hub
+	 */
+	public function setHubName($newLevelName): void {
 		$newLevelName = trim($newLevelName);
 		$newLevelName = filter_var($newLevelName, FILTER_SANITIZE_STRING);
-		if(empty($newLevelName)) {throw(new \InvalidArgumentException("Name is empty or insecure"));
+		if(empty($newLevelName)) {
+			throw(new \InvalidArgumentException("Name is empty or insecure"));
 		}
-		$this->LevelName = $newLevelName;
-		}
-/**
- * accessor method for LevelNumber
- *
- * @return Uuid value of the Level Number
- */
-		public function getLevelNumber(): Uuid {
-		return($this->LevelNumber);
-/**
- * mutator method for LevelNumber
- *
- * @param Uuid $newLevelNumber The new value of the Level number
- */
-		public function setLevelId($newLevelNumber): void {
+		$this->levelName = $newLevelName;
+	}
+
+	/**
+	 * accessor method for LevelNumber
+	 *
+	 * @return Uuid value of the Level Number
+	 */
+	public function getLevelNumber(): Uuid {
+		return ($this->levelNumber);
+	}
+
+	/**
+	 * mutator method for LevelNumber
+	 *
+	 * @param Uuid $newLevelNumber The new value of the Level number
+	 */
+	public function setLevelNumber($newLevelNumber): void {
 		try {
-		$uuid = self::validateUuid($newLevelNumber);
+			$uuid = self::validateUuid($newLevelNumber);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-		$exceptionType = get_class($exception);
-		throw(new $exceptionType($exception->getMessage(), 0, $exception));
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-		$this->LevelId = $uuid;
+		$this->levelId = $uuid;
+	}
 }
