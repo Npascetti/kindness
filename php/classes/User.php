@@ -66,5 +66,67 @@ class User implements \JsonSerializable {
 	 * @var string $userSalt
 	 **/
 	private $userSalt;
+
+	/**
+	 * constructor for this User
+	 *
+	 * @param string | Uuid $newUserId id of this User or null if a new user
+	 * @param string $newUserUserName string containing the profile username
+	 * @param string $newUserImage string containing link to profile avatar image or null if unused
+	 * @param string | null $newUserHash string containing the profile password hash
+	 * @param string $newUserSalt string containing the profile password salt
+	 * @param string $newUserBio string containing textual content of user's bio
+	 * @param string $newUserFirstName string containing the first name of the user
+	 * @param string $newUserLastName string containting the last name of the user
+	 * @param string $newUserEmail string containing the email of the user
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (e.g., string too long, negative integers)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 * @documentation php.net/manual/en/language.oop5.decon.php
+	 **/
+	public function __construct($newUserId, string $newUserUserName, string $newUserImage = null, string $newUserHash, string $newUserSalt, string $newUserActivationToken, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserBio) {
+		try {
+			$this->setUserId($$newUserId);
+			$this->setUserUserName($$newUserUserName);
+			$this->setUserImage($$newUserImage);
+			$this->setUserHash($newProfileHash);
+			$this->setUserSalt($$newUserSalt);
+			$this->setUserActivationToken($newUserActivationToken);
+		} //determine what exception type was thrown
+		catch(\InvalidArgumentException | \RangeException | Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
+
+	/**
+	 * accessor method for user id
+	 *
+	 * @return Uuid value of user id
+	 **/
+	public function getUserId(): Uuid {
+		return ($this->userId);
+	}
+
+	/**
+	 * mutator method for user id
+	 *
+	 * @param Uuid /string $$newUserId new value of user id
+	 * @throws \RangeException if $$newUserId is not positive
+	 * @throws \TypeError if $$newUserId is not a uuid or string
+	 **/
+	public function setUserId($$newUserId): void {
+		try {
+			$uuid = self::validateUuid($$newUserId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+
+		// convert and store the profile id
+		$this->userId = $uuid;
+	}
+
 }
 ?>
