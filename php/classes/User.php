@@ -162,11 +162,17 @@ class User implements \JsonSerializable {
 		}
 
 		// store the username
-		$this->UserUserName = $newUserUserName;
+		$this->userUserName = $newUserUserName;
 	}
 	/**
 	 * accessor method for the user image
 	 *
+	 * @return string value of user image
+	 **/
+	public function getUserImage(): string {
+		return ($this->userImage);
+	}
+	/**
 	 * @param string $newUserImage new value of user image
 	 * @throws \InvalidArgumentException if $newUserImage is not a string or insecure
 	 * @throws \RangeException if $newUserImage is > 128 characters
@@ -195,12 +201,12 @@ class User implements \JsonSerializable {
 	 *
 	 * @return string value of profile activation token
 	 **/
-	public function getProfileActivationToken(): string {
-		return ($this->profileActivationToken);
+	public function getUserActivationToken(): string {
+		return ($this->userActivationToken);
 	}
 
 	/**
-	 * mutator method for profile activation token
+	 * mutator method for user activation token
 	 *
 	 * @param string $newProfileActivationToken new value of profile activation token
 	 * @throws \InvalidArgumentException if the activation token is not secure
