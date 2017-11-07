@@ -310,17 +310,17 @@ class Reputation implements \JsonSerializable {
 	}
 
 	/**
-	 * Gets the reputation by reputation hub id
+	 * Gets hubs by reputationHubId
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param  Uuid $reputationHubId reputationHubId to search for
-	 * @return hub|null hub found or null if not found
+	 * @param Uuid $reputationHubId
+	 * @return \SplFixedArray SplFixedArray of hubs found or null if none found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 */
-	public function getReputationByReputationHubId(\PDO $pdo, $reputationhubId): ?hub {
+	public function getreputationByreputationHubId(\PDO $pdo, $reputationHubId): \SplFixedArray {
 		try {
-			$reputationId = self::validateUuid($reputationhubId);
+			$reputationHubId = self::validateUuid($reputationHubId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
@@ -331,15 +331,16 @@ class Reputation implements \JsonSerializable {
 		$parameters = ["reputationHubId" => $this->reputationHubId->getBytes()];
 		$statement->execute($parameters);
 
-		try {
-			$reputation = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row) {
-				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationHubLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
+		$reputation = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while($row = $statement->fetch()) {
+			try {
+				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
+				$reputation[$reputation->key()] = $reputation;
+				$reputation->next();
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		} catch(\Exception $exception) {
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return($reputation);
 	}
@@ -385,17 +386,17 @@ class Reputation implements \JsonSerializable {
 	}
 
 	/**
-	 * Gets the reputation by reputation user id
+	 * Gets hubs by reputationUserId
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param  Uuid $reputationUserId reputationUserId to search for
-	 * @return hub|null hub found or null if not found
+	 * @param Uuid $reputationUserId
+	 * @return \SplFixedArray SplFixedArray of hubs found or null if none found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 */
-	public function getReputationByReputationUserId(\PDO $pdo, $reputationUserId): ?hub {
+	public function getreputationByreputationUserId(\PDO $pdo, $reputationUserId): \SplFixedArray {
 		try {
-			$reputationId = self::validateUuid($reputationUserId);
+			$reputationUserId = self::validateUuid($reputationUserId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
@@ -406,15 +407,16 @@ class Reputation implements \JsonSerializable {
 		$parameters = ["reputationUserId" => $this->reputationUserId->getBytes()];
 		$statement->execute($parameters);
 
-		try {
-			$reputation = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row) {
-				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationHubLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
+		$reputation = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while($row = $statement->fetch()) {
+			try {
+				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
+				$reputation[$reputation->key()] = $reputation;
+				$reputation->next();
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		} catch(\Exception $exception) {
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return($reputation);
 	}
