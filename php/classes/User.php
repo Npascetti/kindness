@@ -155,11 +155,30 @@ class User implements \JsonSerializable {
 		// store the username
 		$this->UserUserName = $newUserUserName;
 	}
+	/**
+	 * accessor method for the profile avatar
+	 *
+	 * @param string $newProfileAvatar new value of profile avatar
+	 * @throws \InvalidArgumentException if $newProfileAvatar is not a string or insecure
+	 * @throws \RangeException if $newProfileAvatar is > 32 characters
+	 * @throws \TypeError if $newProfileAvatar is not a string
+	 **/
+	public function setProfileAvatar(string $newProfileAvatar): void {
+		// verify the profile avatar is secure
+		$newProfileAvatar = trim($newProfileAvatar);
+		$newProfileAvatar = filter_var($newProfileAvatar, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newProfileAvatar) === true) {
+			throw(new \InvalidArgumentException("profile avatar is empty or insecure"));
 
+		}
 
+		// verify the profile avatar will fit in the database
+		if(strlen($newProfileAvatar) > 32) {
+			throw(new \RangeException("profile avatar link is too large"));
+		}
 
-
-
-
+		// store the profile avatar
+		$this->profileAvatar = $newProfileAvatar;
+	}
 }
 ?>
