@@ -180,5 +180,42 @@ class User implements \JsonSerializable {
 		// store the user image
 		$this->newUserImage = $newUserImage;
 	}
+
+	/**
+	 * accessor method for profile activation token
+	 *
+	 * @return string value of profile activation token
+	 **/
+	public function getProfileActivationToken(): string {
+		return ($this->profileActivationToken);
+	}
+
+	/**
+	 * mutator method for profile activation token
+	 *
+	 * @param string $newProfileActivationToken new value of profile activation token
+	 * @throws \InvalidArgumentException if the activation token is not secure
+	 * @throws \RangeException if $newProfileActivationToken is not 32 characters
+	 * @throws \TypeError if $newProfileActivationToken is not a string
+	 **/
+	public function setProfileActivationToken(string $newProfileActivationToken) : void {
+		if(empty($newProfileActivationToken) === true) {
+			throw(new \InvalidArgumentException("profile activation token empty or insecure"));
+		}
+
+		//enforce that activation token is a string
+		if(is_string($newProfileActivationToken) !== true) {
+			throw(new \TypeError("acivation token is not a string"));
+		}
+
+		//enforce that activation token is exactly 32 characters
+		if(strlen($newProfileActivationToken) !== 32) {
+			throw(new \RangeException("profile activation token must be 32 characters"));
+		}
+
+		//store the activation token
+		$this->profileActivationToken = $newProfileActivationToken;
+	}
+
 }
 ?>
