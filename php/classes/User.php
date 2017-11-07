@@ -131,6 +131,15 @@ class User implements \JsonSerializable {
 		// convert and store the profile id
 		$this->userId = $uuid;
 	}
+	/**
+	 * accessor method for user username
+	 *
+	 * @return string value of user username
+	 **/
+	public function getUserUserName(): string {
+		return ($this->userUserName);
+	}
+
 
 	/**
 	 * mutator method for username
