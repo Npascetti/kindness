@@ -310,40 +310,35 @@ class Reputation implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the Reputation by reputationHubId
+	 * Gets the reputation by reputation hub id
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param Uuid|string $reputationHubId reputation hub id to search for
-	 * @return Reputation|null Reputation found or null if not found
+	 * @param  Uuid $reputationHubId reputationHubId to search for
+	 * @return hub|null hub found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
-	 **/
-	public static function getReputationByReputationHubId(\PDO $pdo, $reputationHubId) : ?Reputation {
-		// sanitize the reputationHubId before searching
+	 */
+	public function getReputationByReputationHubId(\PDO $pdo, $reputationhubId): ?hub {
 		try {
-			$reputationHubIdId = self::validateUuid($reputationHubId);
+			$reputationId = self::validateUuid($reputationhubId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 
-		// create query template
-		$query = "SELECT reputationId, reputationHubId, reputationLevelId, reputationUserId, reputationPoint FROM reputation WHERE reputationId = :reputationId";
+		$query = "SELECT reputationId, reputationHubId, reputationLevelId, reputationUserId, reputationPoint FROM reputation WHERE reputationHubId = :reputationHubId";
 		$statement = $pdo->prepare($query);
 
-		// bind the reputation hub id to the place holder in the template
-		$parameters = ["reputationHubId" => $reputationHubId->getBytes()];
+		$parameters = ["reputationHubId" => $this->reputationHubId->getBytes()];
 		$statement->execute($parameters);
 
-		// grab the reputation from mySQL
 		try {
 			$reputation = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
-			if($row !== false) {
-				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
+			if($row) {
+				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationHubLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
 			}
 		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return($reputation);
@@ -390,40 +385,35 @@ class Reputation implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the Reputation by reputationUserId
+	 * Gets the reputation by reputation user id
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param Uuid|string $reputationUserId reputation user id to search for
-	 * @return Reputation|null Reputation found or null if not found
+	 * @param  Uuid $reputationUserId reputationUserId to search for
+	 * @return hub|null hub found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
-	 **/
-	public static function getReputationByReputationUserId(\PDO $pdo, $reputationUserId) : ?Reputation {
-		// sanitize the reputationUserId before searching
+	 */
+	public function getReputationByReputationUserId(\PDO $pdo, $reputationUserId): ?hub {
 		try {
-			$reputationUserId = self::validateUuid($reputationUserId);
+			$reputationId = self::validateUuid($reputationUserId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 
-		// create query template
-		$query = "SELECT reputationId, reputationHubId, reputationLevelId, reputationUserId, reputationPoint FROM reputation WHERE reputationId = :reputationId";
+		$query = "SELECT reputationId, reputationHubId, reputationLevelId, reputationUserId, reputationPoint FROM reputation WHERE reputationUserId = :reputationUserId";
 		$statement = $pdo->prepare($query);
 
-		// bind the reputation user id to the place holder in the template
-		$parameters = ["reputationUserId" => $reputationUserId->getBytes()];
+		$parameters = ["reputationUserId" => $this->reputationUserId->getBytes()];
 		$statement->execute($parameters);
 
-		// grab the reputation from mySQL
 		try {
 			$reputation = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
-			if($row !== false) {
-				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
+			if($row) {
+				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationHubLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
 			}
 		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return($reputation);
