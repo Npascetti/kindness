@@ -331,18 +331,18 @@ class Reputation implements \JsonSerializable {
 		$parameters = ["reputationHubId" => $this->reputationHubId->getBytes()];
 		$statement->execute($parameters);
 
-		$reputation = new \SplFixedArray($statement->rowCount());
+		$reputations = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while($row = $statement->fetch()) {
 			try {
 				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
-				$reputation[$reputation->key()] = $reputation;
-				$reputation->next();
+				$reputation[$reputations->key()] = $reputation;
+				$reputations->next();
 			} catch(\Exception $exception) {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($reputation);
+		return($reputations);
 	}
 
 	/**
@@ -407,18 +407,18 @@ class Reputation implements \JsonSerializable {
 		$parameters = ["reputationUserId" => $this->reputationUserId->getBytes()];
 		$statement->execute($parameters);
 
-		$reputation = new \SplFixedArray($statement->rowCount());
+		$reputations = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while($row = $statement->fetch()) {
 			try {
 				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
-				$reputation[$reputation->key()] = $reputation;
-				$reputation->next();
+				$reputation[$reputations->key()] = $reputation;
+				$reputations->next();
 			} catch(\Exception $exception) {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($reputation);
+		return($reputations);
 	}
 
 	/**
