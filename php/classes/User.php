@@ -273,5 +273,44 @@ class User implements \JsonSerializable {
 		$this->userHash = $newUserHash;
 	}
 
+	/**
+	 * accessor method for profile password salt
+	 *
+	 * @return string value of profile salt
+	 **/
+	public function getProfileSalt() : string {
+		return($this->profileSalt);
+	}
+
+	/**
+	 * mutator method for profile password salt
+	 *
+	 * @return string $newProfileSalt
+	 * @throws \InvalidArgumentException if the salt is not secure
+	 * @throws \RangeException if the salt is not 64 characters
+	 * @throws \TypeError if profile salt is not a string
+	 **/
+	public function setProfileSalt(string $newProfileSalt) : void {
+		//enforce that the salt is properly formatted
+		$newProfileSalt = trim($newProfileSalt);
+		$newProfileSalt = strtolower($newProfileSalt);
+		if(empty($newProfileSalt) === true) {
+			throw(new \InvalidArgumentException("profile password salt empty or insecure"));
+		}
+
+		//enforce that the salt is a string representation of hexadecimal
+		if(!ctype_xdigit($newProfileSalt)) {
+			throw(new \InvalidArgumentException("profile password salt is empty or insecure"));
+		}
+
+		//enforce that the salt is exactly 64 characters
+		if(strlen($newProfileSalt) !== 128) {
+			throw(new \RangeException("profile salt must be 64 characters"));
+		}
+
+		//store the salt
+		$this->profileSalt = $newProfileSalt;
+	}
+
 }
 ?>
