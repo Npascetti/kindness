@@ -132,5 +132,29 @@ class User implements \JsonSerializable {
 		$this->userId = $uuid;
 	}
 
+	/**
+	 * mutator method for profile username
+	 *
+	 * @param string $newProfileUserName new value of profile username
+	 * @throws \InvalidArgumentException if $newProfileUserName is not a string or insecure
+	 * @throws \RangeException if $newProfileUserName is > 32 characters
+	 * @throws \TypeError if $newProfileUserName is not a string
+	 */
+	public function setProfileUserName(string $newProfileUserName): void {
+		//verify the profile username is secure
+		$newProfileUserName = trim($newProfileUserName);
+		$newProfileUserName = filter_var($newProfileUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newProfileUserName) === true) {
+			throw (new \InvalidArgumentException("profile username is empty or insecure"));
+		}
+		// verify the profile username will fit in database
+		if(strlen($newProfileUserName) > 32) {
+			throw(new \RangeException("profile username is too large"));
+		}
+
+		// store the profile username
+		$this->profileUserName = $newProfileUserName;
+	}
+
 }
 ?>
