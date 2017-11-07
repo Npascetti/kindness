@@ -156,5 +156,10 @@ class User implements \JsonSerializable {
 		$this->UserUserName = $newUserUserName;
 	}
 
+
+
+
+
+
 }
 ?>
