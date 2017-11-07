@@ -10,8 +10,8 @@
 namespace Edu\Cnm\KindHub;
 
 
-class Level { class Level implements \JsonSerializable {
-	use \Edu\Cnm\KindHub\ValidateUuid; /* FIX THE CAPITAL V */
+	class Level { class Level implements \JsonSerializable {
+	use \Edu\Cnm\KindHub\ValidateUuid;
 
 	/**
 	 * Level of the hub; primary key
@@ -21,7 +21,7 @@ class Level { class Level implements \JsonSerializable {
 	private $levelId;
 
 	/**
-	 * ID of the user who created the hub; foreign key
+	 * Level of the user who created the hub; foreign key
 	 *
 	 * @var Uuid $levelName
 	 */
