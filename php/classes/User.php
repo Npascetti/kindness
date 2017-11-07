@@ -80,7 +80,6 @@ class User implements \JsonSerializable {
 	 * @param string $newUserLastName string containting the last name of the user
 	 * @param string $newUserEmail string containing the email of the user
 	 * @throws \InvalidArgumentException if data types are not valid
-	 * @throws \RangeException if data values are out of bounds (e.g., string too long, negative integers)
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
 	 * @documentation php.net/manual/en/language.oop5.decon.php
@@ -93,8 +92,12 @@ class User implements \JsonSerializable {
 			$this->setUserHash($newProfileHash);
 			$this->setUserSalt($$newUserSalt);
 			$this->setUserActivationToken($newUserActivationToken);
+			$this->setUserFirstName($newUserFirstName);
+			$this->setUserLastName($newUserLastName);
+			$this->setUserEmail($newUserEmail);
+			$this->setUserBio($newUserBio);
 		} //determine what exception type was thrown
-		catch(\InvalidArgumentException | \RangeException | Exception | \TypeError $exception) {
+		catch(\InvalidArgumentException | Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
