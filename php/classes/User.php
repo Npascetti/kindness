@@ -133,27 +133,27 @@ class User implements \JsonSerializable {
 	}
 
 	/**
-	 * mutator method for profile username
+	 * mutator method for username
 	 *
-	 * @param string $newProfileUserName new value of profile username
-	 * @throws \InvalidArgumentException if $newProfileUserName is not a string or insecure
-	 * @throws \RangeException if $newProfileUserName is > 32 characters
-	 * @throws \TypeError if $newProfileUserName is not a string
+	 * @param string $newUserUserName new value of username
+	 * @throws \InvalidArgumentException if $newUserUserName is not a string or insecure
+	 * @throws \RangeException if $newUserUserName is > 128 characters
+	 * @throws \TypeError if $newUserUserName is not a string
 	 */
-	public function setProfileUserName(string $newProfileUserName): void {
+	public function setProfileUserName(string $newUserUserName): void {
 		//verify the profile username is secure
-		$newProfileUserName = trim($newProfileUserName);
-		$newProfileUserName = filter_var($newProfileUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newProfileUserName) === true) {
-			throw (new \InvalidArgumentException("profile username is empty or insecure"));
+		$newUserUserName = trim($newUserUserName);
+		$newUserUserName = filter_var($newUserUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserUserName) === true) {
+			throw (new \InvalidArgumentException("username is empty or insecure"));
 		}
 		// verify the profile username will fit in database
-		if(strlen($newProfileUserName) > 32) {
-			throw(new \RangeException("profile username is too large"));
+		if(strlen($newUserUserName) > 128) {
+			throw(new \RangeException("username is too large"));
 		}
 
-		// store the profile username
-		$this->profileUserName = $newProfileUserName;
+		// store the username
+		$this->UserUserName = $newUserUserName;
 	}
 
 }
