@@ -85,18 +85,18 @@ class User implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @documentation php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct($newUserId, string $newUserUserName, string $newUserImage = null, string $newUserHash, string $newUserSalt, string $newUserActivationToken, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserBio) {
+	public function __construct($newUserId, string $newUserActivationToken, string $newUserBio, string $newUserEmail, string $newUserFirstName, string $newUserHash, string $newUserImage = null, string $newUserLastName, string $newUserSalt, string $newUserUserName ) {
 		try {
 			$this->setUserId($newUserId);
-			$this->setUserUserName($newUserUserName);
-			$this->setUserImage($newUserImage);
-			$this->setUserHash($newUserHash);
-			$this->setUserSalt($newUserSalt);
 			$this->setUserActivationToken($newUserActivationToken);
-			$this->setUserFirstName($newUserFirstName);
-			$this->setUserLastName($newUserLastName);
-			$this->setUserEmail($newUserEmail);
 			$this->setUserBio($newUserBio);
+			$this->setUserEmail($newUserEmail);
+			$this->setUserFirstName($newUserFirstName);
+			$this->setUserHash($newUserHash);
+			$this->setUserImage($newUserImage);
+			$this->setUserLastName($newUserLastName);
+			$this->setUserSalt($newUserSalt);
+			$this->setUserUserName($newUserUserName);
 		} //determine what exception type was thrown
 		catch(\InvalidArgumentException | Exception | \RangeException | \TypeError $exception) {
 			$exceptionType = get_class($exception);
