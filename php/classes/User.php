@@ -128,74 +128,8 @@ class User implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 
-		// convert and store the profile id
+		// convert and store the user id
 		$this->userId = $uuid;
-	}
-	/**
-	 * accessor method for user username
-	 *
-	 * @return string value of user username
-	 **/
-	public function getUserUserName(): string {
-		return ($this->userUserName);
-	}
-
-
-	/**
-	 * mutator method for username
-	 *
-	 * @param string $newUserUserName new value of username
-	 * @throws \InvalidArgumentException if $newUserUserName is not a string or insecure
-	 * @throws \RangeException if $newUserUserName is > 128 characters
-	 * @throws \TypeError if $newUserUserName is not a string
-	 */
-	public function setUserUserName(string $newUserUserName): void {
-		//verify the profile username is secure
-		$newUserUserName = trim($newUserUserName);
-		$newUserUserName = filter_var($newUserUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUserUserName) === true) {
-			throw (new \InvalidArgumentException("username is empty or insecure"));
-		}
-		// verify the profile username will fit in database
-		if(strlen($newUserUserName) > 128) {
-			throw(new \RangeException("username is too large"));
-		}
-
-		// store the username
-		$this->userUserName = $newUserUserName;
-	}
-	/**
-	 * accessor method for the user image
-	 *
-	 * @return string value of user image
-	 **/
-	public function getUserImage(): string {
-		return ($this->userImage);
-	}
-	/**
-	 * mutator method for User Image
-	 *
-	 * @param string $newUserImage new value of user image
-	 * @throws \InvalidArgumentException if $newUserImage is not a string or insecure
-	 * @throws \RangeException if $newUserImage is > 128 characters
-	 * @throws \TypeError if $newUserImage is not a string
-	 **/
-	public function setUserImage(string $newUserImage): void {
-		// verify the user image is secure
-		$newUserImage = trim($newUserImage);
-		$newUserImage = filter_var($newUserImage, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUserImage) === true) {
-			throw(new \InvalidArgumentException("user image is empty or insecure"));
-
-		}
-
-		// verify the user image will fit in the database
-		if(strlen($newUserImage) > 128) {
-			throw(new \RangeException("user image link is too large"));
-		}
-
-		// store the user image
-		$this->newUserImage = $newUserImage;
 	}
 
 	/**
@@ -233,6 +167,99 @@ class User implements \JsonSerializable {
 		//store the activation token
 		$this->userActivationToken = $newUserActivationToken;
 	}
+
+	/**
+	 * accessor method for user userBio
+	 *
+	 * @return string value of userBio
+	 **/
+	public function getUserBio(): string {
+		return ($this->userBio);
+	}
+
+	/**
+	 * mutator method for userBio
+	 *
+	 * @param string $newUserBio new value of userBio
+	 * @throws \InvalidArgumentException if $newUserBio is not a string or insecure
+	 * @throws \RangeException if $newUserBio is > 3000 characters
+	 * @throws \TypeError if $newUserBio is not a string
+	 */
+	public function setUserBio(string $newUserBio): void {
+		//verify the profile Bio is secure
+		$newUserBio = trim($newUserBio);
+		$newUserBio = filter_var($newUserBio, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserBio) === true) {
+			throw (new \InvalidArgumentException("user bio is empty or insecure"));
+		}
+		// verify the profile user bio will fit in database
+		if(strlen($newUserBio) > 3000) {
+			throw(new \RangeException("user bio is too large"));
+		}
+
+		// store the user bio
+		$this->userBio= $newUserBio;
+	}
+
+	/**
+	 * accessor method for user Email
+	 *
+	 * @return string Email of the user
+	 */
+	public function getUserEmail(): string {
+		return($this->userEmail);
+	}
+	/**
+	 * mutator method for user Email
+	 *
+	 * @param string $newUserEmail User's new email
+	 * @throws \InvalidArgumentException if $newUserEmail is not a string or insecure
+	 * @throws \TypeError if $newUserEmail is not a string
+	 */
+	public function setUserEmail(string $newUserEmail): void {
+		$newUserEmail = trim($newUserEmail);
+		$newUserEmail = filter_var($newUserEmail, FILTER_VALIDATE_EMAIL);
+		if(empty($newUserEmail) === true) {
+			throw(new \InvalidArgumentException("Email is not valid or is insecure"));
+		}
+		$this->userEmail = $newUserEmail;
+	}
+
+	/**
+	 * accessor method for the user image
+	 *
+	 * @return string value of user image
+	 **/
+	public function getUserImage(): string {
+		return ($this->userImage);
+	}
+	/**
+	 * mutator method for User Image
+	 *
+	 * @param string $newUserImage new value of user image
+	 * @throws \InvalidArgumentException if $newUserImage is not a string or insecure
+	 * @throws \RangeException if $newUserImage is > 128 characters
+	 * @throws \TypeError if $newUserImage is not a string
+	 **/
+	public function setUserImage(string $newUserImage): void {
+		// verify the user image is secure
+		$newUserImage = trim($newUserImage);
+		$newUserImage = filter_var($newUserImage, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserImage) === true) {
+			throw(new \InvalidArgumentException("user image is empty or insecure"));
+
+		}
+
+		// verify the user image will fit in the database
+		if(strlen($newUserImage) > 128) {
+			throw(new \RangeException("user image link is too large"));
+		}
+
+		// store the user image
+		$this->newUserImage = $newUserImage;
+	}
+
+
 
 	/**
 	 * accessor method for user hash password
@@ -381,62 +408,38 @@ class User implements \JsonSerializable {
 		$this->userLastName = $newUserLastName;
 	}
 
+	/**
+	 * accessor method for user username
+	 *
+	 * @return string value of user username
+	 **/
+	public function getUserUserName(): string {
+		return ($this->userUserName);
+	}
 
 	/**
-	 * accessor method for user Email
+	 * mutator method for username
 	 *
-	 * @return string Email of the user
+	 * @param string $newUserUserName new value of username
+	 * @throws \InvalidArgumentException if $newUserUserName is not a string or insecure
+	 * @throws \RangeException if $newUserUserName is > 128 characters
+	 * @throws \TypeError if $newUserUserName is not a string
 	 */
-	public function getUserEmail(): string {
-		return($this->userEmail);
-	}
-	/**
-	 * mutator method for user Email
-	 *
-	 * @param string $newUserEmail User's new email
-	 * @throws \InvalidArgumentException if $newUserEmail is not a string or insecure
-	 * @throws \TypeError if $newUserEmail is not a string
-	 */
-	public function setUserEmail(string $newUserEmail): void {
-		$newUserEmail = trim($newUserEmail);
-		$newUserEmail = filter_var($newUserEmail, FILTER_VALIDATE_EMAIL);
-		if(empty($newUserEmail) === true) {
-			throw(new \InvalidArgumentException("Email is not valid or is insecure"));
+	public function setUserUserName(string $newUserUserName): void {
+		//verify the profile username is secure
+		$newUserUserName = trim($newUserUserName);
+		$newUserUserName = filter_var($newUserUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserUserName) === true) {
+			throw (new \InvalidArgumentException("username is empty or insecure"));
 		}
-		$this->userEmail = $newUserEmail;
+		// verify the profile username will fit in database
+		if(strlen($newUserUserName) > 128) {
+			throw(new \RangeException("username is too large"));
+		}
+
+		// store the username
+		$this->userUserName = $newUserUserName;
 	}
-    /**
-     * accessor method for user userBio
-     *
-     * @return string value of userBio
-     **/
-    public function getUserBio(): string {
-        return ($this->userBio);
-    }
 
-
-    /**
-     * mutator method for userBio
-     *
-     * @param string $newUserBio new value of userBio
-     * @throws \InvalidArgumentException if $newUserBio is not a string or insecure
-     * @throws \RangeException if $newUserBio is > 3000 characters
-     * @throws \TypeError if $newUserBio is not a string
-     */
-    public function setUserBio(string $newUserBio): void {
-        //verify the profile Bio is secure
-        $newUserBio = trim($newUserBio);
-        $newUserBio = filter_var($newUserBio, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-        if(empty($newUserBio) === true) {
-            throw (new \InvalidArgumentException("user bio is empty or insecure"));
-        }
-        // verify the profile user bio will fit in database
-        if(strlen($newUserBio) > 3000) {
-            throw(new \RangeException("user bio is too large"));
-        }
-
-        // store the user bio
-        $this->userBio= $newUserBio;
-    }
 }
 ?>
