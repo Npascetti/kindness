@@ -226,12 +226,10 @@ class Level implements \JsonSerializable {
 	 *
 	 * @return array resulting state variables to serialize
 	 **/
-	public function jsonSerialize() {
+	public function jsonSerializable() {
 		$fields = get_object_vars($this);
 
 		$fields["levelId"] = $this->levelId->toString();
-		$fields["levelName"] = $this->levelName->toString();
-		$fields["levelNumber"] = $this->levelNumber->toString();
 	}
 
 }
