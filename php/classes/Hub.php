@@ -12,7 +12,7 @@ use Ramsey\Uuid\Uuid;
  * A hub has a user, location, and name, and is linked to a reputation and reputation level
  *
  * @author Calder Benjamin <calderbenjamin@gmail.com>
- */
+ **/
 class Hub implements \JsonSerializable {
 	use \Edu\Cnm\KindHub\ValidateUuid; /* FIX THE CAPITAL V */
 
@@ -20,28 +20,28 @@ class Hub implements \JsonSerializable {
 	 * ID of the hub; primary key
 	 *
 	 * @var Uuid $hubId
-	 */
+	 **/
 	private $hubId;
 
 	/**
 	 * ID of the user who created the hub; foreign key
 	 *
 	 * @var Uuid $hubUserId
-	 */
+	 **/
 	private $hubUserId;
 
 	/**
 	 * Location of the hub
 	 *
 	 * @var string $hubLocation
-	 */
+	 **/
 	private $hubLocation;
 
 	/**
 	 * Name of the hub
 	 *
 	 * @var string $hubName
-	 */
+	 **/
 	private $hubName;
 
 	/**
@@ -55,7 +55,7 @@ class Hub implements \JsonSerializable {
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \TypeError if data types violate type hints
 	 * @throws \Exception if some other exception occurs
-	 */
+	 **/
 	public function __construct($newHubId, $newHubUserId, string $newHubLocation, string $newHubName) {
 		try {
 			$this->setHubId($newHubId);
@@ -72,7 +72,7 @@ class Hub implements \JsonSerializable {
 	 * accessor method for hubId
 	 *
 	 * @return Uuid value of the Hub ID
-	 */
+	 **/
 	public function getHubId(): Uuid {
 		return($this->hubId);
 	}
@@ -81,7 +81,7 @@ class Hub implements \JsonSerializable {
 	 * mutator method for hubId
 	 *
 	 * @param Uuid $newHubId The new value of the hub ID
-	 */
+	 **/
 	public function setHubId($newHubId): void {
 		try {
 			$uuid = self::validateUuid($newHubId);
@@ -96,7 +96,7 @@ class Hub implements \JsonSerializable {
 	 * accessor method for hubUserId
 	 *
 	 * @return Uuid The ID of the Hub's creator
-	 */
+	 **/
 	public function getHubUserId(): Uuid {
 		return($this->hubUserId);
 	}
@@ -105,7 +105,7 @@ class Hub implements \JsonSerializable {
 	 * mutator method for hubUserId
 	 *
 	 * @param Uuid $newHubUserId The new ID of the hub's creator
-	 */
+	 **/
 	public function setHubUserId($newHubUserId): void {
 		try {
 			$uuid = self::validateUuid($newHubUserId);
@@ -113,14 +113,14 @@ class Hub implements \JsonSerializable {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-		$this->hubId = $uuid;
+		$this->hubUserId = $uuid;
 	}
 
 	/**
 	 * accessor method for hubLocation
 	 *
 	 * @return string The location of the hub
-	 */
+	 **/
 	public function getHubLocation(): string {
 		return($this->hubLocation);
 	}
@@ -129,10 +129,11 @@ class Hub implements \JsonSerializable {
 	 * mutator method for hubLocation
 	 *
 	 * @param string $newHubLocation the new hub location
-	 */
+	 **/
 	public function setHubLocation($newHubLocation): void {
 		$newHubLocation = trim($newHubLocation);
-		$newHubLocation = filter_var($newHubLocation, FILTER_SANITIZE_STRING);
+		$newHubLocation = filter_var($newHubLocation, FILTER_SANITIZE_STRING,
+			FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newHubLocation)) {
 			throw(new \InvalidArgumentException("Location is empty or insecure"));
 		}
@@ -143,7 +144,7 @@ class Hub implements \JsonSerializable {
 	 * accessor method for hubName
 	 *
 	 * @return string The name of the hub
-	 */
+	 **/
 	public function getHubName(): string {
 		return($this->hubName);
 	}
@@ -152,10 +153,11 @@ class Hub implements \JsonSerializable {
 	 * mutator method for hubName
 	 * 
 	 * @param string $newHubName The new name of the hub
-	 */
+	 **/
 	public function setHubName($newHubName): void {
 		$newHubName = trim($newHubName);
-		$newHubName = filter_var($newHubName, FILTER_SANITIZE_STRING);
+		$newHubName = filter_var($newHubName, FILTER_SANITIZE_STRING,
+		FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newHubName)) {
 			throw(new \InvalidArgumentException("Name is empty or insecure"));
 		}
@@ -168,7 +170,7 @@ class Hub implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when $pdo is not a PDO connection object
-	 */
+	 **/
 	public function insert(\PDO $pdo): void {
 		$query = "INSERT INTO hub(hubId, hubUserId, hubLocation, hubName) 
 			VALUES (:hubId, :hubUserId, :hubLocation, :hubName)";
@@ -185,7 +187,7 @@ class Hub implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
-	 */
+	 **/
 	public function delete(\PDO $pdo): void {
 		$query = "DELETE FROM hub WHERE hubId = :hubId";
 		$statement = $pdo->prepare($query);
@@ -200,7 +202,7 @@ class Hub implements \JsonSerializable {
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError if $pdo is not a PDO connection object
-	 */
+	 **/
 	public function update(\PDO $pdo): void {
 		$query = "UPDATE hub SET hubLocation = :hubLocation, hubName = :hubName WHERE hubId = :hubId";
 		$statement = $pdo->prepare($query);
@@ -218,7 +220,7 @@ class Hub implements \JsonSerializable {
 	 * @return hub|null hub found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
-	 */
+	 **/
 	public function getHubByHubId(\PDO $pdo, $hubId): ?hub {
 		try {
 			$hubId = self::validateUuid($hubId);
@@ -253,7 +255,7 @@ class Hub implements \JsonSerializable {
 	 * @return \SplFixedArray SplFixedArray of hubs found or null if none found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
-	 */
+	 **/
 	public function getHubsByHubUserId(\PDO $pdo, $hubUserId): \SplFixedArray {
 		try {
 			$hubUserId = self::validateUuid($hubUserId);
@@ -289,7 +291,7 @@ class Hub implements \JsonSerializable {
 	 * @return hub|null the hub or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
-	 */
+	 **/
 	public function getHubByHubName(\PDO $pdo, string $hubName): ?hub {
 		$hubName = trim($hubName);
 		$hubName = filter_var($hubName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -326,7 +328,7 @@ class Hub implements \JsonSerializable {
 	 * @return \SplFixedArray SplFixedArray of hubs found or null if none found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
-	 */
+	 **/
 	public function getAllHubs(\PDO $pdo): \SplFixedArray {
 		$query = "SELECT hubId, hubUserId, hubLocation, hubName FROM hub";
 		$statement = $pdo->prepare($query);
@@ -350,7 +352,7 @@ class Hub implements \JsonSerializable {
 	 * Formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
-	 **/
+	 ***/
 	public function jsonSerialize() {
 		$fields = get_object_vars($this);
 
