@@ -102,7 +102,7 @@ class Level implements \JsonSerializable {
 	 *
 	 * @param string $newLevelName The new name of the hub
 	 */
-	public function setHubName($newLevelName): void {
+	public function setLevelName($newLevelName): void {
 		$newLevelName = trim($newLevelName);
 		$newLevelName = filter_var($newLevelName, FILTER_SANITIZE_STRING);
 		if(empty($newLevelName)) {
