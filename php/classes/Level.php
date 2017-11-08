@@ -153,4 +153,36 @@ class Level implements \JsonSerializable {
 			"levelNumber" => $this->levelNumber, "levelName" => $this->levelName];
 		$statement->execute($parameters);
 	}
+
+	/**
+	 * Deletes this level from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo): void {
+		$query = "DELETE FROM level WHERE levelId = :levelId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["levelId" => $this->levelId->getBytes()];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * Updates this level in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo): void {
+		$query = "UPDATE level SET levelId = :levelId, levelName = :levelName, levelNumber = :levelNumber 
+			WHERE levelId = :levelId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["levelId" => $this->levelId->getBytes(), "levelName" => $this->levelName->getBytes(),
+			"levelNumber" => $this->levelNumber];
+		$statement->execute($parameters);
+	}
 }
