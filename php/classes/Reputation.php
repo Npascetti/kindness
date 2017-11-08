@@ -333,7 +333,7 @@ class Reputation implements \JsonSerializable {
 
 		$reputations = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while($row = $statement->fetch()) {
+		while(($row = $statement->fetch()) !== false) {
 			try {
 				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
 				$reputation[$reputations->key()] = $reputation;
@@ -409,7 +409,7 @@ class Reputation implements \JsonSerializable {
 
 		$reputations = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while($row = $statement->fetch()) {
+		while(($row = $statement->fetch()) !== false) {
 			try {
 				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
 				$reputation[$reputations->key()] = $reputation;
