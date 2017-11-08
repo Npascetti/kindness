@@ -185,4 +185,39 @@ class Level implements \JsonSerializable {
 			"levelNumber" => $this->levelNumber];
 		$statement->execute($parameters);
 	}
+
+	/**
+	 * Gets the level by levelId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param  Uuid $hubId levelId to search for
+	 * @return level|null level found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 **/
+	public function getLevelBylevelId(\PDO $pdo, $levelId): ?level {
+		try {
+			$levelId = self::validateUuid($levelId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		$query = "SELECT levelId, levelName, levelNumber FROM level WHERE levelId = :levelId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["levelId" => $this->levelId->getBytes()];
+		$statement->execute($parameters);
+
+		try {
+			$hub = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$level = new Level ($row["levelId"], $row["levelName"], $row["levelNumber"]);
+			}
+		} catch(\Exception $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($hub);
+	}
 }
