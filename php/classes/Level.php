@@ -230,6 +230,8 @@ class Level implements \JsonSerializable {
 		$fields = get_object_vars($this);
 
 		$fields["levelId"] = $this->levelId->toString();
+		$fields["levelName"] = $this->levelName;
+		$fields["levelNumber"] = $this->levelNumber;
 	}
 
 }
