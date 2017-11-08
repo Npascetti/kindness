@@ -380,5 +380,30 @@ class User implements \JsonSerializable {
 		// store the username
 		$this->userLastName = $newUserLastName;
 	}
+
+
+	/**
+	 * accessor method for user Email
+	 *
+	 * @return string Email of the user
+	 */
+	public function getUserEmail(): string {
+		return($this->userEmail);
+	}
+	/**
+	 * mutator method for user Email
+	 *
+	 * @param string $newUserEmail User's new email
+	 * @throws \InvalidArgumentException if $newUserEmail is not a string or insecure
+	 * @throws \TypeError if $newUserEmail is not a string
+	 */
+	public function setUserEmail(string $newUserEmail): void {
+		$newUserEmail = trim($newUserEmail);
+		$newUserEmail = filter_var($newUserEmail, FILTER_VALIDATE_EMAIL);
+		if(empty($newUserEmail) === true) {
+			throw(new \InvalidArgumentException("Email is not valid or is insecure"));
+		}
+		$this->userEmail = $newUserEmail;
+	}
 }
 ?>
