@@ -449,7 +449,7 @@ class User implements \JsonSerializable {
 			VALUES(:userId, :userActivationToken, :userBio, :userEmail, :userFirstName, :userHash, :userImage, :userLastName, :userSalt, :userUserName)";
 		$statement = $pdo->prepare($query);
 		$parameters = ["userId" => $this->userId->getBytes(), "userActivationToken" => $this->userActivationToken, "userBio" => $this-> userBio, "userEmail" => $this->userEmail,
-			"userFirstName" => $this->getUserFirstName(), "userHash" => $this->userHash, "userImage" => $this->userImage, "userLastName" => $this->userImage,"userSalt" => $this->userSalt, "userUserName "=> $this->userUserName];
+			"userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userImage" => $this->userImage, "userLastName" => $this->userImage,"userSalt" => $this->userSalt, "userUserName "=> $this->userUserName];
 		$statement->execute($parameters);
 	}
 	/**
@@ -473,11 +473,11 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function update(\PDO $pdo) : void {
-		$query = "UPDATE `user` SET userEmail = :userEmail, userHash = :userHash, userSalt = :userSalt,
-			userName = :userName WHERE userId = :userId";
+		$query = "UPDATE `user` SET userActivationToken = :userActivationToken, userBio = :userBio, userEmail = :userEmail, userFirstName = userFristName, userHash = :userHash, userImage = :userImage, userLasteName = userLastName, userSalt = :userSalt,
+			userName = :userUserName WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
-		$parameters = ["userId" => $this->userId->getBytes(),"userEmail" => $this->userEmail,
-			"userHash" => $this->userHash, "userSalt" => $this->userSalt, "userName" => $this->userName];
+		$parameters = ["userId" => $this->userId->getBytes(),"userActivationToken" => $this->userActivationToken, "userBio" => $this-> userBio,"userEmail" => $this->userEmail, "userFirstName" => $this->getUserFirstName,
+			"userHash" => $this->userHash, "userImage" => $this->userImage, "userLastName" => $this->userImage, "userSalt" => $this->userSalt, "userUserName" => $this->userUserName];
 		$statement->execute($parameters);
 	}
 	/**
@@ -495,7 +495,7 @@ class User implements \JsonSerializable {
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		$query = "SELECT userId, userEmail, userHash, userSalt, userName FROM `user` WHERE userId = :userId";
+		$query = "SELECT userId, userActivationToken, userBio, userEmail, userFirstName, userHash, userImage, userLastName, userSalt, userUserName FROM `user` WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
 		$parameters = ["userId" => $userId->getBytes()];
 		$statement->execute($parameters);
@@ -504,7 +504,7 @@ class User implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$user = new User($row["userId"], $row["userEmail"], $row["userHash"], $row["userSalt"],
+				$user = new User($row["userId"], $row["userActivationToken"], $row["userBio"], $row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userImage"],$row["userLastName"], $row["userSalt"], $row["userUserName"],
 					$row["userName"]);
 			}
 		} catch(\Exception $exception) {
