@@ -1,13 +1,15 @@
-DROP TABLE IF EXISTS `user`;
-DROP TABLE IF EXISTS hub;
 DROP TABLE IF EXISTS reputation;
+DROP TABLE IF EXISTS hub;
 DROP TABLE IF EXISTS `level`;
+DROP TABLE IF EXISTS `user`;
+
+
 
 CREATE TABLE `user` (
 	userId BINARY(16) NOT NULL,
 	userActiviationToken CHAR(32) NOT NULL,
 	userBio VARCHAR(3000),
-	userEmail VARCHAR(256) NOT NULL,
+	userEmail VARCHAR(255) NOT NULL,
 	userFirstName VARCHAR(64),
 	userHash CHAR(128) NOT NULL,
 	userImage VARCHAR(128),
@@ -30,6 +32,13 @@ CREATE TABLE hub (
 	PRIMARY KEY (hubId)
 );
 
+CREATE TABLE `level` (
+	levelId BINARY(16) NOT NULL,
+	levelName VARCHAR(64) NOT NULL,
+	levelNumber TINYINT(8) NOT NULL,
+	PRIMARY KEY (levelId)
+);
+
 CREATE TABLE reputation (
 	reputationId BINARY(16) NOT NULL,
 	reputationHubId BINARY(16),
@@ -42,9 +51,3 @@ CREATE TABLE reputation (
 	PRIMARY KEY (reputationId)
 );
 
-CREATE TABLE `level` (
-	levelId BINARY(16) NOT NULL,
-	levelName VARCHAR(64) NOT NULL,
-	levelNumber TINYINT(8) NOT NULL,
-	PRIMARY KEY (levelId)
-);
