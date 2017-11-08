@@ -437,5 +437,107 @@ class User implements \JsonSerializable {
 		$this->userUserName = $newUserUserName;
 	}
 
+	/**
+	 * Inserts this user into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when $pdo is not a PDO connection object
+	 */
+	public function insert(\PDO $pdo) : void {
+		$query = "INSERT INTO `user`(userId, userEmail, userName, userHash, userSalt) 
+			VALUES(:userId, :userEmail, :userName, :userHash, :userSalt)";
+		$statement = $pdo->prepare($query);
+		$parameters = ["userId" => $this->userId->getBytes(), "userEmail" => $this->userEmail,
+			"userName" => $this->userName, "userHash" => $this->userHash, "userSalt" => $this->userSalt];
+		$statement->execute($parameters);
+	}
+	/**
+	 * Deletes this user from mySql
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function delete(\PDO $pdo) : void {
+		$query = "DELETE FROM `user` WHERE userId = :userId";
+		$statement = $pdo->prepare($query);
+		$parameters = ["userId" => $this->userId->getBytes()];
+		$statement->execute($parameters);
+	}
+	/**
+	 * updates this user in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo) : void {
+		$query = "UPDATE `user` SET userEmail = :userEmail, userHash = :userHash, userSalt = :userSalt,
+			userName = :userName WHERE userId = :userId";
+		$statement = $pdo->prepare($query);
+		$parameters = ["userId" => $this->userId->getBytes(),"userEmail" => $this->userEmail,
+			"userHash" => $this->userHash, "userSalt" => $this->userSalt, "userName" => $this->userName];
+		$statement->execute($parameters);
+	}
+	/**
+	 * gets the user by userId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param $userId user id to search for
+	 * @return user|null user found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 **/
+	public static function getUserByUserId(\PDO $pdo, $userId) : ?user {
+		try {
+			$userId = self::validateUuid($userId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		$query = "SELECT userId, userEmail, userHash, userSalt, userName FROM `user` WHERE userId = :userId";
+		$statement = $pdo->prepare($query);
+		$parameters = ["userId" => $userId->getBytes()];
+		$statement->execute($parameters);
+		try {
+			$user = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$user = new User($row["userId"], $row["userEmail"], $row["userHash"], $row["userSalt"],
+					$row["userName"]);
+			}
+		} catch(\Exception $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($user);
+	}
+	/**
+	 * gets all users
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of Users found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getAllUsers(\PDO $pdo) : \SPLFixedArray {
+		$query = "SELECT userId, userEmail, userHash, userSalt, userName FROM `user`";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+		$users = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$user = new User($row["userId"], $row["userEmail"], $row["userHash"], $row["userSalt"],
+					$row["userName"]);
+				$user[$users->key()] = $user;
+				$users->next();
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($users);
+	}
+
 }
 ?>
