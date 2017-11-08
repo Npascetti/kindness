@@ -204,11 +204,12 @@ class Hub implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function update(\PDO $pdo): void {
-		$query = "UPDATE hub SET hubLocation = :hubLocation, hubName = :hubName WHERE hubId = :hubId";
+		$query = "UPDATE hub SET hubUserId = :hubUserId, hubLocation = :hubLocation, hubName = :hubName 
+			WHERE hubId = :hubId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["hubId" => $this->hubId->getBytes(), "hubLocation" => $this->hubLocation,
-			"hubName" => $this->hubName];
+		$parameters = ["hubId" => $this->hubId->getBytes(), "hubUserId" => $this->hubUserId->getBytes(),
+			"hubLocation" => $this->hubLocation, "hubName" => $this->hubName];
 		$statement->execute($parameters);
 	}
 
