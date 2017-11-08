@@ -87,11 +87,11 @@ class User implements \JsonSerializable {
 	 **/
 	public function __construct($newUserId, string $newUserUserName, string $newUserImage = null, string $newUserHash, string $newUserSalt, string $newUserActivationToken, string $newUserFirstName, string $newUserLastName, string $newUserEmail, string $newUserBio) {
 		try {
-			$this->setUserId($$newUserId);
-			$this->setUserUserName($$newUserUserName);
-			$this->setUserImage($$newUserImage);
-			$this->setUserHash($newProfileHash);
-			$this->setUserSalt($$newUserSalt);
+			$this->setUserId($newUserId);
+			$this->setUserUserName($newUserUserName);
+			$this->setUserImage($newUserImage);
+			$this->setUserHash($newUserHash);
+			$this->setUserSalt($newUserSalt);
 			$this->setUserActivationToken($newUserActivationToken);
 			$this->setUserFirstName($newUserFirstName);
 			$this->setUserLastName($newUserLastName);
@@ -420,7 +420,7 @@ class User implements \JsonSerializable {
      *
      * @param string $newUserBio new value of userBio
      * @throws \InvalidArgumentException if $newUserBio is not a string or insecure
-     * @throws \RangeException if $newUserBio is > 30000 characters
+     * @throws \RangeException if $newUserBio is > 3000 characters
      * @throws \TypeError if $newUserBio is not a string
      */
     public function setUserBio(string $newUserBio): void {
