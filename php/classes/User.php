@@ -260,42 +260,6 @@ class User implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for the user image
-	 *
-	 * @return string value of user image
-	 **/
-	public function getUserImage(): string {
-		return ($this->userImage);
-	}
-	/**
-	 * mutator method for User Image
-	 *
-	 * @param string $newUserImage new value of user image
-	 * @throws \InvalidArgumentException if $newUserImage is not a string or insecure
-	 * @throws \RangeException if $newUserImage is > 128 characters
-	 * @throws \TypeError if $newUserImage is not a string
-	 **/
-	public function setUserImage(string $newUserImage): void {
-		// verify the user image is secure
-		$newUserImage = trim($newUserImage);
-		$newUserImage = filter_var($newUserImage, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUserImage) === true) {
-			throw(new \InvalidArgumentException("user image is empty or insecure"));
-
-		}
-
-		// verify the user image will fit in the database
-		if(strlen($newUserImage) > 128) {
-			throw(new \RangeException("user image link is too large"));
-		}
-
-		// store the user image
-		$this->newUserImage = $newUserImage;
-	}
-
-
-
-	/**
 	 * accessor method for user hash password
 	 *
 	 * @return string value of user hash
@@ -335,12 +299,37 @@ class User implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for profile user salt
+	 * accessor method for the user image
 	 *
-	 * @return string value of user salt
+	 * @return string value of user image
 	 **/
-	public function getUserSalt() : string {
-		return($this->userSalt);
+	public function getUserImage(): string {
+		return ($this->userImage);
+	}
+	/**
+	 * mutator method for User Image
+	 *
+	 * @param string $newUserImage new value of user image
+	 * @throws \InvalidArgumentException if $newUserImage is not a string or insecure
+	 * @throws \RangeException if $newUserImage is > 128 characters
+	 * @throws \TypeError if $newUserImage is not a string
+	 **/
+	public function setUserImage(string $newUserImage): void {
+		// verify the user image is secure
+		$newUserImage = trim($newUserImage);
+		$newUserImage = filter_var($newUserImage, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserImage) === true) {
+			throw(new \InvalidArgumentException("user image is empty or insecure"));
+
+		}
+
+		// verify the user image will fit in the database
+		if(strlen($newUserImage) > 128) {
+			throw(new \RangeException("user image link is too large"));
+		}
+
+		// store the user image
+		$this->newUserImage = $newUserImage;
 	}
 
 	/**
@@ -351,7 +340,6 @@ class User implements \JsonSerializable {
 	public function getUserLastName(): string {
 		return ($this->userLastName);
 	}
-
 
 	/**
 	 * mutator method for user last name
@@ -375,6 +363,15 @@ class User implements \JsonSerializable {
 
 		// store the user last name
 		$this->userLastName = $newUserLastName;
+	}
+
+	/**
+	 * accessor method for profile user salt
+	 *
+	 * @return string value of user salt
+	 **/
+	public function getUserSalt() : string {
+		return($this->userSalt);
 	}
 
 	/**
