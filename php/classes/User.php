@@ -226,6 +226,40 @@ class User implements \JsonSerializable {
 	}
 
 	/**
+	 * accessor method for user first name
+	 *
+	 * @return string value of user first name
+	 **/
+	public function getUserFirstName(): string {
+		return ($this->userFirstName);
+	}
+
+
+	/**
+	 * mutator method for user first name
+	 *
+	 * @param string $newUserFirstName new value of user first name
+	 * @throws \InvalidArgumentException if $newUserFirstName is not a string or insecure
+	 * @throws \RangeException if $newUserFirstName is > 64 characters
+	 * @throws \TypeError if $newUserFirstName is not a string
+	 */
+	public function setUserFirstName(string $newUserFirstName): void {
+		//verify the user first name is secure
+		$newUserFirstName = trim($newUserFirstName);
+		$newUserFirstName = filter_var($newUserFirstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserFirstName) === true) {
+			throw (new \InvalidArgumentException("user first name is empty or insecure"));
+		}
+		// verify the profile username will fit in database
+		if(strlen($newUserFirstName) > 64) {
+			throw(new \RangeException("user first name is too large"));
+		}
+
+		// store the user first name
+		$this->userFirstName = $newUserFirstName;
+	}
+
+	/**
 	 * accessor method for the user image
 	 *
 	 * @return string value of user image
@@ -310,6 +344,40 @@ class User implements \JsonSerializable {
 	}
 
 	/**
+	 * accessor method for user user last name
+	 *
+	 * @return string value of user user last name
+	 **/
+	public function getUserLastName(): string {
+		return ($this->userLastName);
+	}
+
+
+	/**
+	 * mutator method for user last name
+	 *
+	 * @param string $newUserLastName new value of user last name
+	 * @throws \InvalidArgumentException if $newUserLastName is not a string or insecure
+	 * @throws \RangeException if $newUserLastName is > 128 characters
+	 * @throws \TypeError if $newUserLastName is not a string
+	 */
+	public function setUserLastName(string $newUserLastName): void {
+		//verify the profile user last name is secure
+		$newUserLastName = trim($newUserLastName);
+		$newUserLastName = filter_var($newUserLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newUserLastName) === true) {
+			throw (new \InvalidArgumentException("username is empty or insecure"));
+		}
+		// verify the profile user last name will fit in database
+		if(strlen($newUserLastName) > 128) {
+			throw(new \RangeException("user last name is too large"));
+		}
+
+		// store the user last name
+		$this->userLastName = $newUserLastName;
+	}
+
+	/**
 	 * mutator method for user password salt
 	 *
 	 * @return string $newUserSalt
@@ -337,75 +405,6 @@ class User implements \JsonSerializable {
 
 		//store the salt
 		$this->userSalt = $newUserSalt;
-	}
-
-	/**
-	 * accessor method for user first name
-	 *
-	 * @return string value of user first name
-	 **/
-	public function getUserFirstName(): string {
-		return ($this->userFirstName);
-	}
-
-
-	/**
-	 * mutator method for user first name
-	 *
-	 * @param string $newUserFirstName new value of user first name
-	 * @throws \InvalidArgumentException if $newUserFirstName is not a string or insecure
-	 * @throws \RangeException if $newUserFirstName is > 64 characters
-	 * @throws \TypeError if $newUserFirstName is not a string
- 	 */
-	public function setUserFirstName(string $newUserFirstName): void {
-		//verify the user first name is secure
-		$newUserFirstName = trim($newUserFirstName);
-		$newUserFirstName = filter_var($newUserFirstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUserFirstName) === true) {
-			throw (new \InvalidArgumentException("user first name is empty or insecure"));
-		}
-		// verify the profile username will fit in database
-		if(strlen($newUserFirstName) > 64) {
-			throw(new \RangeException("user first name is too large"));
-		}
-
-		// store the user first name
-		$this->userFirstName = $newUserFirstName;
-	}
-
-
-	/**
-	 * accessor method for user user last name
-	 *
-	 * @return string value of user user last name
-	 **/
-	public function getUserLastName(): string {
-		 return ($this->userLastName);
-	}
-
-
-	/**
-	 * mutator method for user last name
-	 *
-	 * @param string $newUserLastName new value of user last name
-	 * @throws \InvalidArgumentException if $newUserLastName is not a string or insecure
-	 * @throws \RangeException if $newUserLastName is > 128 characters
-	 * @throws \TypeError if $newUserLastName is not a string
-	 */
-	public function setUserLastName(string $newUserLastName): void {
-		//verify the profile user last name is secure
-		$newUserLastName = trim($newUserLastName);
-		$newUserLastName = filter_var($newUserLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUserLastName) === true) {
-			throw (new \InvalidArgumentException("username is empty or insecure"));
-		}
-		// verify the profile username will fit in database
-		if(strlen($newUserLastName) > 128) {
-			throw(new \RangeException("user last name is too large"));
-		}
-
-		// store the username
-		$this->userLastName = $newUserLastName;
 	}
 
 	/**
