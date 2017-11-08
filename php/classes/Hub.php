@@ -272,7 +272,7 @@ class Hub implements \JsonSerializable {
 
 		$hubs = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while($row = $statement->fetch()) {
+		while(($row = $statement->fetch()) !== false) {
 			try {
 				$hub = new Hub($row["hubId"], $row["hubUserId"], $row["hubLocation"], $row["hubName"]);
 				$hub[$hubs->key()] = $hub;
@@ -337,7 +337,7 @@ class Hub implements \JsonSerializable {
 
 		$hubs = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while($row = $statement->fetch()) {
+		while(($row = $statement->fetch()) !== false) {
 			try {
 				$hub = new Hub($row["hubId"], $row["hubUserId"], $row["hubLocation"], $row["hubName"]);
 				$hub[$hubs->key()] = $hub;
