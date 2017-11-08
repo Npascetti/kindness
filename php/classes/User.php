@@ -539,5 +539,25 @@ class User implements \JsonSerializable {
 		return ($users);
 	}
 
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() {
+		$fields = get_object_vars($this);
+
+		$fields["userId"] = $this->userId->toString();
+		$fields["userActivationToken"] = $this->userActivationToken->toString();
+		$fields["userBio"] = $this->userBio->toString();
+		$fields["userEmail"] = $this->userEmail->toString();
+		$fields["userFirstName"] = $this->userFirstName->toString();
+		$fields["userHash"] = $this->userHash->toString();
+		$fields["userImage"] = $this->userImage->toString();
+		$fields["userLastName"] = $this->userLastName->toString();
+		$fields["userSalt"] = $this->userSalt->toString();
+		$fields["userUserName"] = $this->userUserName->toString();
+	}
+
 }
 ?>
