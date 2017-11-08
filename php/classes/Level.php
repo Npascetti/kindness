@@ -60,10 +60,11 @@ class Level implements \JsonSerializable {
 			$this->setLevelName($newLevelName);
 			$this->setLevelNumber($newLevelNumber);
 		} catch(\InvalidArgumentException | Exception | \RangeException | \TypeError $exception) {
-		$exceptionType = get_class($exception);
-		throw(new $exceptionType($exception->getMessage(), 0, $exception));
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
+
 	/**
 	 * accessor method for LevelId
 	 *
@@ -133,5 +134,23 @@ class Level implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 		$this->levelId = $uuid;
+	}
+
+
+	/**
+	 * Inserts this level into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when $pdo is not a PDO connection object
+	 */
+	public function insert(\PDO $pdo): void {
+		$query = "INSERT INTO level(levelId, levelName, levelNumber) 
+			VALUES (:levelId, :levelName, :levelNumber)";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["levelId" => $this->levelId->getBytes(), "levelName" => $this->levelName->getBytes(),
+			"levelNumber" => $this->levelNumber, "levelName" => $this->levelName];
+		$statement->execute($parameters);
 	}
 }
