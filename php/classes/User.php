@@ -405,5 +405,38 @@ class User implements \JsonSerializable {
 		}
 		$this->userEmail = $newUserEmail;
 	}
+    /**
+     * accessor method for user userBio
+     *
+     * @return string value of userBio
+     **/
+    public function getUserBio(): string {
+        return ($this->userBio);
+    }
+
+
+    /**
+     * mutator method for userBio
+     *
+     * @param string $newUserBio new value of userBio
+     * @throws \InvalidArgumentException if $newUserBio is not a string or insecure
+     * @throws \RangeException if $newUserBio is > 30000 characters
+     * @throws \TypeError if $newUserBio is not a string
+     */
+    public function setUserBio(string $newUserBio): void {
+        //verify the profile Bio is secure
+        $newUserBio = trim($newUserBio);
+        $newUserBio = filter_var($newUserBio, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        if(empty($newUserBio) === true) {
+            throw (new \InvalidArgumentException("user bio is empty or insecure"));
+        }
+        // verify the profile user bio will fit in database
+        if(strlen($newUserBio) > 3000) {
+            throw(new \RangeException("user bio is too large"));
+        }
+
+        // store the user bio
+        $this->userBio= $newUserBio;
+    }
 }
 ?>
