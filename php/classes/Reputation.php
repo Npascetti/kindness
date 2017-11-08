@@ -39,7 +39,7 @@ class Reputation implements \JsonSerializable {
 	/**
 	 * reputation point
 	 * @var int $reputationPoint
-	 */
+	 **/
 	private $reputationPoint;
 
 	/**
@@ -310,14 +310,14 @@ class Reputation implements \JsonSerializable {
 	}
 
 	/**
-	 * Gets hubs by reputationHubId
+	 * Gets reputation by reputationHubId
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param Uuid $reputationHubId
 	 * @return \SplFixedArray SplFixedArray of hubs found or null if none found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
-	 */
+	 **/
 	public function getreputationByreputationHubId(\PDO $pdo, $reputationHubId): \SplFixedArray {
 		try {
 			$reputationHubId = self::validateUuid($reputationHubId);
@@ -393,7 +393,7 @@ class Reputation implements \JsonSerializable {
 	 * @return \SplFixedArray SplFixedArray of hubs found or null if none found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
-	 */
+	 **/
 	public function getreputationByreputationUserId(\PDO $pdo, $reputationUserId): \SplFixedArray {
 		try {
 			$reputationUserId = self::validateUuid($reputationUserId);
@@ -436,3 +436,4 @@ class Reputation implements \JsonSerializable {
 		$fields["reputationPoint"] = $this->reputationPoint->toString();
 	}
 }
+?>
