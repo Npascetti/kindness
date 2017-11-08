@@ -239,7 +239,7 @@ class Hub implements \JsonSerializable {
 			$hub = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
-			if($row) {
+			if($row !== false) {
 				$hub = new Hub($row["hubId"], $row["hubUserId"], $row["hubLocation"], $row["hubName"]);
 			}
 		} catch(\Exception $exception) {
@@ -313,7 +313,7 @@ class Hub implements \JsonSerializable {
 			$hub = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
-			if($row) {
+			if($row !== false) {
 				$hub = new Hub($row["hubId"], $row["hubUserId"], $row["hubLocation"], $row["hubName"]);
 			}
 		} catch(\Exception $exception) {
