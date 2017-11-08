@@ -558,6 +558,5 @@ class User implements \JsonSerializable {
 		$fields["userSalt"] = $this->userSalt->toString();
 		$fields["userUserName"] = $this->userUserName->toString();
 	}
-
 }
 ?>
