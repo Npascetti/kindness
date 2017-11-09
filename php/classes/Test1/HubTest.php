@@ -73,4 +73,20 @@ class HubTest extends KindHubTest {
 			$this->VALID_USER_SALT, "SomeDude");
 		$this->user->insert($this->getPDO());
 	}
+
+	/**
+	 * tests inserting a valid hub to mySQL and verifying the data in mySQL matches
+	 **/
+	public function testInsertValidHub() : void {
+		$numRows = $this->getConnection()->getRowCount("hub");
+		$hubId = generateUuidV4();
+		$hub = new Hub($hubId, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
+		$pdoHub =  Hub::getHubByHubId($this->getPDO(), $hub->getHubId());
+		
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
+		$this->assertEquals($pdoHub->getHubId(), $hubId);
+		$this->assertEquals($pdoHub->getHubUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoHub->getHubLocation(), $this->VALID_HUBLOCATION);
+		$this->assertEquals($pdoHub->getHubName(), $this->VALID_HUBNAME);
+	}
 }
