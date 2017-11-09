@@ -9,4 +9,11 @@
  * @see Tweet
  * @author Jermain Jennings
  **/
+class LevelTest extends KindnessTest {
+	/**
+	 *  this is for foreign key relations
+	 * @var level $level
+	 **/
+	protected $level = null;
+
 
