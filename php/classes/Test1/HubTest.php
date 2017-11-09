@@ -1,10 +1,13 @@
 <?php
 namespace Edu\Cnm\KindHub;
 
-use Edu\Cnm\KindHub\{Hub, User};
+use Edu\Cnm\KindHub\{
+	Hub, Test\KindHubTest, User
+};
 use Ramsey\Uuid\Uuid;
 
-require_once("autoload.php");
+require_once(dirname(__DIR__)."autoload.php");
+require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 require_once(dirname(__DIR__, 2) . "vendor/autoload.php");
 
 /**
@@ -17,6 +20,7 @@ require_once(dirname(__DIR__, 2) . "vendor/autoload.php");
  * @author Calder Benjamin <calderbenjamin@gmail.com>
  **/
 class HubTest extends KindHubTest {
+
 	/**
 	 * User that created the hub; for foreign key relations
 	 * @var User user
@@ -75,14 +79,37 @@ class HubTest extends KindHubTest {
 	}
 
 	/**
-	 * tests inserting a valid hub to mySQL and verifying the data in mySQL matches
+	 * Tests inserting a valid hub to mySQL and verifying the data in mySQL matches
 	 **/
 	public function testInsertValidHub() : void {
 		$numRows = $this->getConnection()->getRowCount("hub");
 		$hubId = generateUuidV4();
 		$hub = new Hub($hubId, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
+		$hub->insert($this->getPDO());
+
 		$pdoHub =  Hub::getHubByHubId($this->getPDO(), $hub->getHubId());
-		
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
+		$this->assertEquals($pdoHub->getHubId(), $hubId);
+		$this->assertEquals($pdoHub->getHubUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoHub->getHubLocation(), $this->VALID_HUBLOCATION);
+		$this->assertEquals($pdoHub->getHubName(), $this->VALID_HUBNAME);
+	}
+
+	/**
+	 * Tests inserting a hub, editing it, and then updating it
+	 **/
+	public function testUpdateValidHub() : void {
+		$numRows = $this->getConnection()->getRowCount("hub");
+
+		$hubId = generateUuidV4();
+		$hub = new Hub($hubId, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
+		$hub->insert($this->getPDO());
+
+		$hub->setHubLocation($this->VALID_HUBLOCATION2);
+		$hub->setHubName($this->VALID_HUBNAME2);
+		$hub->update($this->getPDO());
+
+		$pdoHub =  Hub::getHubByHubId($this->getPDO(), $hub->getHubId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
 		$this->assertEquals($pdoHub->getHubId(), $hubId);
 		$this->assertEquals($pdoHub->getHubUserId(), $this->user->getUserId());
