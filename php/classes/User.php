@@ -445,7 +445,7 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError when $pdo is not a PDO connection object
 	 */
 	public function insert(\PDO $pdo) : void {
-		$query = "INSERT INTO `user`(userId,userActiviationToken, userBio, userEmail, userFirstName, userHash, userImage, userLastName, userSalt, userUserName) 
+		$query = "INSERT INTO `user`(userId, userActiviationToken, userBio, userEmail, userFirstName, userHash, userImage, userLastName, userSalt, userUserName) 
 			VALUES(:userId, :userActivationToken, :userBio, :userEmail, :userFirstName, :userHash, :userImage, :userLastName, :userSalt, :userUserName)";
 		$statement = $pdo->prepare($query);
 		$parameters = ["userId" => $this->userId->getBytes(), "userActivationToken" => $this->userActivationToken, "userBio" => $this-> userBio, "userEmail" => $this->userEmail,
@@ -473,10 +473,10 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function update(\PDO $pdo) : void {
-		$query = "UPDATE `user` SET userActivationToken = :userActivationToken, userBio = :userBio, userEmail = :userEmail, userFirstName = userFristName, userHash = :userHash, userImage = :userImage, userLasteName = userLastName, userSalt = :userSalt,
+		$query = "UPDATE `user` SET userActivationToken = :userActivationToken, userBio = :userBio, userEmail = :userEmail, userFirstName = userFirstName, userHash = :userHash, userImage = :userImage, userLastName = userLastName, userSalt = :userSalt,
 			userName = :userUserName WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
-		$parameters = ["userId" => $this->userId->getBytes(),"userActivationToken" => $this->userActivationToken, "userBio" => $this-> userBio,"userEmail" => $this->userEmail, "userFirstName" => $this->getUserFirstName,
+		$parameters = ["userId" => $this->userId->getBytes(),"userActivationToken" => $this->userActivationToken, "userBio" => $this-> userBio,"userEmail" => $this->userEmail, "userFirstName" => $this->userFirstName,
 			"userHash" => $this->userHash, "userImage" => $this->userImage, "userLastName" => $this->userImage, "userSalt" => $this->userSalt, "userUserName" => $this->userUserName];
 		$statement->execute($parameters);
 	}
