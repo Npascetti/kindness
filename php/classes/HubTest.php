@@ -58,4 +58,19 @@ class HubTest extends KindHubTest {
 	 * @var string $VALID_HUBNAME2
 	 **/
 	protected $VALID_HUBNAME2 = "Help more";
+
+	/**
+	 * Create dependent objects before running each test
+	 */
+	public final function setUp() : void {
+		parent::setup();
+		$password = "mockpassword";
+		$this->VALID_USER_SALT = bin2hex(random_bytes(32));
+		$this->VALID_USER_HASH = hash_pbkdf2("sha512", $password, $this->VALID_USER_SALT, 262144);
+
+		$this->user = new User(generateUuidV4(), "CytkEMSYDTm3YrNnnQ1UOH2tIaEvD0kX", "I am a human",
+			"somedude@gmail.com","Some", $this->VALID_USER_HASH, "image.png", "Dude",
+			$this->VALID_USER_SALT, "SomeDude");
+		$this->user->insert($this->getPDO());
+	}
 }
