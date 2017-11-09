@@ -3,8 +3,6 @@ DROP TABLE IF EXISTS hub;
 DROP TABLE IF EXISTS `level`;
 DROP TABLE IF EXISTS `user`;
 
-
-
 CREATE TABLE `user` (
 	userId BINARY(16) NOT NULL,
 	userActiviationToken CHAR(32) NOT NULL,
