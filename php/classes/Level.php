@@ -234,4 +234,3 @@ class Level implements \JsonSerializable {
 		$fields["levelNumber"] = $this->levelNumber;
 	}
 
-}
