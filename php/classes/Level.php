@@ -218,7 +218,7 @@ class Level implements \JsonSerializable {
 		} catch(\Exception $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($hub);
+		return ($hub);
 	}
 
 	/**
@@ -234,3 +234,4 @@ class Level implements \JsonSerializable {
 		$fields["levelNumber"] = $this->levelNumber;
 	}
 
+}
