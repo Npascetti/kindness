@@ -445,7 +445,7 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError when $pdo is not a PDO connection object
 	 */
 	public function insert(\PDO $pdo) : void {
-		$query = "INSERT INTO `user`(userId, userActiviationToken, userBio, userEmail, userFirstName, userHash, userImage, userLastName, userSalt, userUserName) 
+		$query = "INSERT INTO `user`(userId, userActivationToken, userBio, userEmail, userFirstName, userHash, userImage, userLastName, userSalt, userUserName) 
 			VALUES(:userId, :userActivationToken, :userBio, :userEmail, :userFirstName, :userHash, :userImage, :userLastName, :userSalt, :userUserName)";
 		$statement = $pdo->prepare($query);
 		$parameters = ["userId" => $this->userId->getBytes(), "userActivationToken" => $this->userActivationToken, "userBio" => $this-> userBio, "userEmail" => $this->userEmail,
