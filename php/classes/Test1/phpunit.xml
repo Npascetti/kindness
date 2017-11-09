@@ -1,0 +1,15 @@
+<phpunit>
+	<testsuites>
+		<testsuite name="KindHub">
+			<file>UserTest.php</file>
+			<file>ProfileTest.php</file>
+			<file>TweetTest.php</file>
+			<file>LikeTest.php</file>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">..</directory>
+		</whitelist>
+	</filter>
+</phpunit>

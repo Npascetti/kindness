@@ -8,9 +8,9 @@ require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "vendor/autoload.php");
 
 /**
- * Full PHPUnit test for the Hub Class
+ * Full PHPUnit Test1 for the Hub Class
  *
- * This is a unit test of the Hub Class. It test all PDO/mySQL methods for both valid and invalid
+ * This is a unit Test1 of the Hub Class. It Test1 all PDO/mySQL methods for both valid and invalid
  * inputs
  *
  * @see Hub
@@ -60,7 +60,7 @@ class HubTest extends KindHubTest {
 	protected $VALID_HUBNAME2 = "Help more";
 
 	/**
-	 * Create dependent objects before running each test
+	 * Create dependent objects before running each Test1
 	 */
 	public final function setUp() : void {
 		parent::setup();
