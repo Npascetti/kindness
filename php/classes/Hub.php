@@ -222,7 +222,7 @@ class Hub implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public function getHubByHubId(\PDO $pdo, $hubId): ?hub {
+	public static function getHubByHubId(\PDO $pdo, $hubId): ?hub {
 		try {
 			$hubId = self::validateUuid($hubId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -232,7 +232,7 @@ class Hub implements \JsonSerializable {
 		$query = "SELECT hubId, hubUserId, hubLocation, hubName FROM hub WHERE hubId = :hubId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["hubId" => $this->hubId->getBytes()];
+		$parameters = ["hubId" => $hubId->getBytes()];
 		$statement->execute($parameters);
 
 		try {
@@ -257,7 +257,7 @@ class Hub implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public function getHubsByHubUserId(\PDO $pdo, $hubUserId): \SplFixedArray {
+	public static function getHubsByHubUserId(\PDO $pdo, $hubUserId): \SplFixedArray {
 		try {
 			$hubUserId = self::validateUuid($hubUserId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -267,7 +267,7 @@ class Hub implements \JsonSerializable {
 		$query = "SELECT hubId, hubUserId, hubLocation, hubName FROM hub WHERE hubUserId = :hubUserId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["hubUserId" => $this->hubUserId->getBytes()];
+		$parameters = ["hubUserId" => $hubUserId->getBytes()];
 		$statement->execute($parameters);
 
 		$hubs = new \SplFixedArray($statement->rowCount());
@@ -293,7 +293,7 @@ class Hub implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public function getHubByHubName(\PDO $pdo, string $hubName): ?hub {
+		public static function getHubByHubName(\PDO $pdo, string $hubName): ?hub {
 		$hubName = trim($hubName);
 		$hubName = filter_var($hubName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($hubName)) {
@@ -330,7 +330,7 @@ class Hub implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public function getAllHubs(\PDO $pdo): \SplFixedArray {
+	public static function getAllHubs(\PDO $pdo): \SplFixedArray {
 		$query = "SELECT hubId, hubUserId, hubLocation, hubName FROM hub";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
