@@ -24,12 +24,38 @@ class HubTest extends KindHubTest {
 	protected $user = null;
 
 	/**
-	 * Valid HubId
-	 * @var Uuid $VALID_HUB_ID
+	 * Valid user hash to create the owner of the hub
+	 * @var $VALID_HASH
 	 */
-	protected $VALID_HUB_ID;
+	protected $VALID_USER_HASH;
 
 	/**
-	 *
+	 * Valid user salt to create the owner of the hub
+	 * @var $VALID_SALT
+	 **/
+	protected $VALID_USER_SALT;
+
+	/**
+	 * Location of the hub
+	 * @var string $VALID_HUBLOCATION
+	 **/
+	protected $VALID_HUBLOCATION = "2222 Imagine st. 88888";
+
+	/**
+	 * Updated location of the hub
+	 * @var string $VALID_HUBLOCATION2
+	 **/
+	protected $VALID_HUBLOCATION2 = "3333 Fake pl. 88888";
+
+	/**
+	 * Name of the hub
+	 * @var string $VALID_HUBNAME
 	 */
+	protected $VALID_HUBNAME = "Gib help";
+
+	/**
+	 * Updated name of the hub
+	 * @var string $VALID_HUBNAME2
+	 **/
+	protected $VALID_HUBNAME2 = "Help more";
 }
