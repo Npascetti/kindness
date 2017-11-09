@@ -29,7 +29,7 @@ class Level implements \JsonSerializable {
 
 	/**
 	 * current level of user or hub
-	 *
+
 	 * @var string $levelNumber
 	 */
 	private $levelNumber;
