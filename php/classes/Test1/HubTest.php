@@ -66,14 +66,14 @@ class HubTest extends KindHubTest {
 	/**
 	 * Create dependent objects before running each Test1
 	 */
-	public final function setUp() : void {
+	public final function setUp(): void {
 		parent::setup();
 		$password = "mockpassword";
 		$this->VALID_USER_SALT = bin2hex(random_bytes(32));
 		$this->VALID_USER_HASH = hash_pbkdf2("sha512", $password, $this->VALID_USER_SALT, 262144);
 
 		$this->user = new User(generateUuidV4(), "CytkEMSYDTm3YrNnnQ1UOH2tIaEvD0kX", "I am a human",
-			"somedude@gmail.com","Some", $this->VALID_USER_HASH, "image.png", "Dude",
+			"somedude@gmail.com", "Some", $this->VALID_USER_HASH, "image.png", "Dude",
 			$this->VALID_USER_SALT, "SomeDude");
 		$this->user->insert($this->getPDO());
 	}
@@ -81,13 +81,14 @@ class HubTest extends KindHubTest {
 	/**
 	 * Tests inserting a valid hub to mySQL and verifying the data in mySQL matches
 	 **/
-	public function testInsertValidHub() : void {
+	public function testInsertValidHub(): void {
 		$numRows = $this->getConnection()->getRowCount("hub");
+
 		$hubId = generateUuidV4();
 		$hub = new Hub($hubId, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
 		$hub->insert($this->getPDO());
 
-		$pdoHub =  Hub::getHubByHubId($this->getPDO(), $hub->getHubId());
+		$pdoHub = Hub::getHubByHubId($this->getPDO(), $hub->getHubId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
 		$this->assertEquals($pdoHub->getHubId(), $hubId);
 		$this->assertEquals($pdoHub->getHubUserId(), $this->user->getUserId());
@@ -98,7 +99,7 @@ class HubTest extends KindHubTest {
 	/**
 	 * Tests inserting a hub, editing it, and then updating it
 	 **/
-	public function testUpdateValidHub() : void {
+	public function testUpdateValidHub(): void {
 		$numRows = $this->getConnection()->getRowCount("hub");
 
 		$hubId = generateUuidV4();
@@ -109,7 +110,7 @@ class HubTest extends KindHubTest {
 		$hub->setHubName($this->VALID_HUBNAME2);
 		$hub->update($this->getPDO());
 
-		$pdoHub =  Hub::getHubByHubId($this->getPDO(), $hub->getHubId());
+		$pdoHub = Hub::getHubByHubId($this->getPDO(), $hub->getHubId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
 		$this->assertEquals($pdoHub->getHubId(), $hubId);
 		$this->assertEquals($pdoHub->getHubUserId(), $this->user->getUserId());
@@ -120,7 +121,7 @@ class HubTest extends KindHubTest {
 	/**
 	 * Tests inserting a hub, and then deleting it
 	 **/
-	public function testDeleteValidHub() : void {
+	public function testDeleteValidHub(): void {
 		$numRows = $this->getConnection()->getRowCount("hub");
 
 		$hubId = generateUuidV4();
@@ -132,4 +133,49 @@ class HubTest extends KindHubTest {
 
 		$pdoHub = Hub::getHubByHubId($this->getPDO(), $hub->getHubId());
 	}
+
+	/**
+	 * Tests attempting to get an invalid hub
+	 **/
+	public function testGetInvalidHubByHubId(): void {
+		$hub = Hub::getHubByHubId($this->getPDO(), generateUuidV4());
+		$this->assertNull($hub);
+	}
+
+	/**
+	 * Tests getting two valid hubs by hubUserId
+	 **/
+	public function testGetValidHubByHubUserId(): void {
+		$numRows = $this->getConnection()->getRowCount("hub");
+
+		// Creates two different hubs from the same user to search for
+		$hubId1 = generateUuidV4();
+		$hub1 = new Hub($hubId1, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
+		$hub1->insert($this->getPDO());
+
+		$hubId2 = generateUuidV4();
+		$hub2 = new Hub($hubId2, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
+		$hub2->insert($this->getPDO());
+
+		$this->assertEquals($hub1->getHubUserId(), $hub2->getHubUserId());
+
+		$results = Hub::getHubsByHubUserId($this->getPDO(), $hub1->getHubUserId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
+		$this->assertCount(2, $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Kindhub\\Hub", $results);
+
+		$pdoHub1 = $results[0];
+		$pdoHub2 = $results[1];
+
+		$this->assertEquals($pdoHub1->getHubId(), $hubId1);
+		$this->assertEquals($pdoHub1->getHubUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoHub1->getHubLocation(), $this->VALID_HUBLOCATION);
+		$this->assertEquals($pdoHub1->getHubName(), $this->VALID_HUBNAME);
+
+		$this->assertEquals($pdoHub2->getHubId(), $hubId2);
+		$this->assertEquals($pdoHub2->getHubUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoHub2->getHubLocation(), $this->VALID_HUBLOCATION2);
+		$this->assertEquals($pdoHub2->getHubName(), $this->VALID_HUBNAME2);
+	}
+
 }
