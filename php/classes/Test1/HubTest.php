@@ -145,7 +145,7 @@ class HubTest extends KindHubTest {
 	/**
 	 * Tests getting two valid hubs by hubUserId
 	 **/
-	public function testGetValidHubByHubUserId(): void {
+	public function testGetValidHubsByHubUserId(): void {
 		$numRows = $this->getConnection()->getRowCount("hub");
 
 		// Creates two different hubs from the same user to search for
@@ -211,9 +211,43 @@ class HubTest extends KindHubTest {
 
 	/**
 	 * Tests getting an invalid hub by HubName
-	 */
+	 **/
 	public function testGetInvalidHubByHubName(): void {
 		$hub = Hub::getHubsByHubName($this->getPDO(), "aosihpaihp");
 		$this->assertCount(0, $hub);
+	}
+
+	/**
+	 * Test getting all hubs
+	 **/
+	public function testGetAllHubs(): void {
+		$numRows = $this->getConnection()->getRowCount("hub");
+
+		// Creates two different hubs to get
+		$hubId1 = generateUuidV4();
+		$hub1 = new Hub($hubId1, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
+		$hub1->insert($this->getPDO());
+
+		$hubId2 = generateUuidV4();
+		$hub2 = new Hub($hubId2, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
+		$hub2->insert($this->getPDO());
+
+		$results = Hub::getAllHubs($this->getPDO());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
+		$this->assertCount(2, $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Kindhub\\Hub", $results);
+
+		$pdoHub1 = $results[0];
+		$pdoHub2 = $results[1];
+
+		$this->assertEquals($pdoHub1->getHubId(), $hubId1);
+		$this->assertEquals($pdoHub1->getHubUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoHub1->getHubLocation(), $this->VALID_HUBLOCATION);
+		$this->assertEquals($pdoHub1->getHubName(), $this->VALID_HUBNAME);
+
+		$this->assertEquals($pdoHub2->getHubId(), $hubId2);
+		$this->assertEquals($pdoHub2->getHubUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoHub2->getHubLocation(), $this->VALID_HUBLOCATION2);
+		$this->assertEquals($pdoHub2->getHubName(), $this->VALID_HUBNAME2);
 	}
 }
