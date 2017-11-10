@@ -32,13 +32,7 @@ require_once(dirname(__DIR__, 3) . "/vendor/autoload.php");
 abstract class KindHubTest extends TestCase {
 
 	use TestCaseTrait;
-
-	/**
-	 * invalid id to use for an INT UNSIGNED field (maximum allowed INT UNSIGNED in mySQL) + 1
-	 * @see https://dev.mysql.com/doc/refman/5.6/en/integer-types.html mySQL Integer Types
-	 * @var int INVALID_KEY
-	 **/
-	const INVALID_KEY = 4294967296;
+	
 
 	/**
 	 * PHPUnit database connection interface
