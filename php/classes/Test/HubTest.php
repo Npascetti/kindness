@@ -8,7 +8,7 @@ use Ramsey\Uuid\Uuid;
 
 require_once(dirname(__DIR__)."autoload.php");
 require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
-require_once(dirname(__DIR__, 2) . "vendor/autoload.php");
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
 /**
  * Full PHPUnit Test for the Hub Class
