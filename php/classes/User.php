@@ -116,7 +116,7 @@ class User implements \JsonSerializable {
 	/**
 	 * mutator method for user id
 	 *
-	 * @param Uuid /string $newUserId new value of user id
+	 * @param Uuid|string $newUserId new value of user id
 	 * @throws \RangeException if $newUserId is not positive
 	 * @throws \TypeError if $newUserId is not a uuid or string
 	 **/
@@ -218,7 +218,7 @@ class User implements \JsonSerializable {
 	 */
 	public function setUserEmail(string $newUserEmail): void {
 		$newUserEmail = trim($newUserEmail);
-		$newUserEmail = filter_var($newUserEmail, FILTER_VALIDATE_EMAIL);
+		$newUserEmail = filter_var($newUserEmail, FILTER_SANITIZE_EMAIL);
 		if(empty($newUserEmail) === true) {
 			throw(new \InvalidArgumentException("Email is not valid or is insecure"));
 		}
@@ -474,7 +474,7 @@ class User implements \JsonSerializable {
 	 **/
 	public function update(\PDO $pdo) : void {
 		$query = "UPDATE `user` SET userActivationToken = :userActivationToken, userBio = :userBio, userEmail = :userEmail, userFirstName = userFirstName, userHash = :userHash, userImage = :userImage, userLastName = userLastName, userSalt = :userSalt,
-			userName = :userUserName WHERE userId = :userId";
+			userUserName = :userUserName WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
 		$parameters = ["userId" => $this->userId->getBytes(),"userActivationToken" => $this->userActivationToken, "userBio" => $this-> userBio,"userEmail" => $this->userEmail, "userFirstName" => $this->userFirstName,
 			"userHash" => $this->userHash, "userImage" => $this->userImage, "userLastName" => $this->userImage, "userSalt" => $this->userSalt, "userUserName" => $this->userUserName];
@@ -504,8 +504,7 @@ class User implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$user = new User($row["userId"], $row["userActivationToken"], $row["userBio"], $row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userImage"],$row["userLastName"], $row["userSalt"], $row["userUserName"],
-					$row["userName"]);
+				$user = new User($row["userId"], $row["userActivationToken"], $row["userBio"], $row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userImage"],$row["userLastName"], $row["userSalt"], $row["userUserName"]);
 			}
 		} catch(\Exception $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -528,8 +527,7 @@ class User implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$user = new User($row["userId"], $row["userActivationToken"], $row["userBio"], $row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userImage"],$row["userLastName"], $row["userSalt"], $row["userUserName"],
-                    $row["userName"]);
+				$user = new User($row["userId"], $row["userActivationToken"], $row["userBio"], $row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userImage"],$row["userLastName"], $row["userSalt"], $row["userUserName"]);
 				$user[$users->key()] = $user;
 				$users->next();
 			} catch(\Exception $exception) {
@@ -548,15 +546,10 @@ class User implements \JsonSerializable {
 		$fields = get_object_vars($this);
 
 		$fields["userId"] = $this->userId->toString();
-		$fields["userActivationToken"] = $this->userActivationToken;
-		$fields["userBio"] = $this->userBio;
-		$fields["userEmail"] = $this->userEmail;
-		$fields["userFirstName"] = $this->userFirstName;
-		$fields["userHash"] = $this->userHash;
-		$fields["userImage"] = $this->userImage;
-		$fields["userLastName"] = $this->userLastName;
-		$fields["userSalt"] = $this->userSalt;
-		$fields["userUserName"] = $this->userUserName;
+		unset($fields["userHash"]);
+		unset($fields["userSalt"]);
+		return $fields;
 	}
+
 }
 ?>
