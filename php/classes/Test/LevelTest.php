@@ -14,7 +14,7 @@ class LevelTest extends KindHubTest {
 
 	/**
 	 *  this is for foreign key relations
-	 * @var level $level
+	 * @var Level $level
 	 **/
 	protected $level = null;
 
