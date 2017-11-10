@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Full PHPUnit test for the Tweet class
+ * Full PHPUnit test for the Level class
  *
  * This is a complete PHPUnit test of the Level class. It is complete because *ALL* mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.

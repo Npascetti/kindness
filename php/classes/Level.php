@@ -8,9 +8,6 @@
  * This is the Level entity
  */
 
-namespace Edu\Cnm\KindHub;
-
-
 class Level implements \JsonSerializable {
 	use \Edu\Cnm\KindHub\ValidateUuid;
 
