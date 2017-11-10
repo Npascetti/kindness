@@ -4,6 +4,8 @@ namespace Edu\Cnm\KindHub\Test1
 use Edu\Cnm\KindHub\{
 	Test\KindHubTest, User
 };
+use function Sodium\randombytes_buf;
+use function Sodium\randombytes_random16;
 
 // grab the class under scrutiny
 require_once(dirname(__DIR__)) . "/autoload.php";
@@ -80,6 +82,27 @@ class UserTest extends KindHubTest {
 	 * @var string $VALID_SALT
 	 **/
 	protected $VALID_SALT;
+
+
+
+
+	/**
+	 * run the default setup operation to create salt and hash.
+	 **/
+	public final function setUp() : void {
+		parent::setUp();
+
+		//
+		$password = "mysecurepass";
+		$this->VALID_SALT = bin2hex(random_bytes(32));
+		$this->VALID_HASH = hash_pbkdf2("sha512", $password, $this->VALID_SALT, 262144);
+		$this->VALID_ACTIVATIONTOKEN = bin2hex(randombytes_random16());
+	}
+
+	/**
+	 * test inserting a valid User and verify that the actual mySQL data matches
+	 **/
+
 }
 
 
