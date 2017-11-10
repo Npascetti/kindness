@@ -52,7 +52,7 @@ class LevelTest extends KindHubTest {
 
 	/**
 	 * Id of the LEVELID
-	 * @var string $VINALID_LEVELID
+	 * @var string $INVALID_LEVELID
 	 */
 	protected $INVALID_LEVELID = "";
 
