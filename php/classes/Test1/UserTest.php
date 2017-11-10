@@ -102,6 +102,9 @@ class UserTest extends KindHubTest {
 	/**
 	 * test inserting a valid User and verify that the actual mySQL data matches
 	 **/
+	public function testInsertValidUser() : void {
+		// count the number of rows and save it for later
+	}
 
 }
 
