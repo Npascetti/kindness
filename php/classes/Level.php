@@ -21,7 +21,7 @@ class Level implements \JsonSerializable {
 	/**
 	 * ID of the user who created the hub; foreign key
 	 *
-	 * @var Uuid $levelName
+	 * @var string $levelName
 	 */
 	private $levelName;
 

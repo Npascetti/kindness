@@ -10,6 +10,8 @@
  * @author Jermain Jennings
  **/
 
+namespace Edu\Cnm\KindHub\Test;
+use Edu\Cnm\KindHub\Level;
 class LevelTest extends KindHubTest {
 
 	/**
@@ -62,7 +64,7 @@ class LevelTest extends KindHubTest {
 		$numRows = $this->getConnection()->getRowCount("level");
 
 		$levelId = generateUuidV4();
-		$level = new Level($levelId, $this->user->getUserId(), $this->VALID_LEVELNAME, $this->VALID_NUMBER);
+		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
 		$level->insert($this->getPDO());
 
 		$pdoLevel = Level::getlevelByUserId($this->getPDO(), $level->getlevelId());
