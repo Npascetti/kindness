@@ -70,23 +70,22 @@ class UserTest extends KindHubTest {
 	 * @var string $VALID_LASTNAME
 	 **/
 	protected $VALID_LASTNAME = "Spaghetti";
-
-	/**
-	 * valid user user name to use
-	 * @var string $VALID_USERNAME
-	 **/
-	protected $VALID_USERNAME = "PascettiSpaghetti";
-
 	/**
 	 * valid salt to use to create the user pobject to own the test
 	 * @var string $VALID_SALT
 	 **/
 	protected $VALID_SALT;
+    /**
+     * valid user user name to use
+     * @var string $VALID_USERNAME
+     **/
+    protected $VALID_USERNAME = "PascettiSpaghetti";
 
 
 
 
-	/**
+
+    /**
 	 * run the default setup operation to create salt and hash.
 	 **/
 	public final function setUp() : void {
@@ -106,7 +105,7 @@ class UserTest extends KindHubTest {
 		// count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("user");
         // create a new User and insert to into mySQL
-        $profile = new User(null, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL,  $this->VALID_FIRSTNAME,  $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME, $this->VALID_USERNAME,  $this->VALID_SALT);
+        $user = new User(null, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL,  $this->VALID_FIRSTNAME,  $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME,$this->VALID_SALT, $this->VALID_USERNAME);
         //var_dump($user);
         $user->insert($this->getPDO());
         // grab the data from mySQL and enforce the fields match our expectations
@@ -119,8 +118,18 @@ class UserTest extends KindHubTest {
         $this->assertEquals($pdoUser->getUserHash(), $this->VALID_HASH);
         $this->assertEquals($pdoUser->getUserImage(), $this->VALID_IMAGE);
         $this->assertEquals($pdoUser->getUserLastName(), $this->VALID_LASTNAME);
-        $this->assertEquals($pdoUser->getUserUserName(), $this->VALID_USERNAME);
         $this->assertEquals($pdoUser->getUSerSalt(), $this->VALID_SALT);
+        $this->assertEquals($pdoUser->getUserUserName(), $this->VALID_USERNAME);
+    }
+    /**
+     * test inserting a User that already exists
+     *
+     * @expectedException \PDOException
+     **/
+    public function testInsertInvalidUser() : void {
+        // create a User with a non null UserId and watch it fail
+        $user = new User(KindHubTest::INVALID_KEY, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL,  $this->VALID_FIRSTNAME,  $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME,$this->VALID_SALT, $this->VALID_USERNAME);
+        $user->insert($this->getPDO());
     }
 
 
