@@ -66,9 +66,9 @@ class LevelTest extends KindHubTest {
 		$level->insert($this->getLevel());
 		
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
-		$this->assertEquals($pdoLevel->getLevelId(), $levelId);
-		$this->assertEquals($pdoLevel->getLevelName(), $this->user->getLevelName());
-		$this->assertEquals($pdoLevel->getLevelNumber(), $this->VALID_LEVELNUMBER);
+		$this->assertEquals($Level->getLevelId(), $levelId);
+		$this->assertEquals($Level->getLevelName(), $this->level->VALID_LEVELNAME());
+		$this->assertEquals($Level->getLevelNumber(), $this->VALID_LEVELNUMBER);
 	}
 
 	/**
@@ -82,8 +82,8 @@ class LevelTest extends KindHubTest {
 		$level->insert($this->getPDO());
 
 		$level->setLevelNumber($this->VALID_LEVELNUMBER);
-		$level->setHubName($this->VALID_LEVELNAME);
-		$level->update($this->getPDO());
+		$level->setLevelName($this->VALID_LEVELNAME);
+
 	}
 
 }
