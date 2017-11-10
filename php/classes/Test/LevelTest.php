@@ -10,8 +10,6 @@
  * @author Jermain Jennings
  **/
 
-namespace Edu\Cnm\KindHub\Test;
-use Edu\Cnm\KindHub\Level;
 class LevelTest extends KindHubTest {
 
 	/**
@@ -52,7 +50,7 @@ class LevelTest extends KindHubTest {
 
 	/**
 	 * Id of the LEVELID
-	 * @var string $INVALID_LEVELID
+	 * @var string $VINALID_LEVELID
 	 */
 	protected $INVALID_LEVELID = "";
 
@@ -60,19 +58,17 @@ class LevelTest extends KindHubTest {
 	/**
 	 * Tests inserting a valid level into mySQL and verifying the data in mySQL matches
 	 **/
-	public function testInsertValidHub(): void {
+	public function testInsertValidLevel(): void {
 		$numRows = $this->getConnection()->getRowCount("level");
 
-		$levelId = generateUuidV4();
-		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
-		$level->insert($this->getPDO());
-
-		$pdoLevel = Level::getlevelByUserId($this->getPDO(), $level->getlevelId());
+		$levelId = string();
+		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
+		$level->insert($this->getLevel());
+		
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
 		$this->assertEquals($pdoLevel->getLevelId(), $levelId);
 		$this->assertEquals($pdoLevel->getLevelName(), $this->user->getLevelName());
 		$this->assertEquals($pdoLevel->getLevelNumber(), $this->VALID_LEVELNUMBER);
-		$this->assertEquals($pdoLevel->getHubName(), $this->VALID_LEVELNAME);
 	}
 
 	/**
