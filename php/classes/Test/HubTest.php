@@ -98,6 +98,9 @@ class HubTest extends KindHubTest {
 		$this->assertEquals($pdoHub->getHubUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoHub->getHubLocation(), $this->VALID_HUBLOCATION);
 		$this->assertEquals($pdoHub->getHubName(), $this->VALID_HUBNAME);
+
+		// Deletes the hub from mySQL
+		$hub->delete($this->getPDO());
 	}
 
 	/**
@@ -123,6 +126,9 @@ class HubTest extends KindHubTest {
 		$this->assertEquals($pdoHub->getHubUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoHub->getHubLocation(), $this->VALID_HUBLOCATION);
 		$this->assertEquals($pdoHub->getHubName(), $this->VALID_HUBNAME);
+
+		// Deletes the hub from mySQL
+		$hub->delete($this->getPDO());
 	}
 
 	/**
@@ -191,6 +197,10 @@ class HubTest extends KindHubTest {
 		$this->assertEquals($pdoHub2->getHubUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoHub2->getHubLocation(), $this->VALID_HUBLOCATION2);
 		$this->assertEquals($pdoHub2->getHubName(), $this->VALID_HUBNAME2);
+
+		// Deletes the hubs from mySQL
+		$hub1->delete($this->getPDO());
+		$hub2->delete($this->getPDO());
 	}
 
 	/**
@@ -225,6 +235,9 @@ class HubTest extends KindHubTest {
 		$this->assertEquals($pdoHub->getHubUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoHub->getHubLocation(), $this->VALID_HUBLOCATION);
 		$this->assertEquals($pdoHub->getHubName(), $this->VALID_HUBNAME);
+
+		// Deletes the hub from mySQL
+		$hub->delete($this->getPDO());
 	}
 
 	/**
@@ -270,5 +283,9 @@ class HubTest extends KindHubTest {
 		$this->assertEquals($pdoHub2->getHubUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoHub2->getHubLocation(), $this->VALID_HUBLOCATION2);
 		$this->assertEquals($pdoHub2->getHubName(), $this->VALID_HUBNAME2);
+
+		// Deletes the hubs from mySQL
+		$hub1->delete($this->getPDO());
+		$hub2->delete($this->getPDO());
 	}
 }
