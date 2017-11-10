@@ -132,6 +132,8 @@ class HubTest extends KindHubTest {
 		$hub->delete($this->getPDO());
 
 		$pdoHub = Hub::getHubByHubId($this->getPDO(), $hub->getHubId());
+		$this->assertNull($pdoHub);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("hub"));
 	}
 
 	/**
