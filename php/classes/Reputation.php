@@ -433,7 +433,7 @@ class Reputation implements \JsonSerializable {
 		$fields["reputationHubId"] = $this->reputationHubId->toString();
 		$fields["reputationLevelId"] = $this->reputationLevelId->toString();
 		$fields["reputationUserId"] = $this->reputationUserId->toString();
-		$fields["reputationPoint"] = $this->reputationPoint->toString();
+		return $fields;
 	}
 }
 ?>
