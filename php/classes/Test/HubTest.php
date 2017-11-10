@@ -67,11 +67,13 @@ class HubTest extends KindHubTest {
 	 * Create dependent objects before running each Test
 	 */
 	public final function setUp(): void {
+		// Sets up the framework for a fake user to own the hubs created
 		parent::setup();
 		$password = "mockpassword";
 		$this->VALID_USER_SALT = bin2hex(random_bytes(32));
 		$this->VALID_USER_HASH = hash_pbkdf2("sha512", $password, $this->VALID_USER_SALT, 262144);
 
+		// Creates the user and inserts them into mySQL
 		$this->user = new User(generateUuidV4(), "CytkEMSYDTm3YrNnnQ1UOH2tIaEvD0kX", "I am a human",
 			"somedude@gmail.com", "Some", $this->VALID_USER_HASH, "image.png", "Dude",
 			$this->VALID_USER_SALT, "SomeDude");
@@ -84,10 +86,12 @@ class HubTest extends KindHubTest {
 	public function testInsertValidHub(): void {
 		$numRows = $this->getConnection()->getRowCount("hub");
 
+		// Creates a hub and inserts it into mySQL
 		$hubId = generateUuidV4();
 		$hub = new Hub($hubId, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
 		$hub->insert($this->getPDO());
 
+		// Gets the hub and checks all attributes are equivalent
 		$pdoHub = Hub::getHubByHubId($this->getPDO(), $hub->getHubId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
 		$this->assertEquals($pdoHub->getHubId(), $hubId);
@@ -102,14 +106,17 @@ class HubTest extends KindHubTest {
 	public function testUpdateValidHub(): void {
 		$numRows = $this->getConnection()->getRowCount("hub");
 
+		// Creates the hub and inserts it into mySQL
 		$hubId = generateUuidV4();
 		$hub = new Hub($hubId, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
 		$hub->insert($this->getPDO());
 
+		// Updates the hub in mySQL
 		$hub->setHubLocation($this->VALID_HUBLOCATION2);
 		$hub->setHubName($this->VALID_HUBNAME2);
 		$hub->update($this->getPDO());
 
+		// Gets the hub and checks that all values are equivalent
 		$pdoHub = Hub::getHubByHubId($this->getPDO(), $hub->getHubId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
 		$this->assertEquals($pdoHub->getHubId(), $hubId);
@@ -124,13 +131,16 @@ class HubTest extends KindHubTest {
 	public function testDeleteValidHub(): void {
 		$numRows = $this->getConnection()->getRowCount("hub");
 
+		// Creates a hub and inserts it into mySQL
 		$hubId = generateUuidV4();
 		$hub = new Hub($hubId, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
 		$hub->insert($this->getPDO());
 
+		// Deletes the hub from mySQL
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
 		$hub->delete($this->getPDO());
 
+		// Checks that the hub no longer exists in mySQL
 		$pdoHub = Hub::getHubByHubId($this->getPDO(), $hub->getHubId());
 		$this->assertNull($pdoHub);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("hub"));
@@ -140,6 +150,7 @@ class HubTest extends KindHubTest {
 	 * Tests attempting to get an invalid hub
 	 **/
 	public function testGetInvalidHubByHubId(): void {
+		// Checks that an invalid hubId returns null
 		$hub = Hub::getHubByHubId($this->getPDO(), generateUuidV4());
 		$this->assertNull($hub);
 	}
@@ -150,7 +161,7 @@ class HubTest extends KindHubTest {
 	public function testGetValidHubsByHubUserId(): void {
 		$numRows = $this->getConnection()->getRowCount("hub");
 
-		// Creates two different hubs from the same user to search for
+		// Creates two different hubs from the same user to search for and inserts them into mySQL
 		$hubId1 = generateUuidV4();
 		$hub1 = new Hub($hubId1, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
 		$hub1->insert($this->getPDO());
@@ -159,8 +170,10 @@ class HubTest extends KindHubTest {
 		$hub2 = new Hub($hubId2, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
 		$hub2->insert($this->getPDO());
 
+		// Checks that the hubUserId's are equivalent
 		$this->assertEquals($hub1->getHubUserId(), $hub2->getHubUserId());
 
+		// Gets the hubs, and checks that all attributes are as expected
 		$results = Hub::getHubsByHubUserId($this->getPDO(), $hub1->getHubUserId());
 		$this->assertEquals($numRows + 2, $this->getConnection()->getRowCount("hub"));
 		$this->assertCount(2, $results);
@@ -184,6 +197,7 @@ class HubTest extends KindHubTest {
 	 * Tests getting an invalid hub by hubUserId
 	 **/
 	public function testGetInvalidHubByHubUserId(): void {
+		// Checks that an invalid hub would return nothing into the array
 		$hub = Hub::getHubsByHubUserId($this->getPDO(), generateUuidV4());
 		$this->assertCount(0, $hub);
 	}
@@ -194,10 +208,12 @@ class HubTest extends KindHubTest {
 	public function testGetValidHubByHubName(): void {
 		$numRows = $this->getConnection()->getRowCount("hub");
 
+		// Creates a hub in mySQL
 		$hubId = generateUuidV4();
 		$hub = new Hub($hubId, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
 		$hub->insert($this->getPDO());
 
+		// Gets the hub by the given name and checks that all attributes are as expected
 		$results = Hub::getHubsByHubName($this->getPDO(), $hub->getHubName());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
 		$this->assertCount(1, $results);
@@ -215,6 +231,7 @@ class HubTest extends KindHubTest {
 	 * Tests getting an invalid hub by HubName
 	 **/
 	public function testGetInvalidHubByHubName(): void {
+		// Checks that an invalid name would return an empty array
 		$hub = Hub::getHubsByHubName($this->getPDO(), "aosihpaihp");
 		$this->assertCount(0, $hub);
 	}
@@ -234,11 +251,13 @@ class HubTest extends KindHubTest {
 		$hub2 = new Hub($hubId2, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
 		$hub2->insert($this->getPDO());
 
+		// Gets all valid hubs and checks that two have been returned
 		$results = Hub::getAllHubs($this->getPDO());
 		$this->assertEquals($numRows + 2, $this->getConnection()->getRowCount("hub"));
 		$this->assertCount(2, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Kindhub\\Hub", $results);
 
+		// Checks that all attributes are as expected
 		$pdoHub1 = $results[0];
 		$pdoHub2 = $results[1];
 
