@@ -183,7 +183,7 @@ class HubTest extends KindHubTest {
 	 **/
 	public function testGetInvalidHubByHubUserId(): void {
 		$hub = Hub::getHubsByHubName($this->getPDO(), "AOFIHSDFPAHDFAPODFHI");
-		$this->assertCoutn(0, $hub);
+		$this->assertCount(0, $hub);
 	}
 
 	/**
