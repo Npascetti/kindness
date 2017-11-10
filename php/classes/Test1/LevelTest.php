@@ -83,9 +83,9 @@ class LevelTest extends KindHubTest {
 		$level = new Level($levelId, $this->level->getlevelId(), $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
 		$level->insert($this->getPDO());
 
-		$level->setLevelNumber($this->VALID_LEVELNUMBER);
-		$level->setHubName($this->VALID_LEVELNAME);
+		$hub->setLevelNumber($this->VALID_LEVELNUMBER);
+		$hub->setHubName($this->VALID_LEVELNAME);
 		$level->update($this->getPDO());
-	}
 
-}
+
+	}
