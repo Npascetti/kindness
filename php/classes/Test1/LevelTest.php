@@ -68,6 +68,8 @@
 			$pdoLevel = Hub::getlevelByUserId($this->getPDO(), $level->getlevelId());
 			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
 			$this->assertEquals($pdoLevel->getLevelId(), $levelId);
-			$this->assertEquals($pdoLevel->getHubUserId(), $this->user->getUserId());
-			$this->assertEquals($pdoHub->getHubLocation(), $this->VALID_HUBLOCATION);
-			$this->assertEquals($pdoHub->getHubName(), $this->VALID_HUBNAME);
+			$this->assertEquals($pdoLevel->getLevelName(), $this->user->getLevelName());
+			$this->assertEquals($pdoLevel->getLevelNumber(), $this->VALID_LEVELNUMBER);
+			$this->assertEquals($pdoLevel->getHubName(), $this->VALID_LEVELNAME);
+		}
+
