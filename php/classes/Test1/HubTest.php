@@ -179,9 +179,17 @@ class HubTest extends KindHubTest {
 	}
 
 	/**
+	 * Tests getting an invalid hub by hubUserId
+	 **/
+	public function testGetInvalidHubByHubUserId(): void {
+		$hub = Hub::getHubsByHubName($this->getPDO(), "AOFIHSDFPAHDFAPODFHI");
+		$this->assertCoutn(0, $hub);
+	}
+
+	/**
 	 * Tests getting a valid hub my hubName
 	 **/
-	public function testGetValidHubByHubName() : void {
+	public function testGetValidHubByHubName(): void {
 		$numRows = $this->getConnection()->getRowCount("hub");
 
 		$hubId = generateUuidV4();
