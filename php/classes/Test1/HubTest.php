@@ -116,4 +116,20 @@ class HubTest extends KindHubTest {
 		$this->assertEquals($pdoHub->getHubLocation(), $this->VALID_HUBLOCATION);
 		$this->assertEquals($pdoHub->getHubName(), $this->VALID_HUBNAME);
 	}
+
+	/**
+	 * Tests inserting a hub, and then deleting it
+	 **/
+	public function testDeleteValidHub() : void {
+		$numRows = $this->getConnection()->getRowCount("hub");
+
+		$hubId = generateUuidV4();
+		$hub = new Hub($hubId, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
+		$hub->insert($this->getPDO());
+
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
+		$hub->delete($this->getPDO());
+
+		$pdoHub = Hub::getHubByHubId($this->getPDO(), $hub->getHubId());
+	}
 }
