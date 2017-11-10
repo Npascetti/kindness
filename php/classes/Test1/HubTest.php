@@ -178,4 +178,26 @@ class HubTest extends KindHubTest {
 		$this->assertEquals($pdoHub2->getHubName(), $this->VALID_HUBNAME2);
 	}
 
+	/**
+	 * Tests getting a valid hub my hubName
+	 **/
+	public function testGetValidHubByHubName() : void {
+		$numRows = $this->getConnection()->getRowCount("hub");
+
+		$hubId = generateUuidV4();
+		$hub = new Hub($hubId, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
+		$hub->insert($this->getPDO());
+
+		$results = Hub::getHubsByHubName($this->getPDO(), $hub->getHubName());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
+		$this->assertCount(1, $results);
+
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\KindHub\\Hub", $results);
+
+		$pdoHub = $results[0];
+		$this->assertEquals($pdoHub->getHubId(), $hubId);
+		$this->assertEquals($pdoHub->getHubUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoHub->getHubLocation(), $this->VALID_HUBLOCATION);
+		$this->assertEquals($pdoHub->getHubName(), $this->VALID_HUBNAME);
+	}
 }

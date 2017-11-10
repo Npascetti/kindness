@@ -322,7 +322,7 @@ class Hub implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getHubByHubName(\PDO $pdo, string $hubName): \SplFixedArray {
+	public static function getHubsByHubName(\PDO $pdo, string $hubName): \SplFixedArray {
 		// Trims and filters the given hubName, and checks that it is still valid
 		$hubName = trim($hubName);
 		$hubName = filter_var($hubName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
