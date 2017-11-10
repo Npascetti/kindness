@@ -162,7 +162,7 @@ class HubTest extends KindHubTest {
 		$this->assertEquals($hub1->getHubUserId(), $hub2->getHubUserId());
 
 		$results = Hub::getHubsByHubUserId($this->getPDO(), $hub1->getHubUserId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
+		$this->assertEquals($numRows + 2, $this->getConnection()->getRowCount("hub"));
 		$this->assertCount(2, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Kindhub\\Hub", $results);
 
@@ -235,7 +235,7 @@ class HubTest extends KindHubTest {
 		$hub2->insert($this->getPDO());
 
 		$results = Hub::getAllHubs($this->getPDO());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
+		$this->assertEquals($numRows + 2, $this->getConnection()->getRowCount("hub"));
 		$this->assertCount(2, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Kindhub\\Hub", $results);
 
