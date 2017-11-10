@@ -1,5 +1,5 @@
 <?php
-namespace Edu\Cnm\KindHub\Test1
+namespace Edu\Cnm\KindHub\Test;
 
 use Edu\Cnm\KindHub\{
 	Test\KindHubTest, User
