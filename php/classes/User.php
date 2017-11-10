@@ -552,4 +552,3 @@ class User implements \JsonSerializable {
 	}
 
 }
-?>
