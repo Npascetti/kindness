@@ -65,7 +65,7 @@
 			$level = new Level($levelId, $this->user->getUserId(), $this->VALID_LEVELNAME, $this->VALID_NUMBER);
 			$level->insert($this->getPDO());
 
-			$pdoLevel = Hub::getlevelByUserId($this->getPDO(), $level->getlevelId());
+			$pdoLevel = Level::getlevelByUserId($this->getPDO(), $level->getlevelId());
 			$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
 			$this->assertEquals($pdoLevel->getLevelId(), $levelId);
 			$this->assertEquals($pdoLevel->getLevelName(), $this->user->getLevelName());
@@ -73,3 +73,19 @@
 			$this->assertEquals($pdoLevel->getHubName(), $this->VALID_LEVELNAME);
 		}
 
+		/**
+		 * Tests inserting a level, and updating it
+		 **/
+		public function testUpdateValidLevel(): void {
+			$numRows = $this->getConnection()->getRowCount("level");
+
+			$levelId = generateUuidV4();
+			$level = new Level($levelId, $this->level->getlevelId(), $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
+			$level->insert($this->getPDO());
+
+			$hub->setLevelNumber($this->VALID_LEVELNUMBER);
+			$hub->setHubName($this->VALID_LEVELNAME);
+			$level->update($this->getPDO());
+
+
+		}
