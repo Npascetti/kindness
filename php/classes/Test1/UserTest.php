@@ -104,7 +104,35 @@ class UserTest extends KindHubTest {
 	 **/
 	public function testInsertValidUser() : void {
 		// count the number of rows and save it for later
-	}
+        $numRows = $this->getConnection()->getRowCount("user");
+        // create a new User and insert to into mySQL
+        $profile = new User(null, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL,  $this->VALID_FIRSTNAME,  $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME, $this->VALID_USERNAME,  $this->VALID_SALT);
+        //var_dump($user);
+        $user->insert($this->getPDO());
+        // grab the data from mySQL and enforce the fields match our expectations
+        $pdoUser = User::getUserbyUserId($this->getPDO(), $user->getUserId());
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
+        $this->assertEquals($pdoUser->getUserActivationToken(), $this->VALID_ACTIVATIONTOKEN);
+        $this->assertEquals($pdoUser->getUserBio(), $this->VALID_BIO);
+        $this->assertEquals($pdoUser->getUserEmail(), $this->VALID_EMAIL);
+        $this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_FIRSTNAME);
+        $this->assertEquals($pdoUser->getUserHash(), $this->VALID_HASH);
+        $this->assertEquals($pdoUser->getUserImage(), $this->VALID_IMAGE);
+        $this->assertEquals($pdoUser->getUserLastName(), $this->VALID_LASTNAME);
+        $this->assertEquals($pdoUser->getUserUserName(), $this->VALID_USERNAME);
+        $this->assertEquals($pdoUser->getUSerSalt(), $this->VALID_SALT);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
