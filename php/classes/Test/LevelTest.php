@@ -144,10 +144,23 @@ class LevelTest extends KindHubTest {
 		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
 		$level->insert($this->getLevel());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
-		$this->assertEquals($Level->getLevelId(), $levelId);
-		$this->assertEquals($Level->getLevelName(), $this->level->VALID_LEVELNAME());
-		$this->assertEquals($Level->getLevelNumber(), $this->VALID_LEVELNUMBER);
+		$this->assertEquals($level->getLevelId(), $levelId);
+		$this->assertEquals($level->getLevelName(), $this->level->VALID_LEVELNAME());
+		$this->assertEquals($level->getLevelNumber(), $this->VALID_LEVELNUMBER);
 	}
+
+
+	/**
+	 * test inserting invalid level
+	 *
+	 * @expectedException \PDOException
+	 **/
+	public function testInsertInvalidlevel() : void {
+		// create an invaild level for a user or hub. invalid level
+		$user = new User(KindHubTest::INVALID_KEY, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL,  $this->VALID_FIRSTNAME,  $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME,$this->VALID_SALT, $this->VALID_USERNAME);
+
+		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
+		$user->insert($this->getPDO());
 
 	/**
 	 * Tests inserting a level, and updating it
