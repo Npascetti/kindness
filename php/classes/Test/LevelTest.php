@@ -98,6 +98,12 @@ class LevelTest extends KindHubTest {
 
 	/**
 	 * Number of the LEVELNUMBER
+	 * @var string $VALID_LEVELNUMBER
+	 */
+	protected $VALID_LEVELNUMBER2 = "18";
+
+	/**
+	 * Number of the LEVELNUMBER
 	 * @var string $INVALID_LEVELNUMBER
 	 */
 	protected $INVALID_LEVELNUMBER = "nan";
@@ -141,11 +147,12 @@ class LevelTest extends KindHubTest {
 		$numRows = $this->getConnection()->getRowCount("level");
 
 		$levelId = string();
-		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
-		$level->inseter($this->getPDO());
+		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
+		$level->insert($this->getPDO());
+
+		$level = Level::getLevelbyLevelId($this->getPDO(), $level->getLevelId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
-		$this->assertEquals($level->getLevelId(), $levelId);
-		$this->assertEquals($level->getLevelName(), $this->level->VALID_LEVELNAME());
+		$this->assertEquals($level->getLevelName(), $this->VALID_LEVELNAME);
 		$this->assertEquals($level->getLevelNumber(), $this->VALID_LEVELNUMBER);
 	}
 
@@ -158,7 +165,7 @@ class LevelTest extends KindHubTest {
 	public function testInsertInvalidlevel(): void {
 		// create an invaild level for a user or hub. invalid level
 
-		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
+		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
 		$level->inseter($this->getPDO());
 	}
 
@@ -169,13 +176,20 @@ class LevelTest extends KindHubTest {
 	public
 	function testUpdateValidLevel(): void {
 		$numRows = $this->getConnection()->getRowCount("level");
-		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
+		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
 		$level->inseter($this->getPDO());
 		$level->setLevelNumber($this->VALID_LEVELNUMBER);
 		$level->setLevelName($this->VALID_LEVELNAME);
 
+//edit levelnumber  and update it in mySQL
+		$level->setLevelNumber($this->VALID_LEVELNUMBER2);
+		$level->update($this->getPDO());
 
-
+		// grab level data from mysql, verify level updated correctly.
+		$level = Level::getLevelbyLevelId($this->getPDO(), $level->getLevelId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
+		$this->assertEquals($level->getLevelName(), $this->VALID_LEVELNAME);
+		$this->assertEquals($level->getLevelNumber(), $this->VALID_LEVELNUMBER2);
 	}
 
 }
