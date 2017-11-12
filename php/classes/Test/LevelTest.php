@@ -64,7 +64,6 @@ class LevelTest extends KindHubTest {
 		$levelId = string();
 		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
 		$level->insert($this->getLevel());
-		
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
 		$this->assertEquals($Level->getLevelId(), $levelId);
 		$this->assertEquals($Level->getLevelName(), $this->level->VALID_LEVELNAME());
@@ -86,4 +85,3 @@ class LevelTest extends KindHubTest {
 
 	}
 
-}
