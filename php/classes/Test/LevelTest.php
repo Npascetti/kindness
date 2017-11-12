@@ -106,7 +106,7 @@ class LevelTest extends KindHubTest {
 	 * Id of the LEVELID
 	 * @var string $VALID_LEVELID
 	 */
-	protected $VALID_LEVELID =;
+	protected $VALID_LEVELID;
 
 	/**
 	 * Id of the LEVELID
@@ -117,8 +117,8 @@ class LevelTest extends KindHubTest {
 	/**
 	 * create dependent object
 	 **/
-	public final function setup() : void {
-		parent::setup()
+	public final function setup(): void {
+		parent::setup();
 					//
 		$password = "mysecurepass";
 		$this->VALID_SALT = bin2hex(random_bytes(32));
@@ -129,7 +129,7 @@ class LevelTest extends KindHubTest {
 	 // count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 		// create a new User and insert to into mySQL
-		$user = new User(null, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL,  $this->VALID_FIRSTNAME,  $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME,$this->VALID_SALT, $this->VALID_USERNAME);
+		$user = new User(null, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME, $this->VALID_SALT, $this->VALID_USERNAME);
 		$user->insert($this->getPDO());
 
 	}
@@ -142,7 +142,7 @@ class LevelTest extends KindHubTest {
 
 		$levelId = string();
 		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
-		$level->insert($this->getLevel());
+		$level->inseter($this->getPDO());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
 		$this->assertEquals($level->getLevelId(), $levelId);
 		$this->assertEquals($level->getLevelName(), $this->level->VALID_LEVELNAME());
@@ -155,25 +155,27 @@ class LevelTest extends KindHubTest {
 	 *
 	 * @expectedException \PDOException
 	 **/
-	public function testInsertInvalidlevel() : void {
+	public function testInsertInvalidlevel(): void {
 		// create an invaild level for a user or hub. invalid level
-		$user = new User(KindHubTest::INVALID_KEY, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL,  $this->VALID_FIRSTNAME,  $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME,$this->VALID_SALT, $this->VALID_USERNAME);
 
-		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
-		$user->insert($this->getPDO());
+		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
+		$level->inseter($this->getPDO());
+	}
+
 
 	/**
 	 * Tests inserting a level, and updating it
 	 **/
-	public function testUpdateValidLevel(): void {
+	public
+	function testUpdateValidLevel(): void {
 		$numRows = $this->getConnection()->getRowCount("level");
-
-		$levelId = generateUuidV4();
-		$level = new Level($levelId, $this->level->getlevelId(), $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
-		$level->insert($this->getPDO());
-
+		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
+		$level->inseter($this->getPDO());
 		$level->setLevelNumber($this->VALID_LEVELNUMBER);
 		$level->setLevelName($this->VALID_LEVELNAME);
 
+
+
 	}
 
+}
