@@ -146,7 +146,6 @@ class LevelTest extends KindHubTest {
 	public function testInsertValidLevel(): void {
 		$numRows = $this->getConnection()->getRowCount("level");
 
-		$levelId = string();
 		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
 		$level->insert($this->getPDO());
 
@@ -166,7 +165,7 @@ class LevelTest extends KindHubTest {
 		// create an invaild level for a user or hub. invalid level
 
 		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
-		$level->inseter($this->getPDO());
+		$level->insert($this->getPDO());
 	}
 
 
@@ -177,7 +176,7 @@ class LevelTest extends KindHubTest {
 	function testUpdateValidLevel(): void {
 		$numRows = $this->getConnection()->getRowCount("level");
 		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
-		$level->inseter($this->getPDO());
+		$level->insert($this->getPDO());
 		$level->setLevelNumber($this->VALID_LEVELNUMBER);
 		$level->setLevelName($this->VALID_LEVELNAME);
 
@@ -192,4 +191,47 @@ class LevelTest extends KindHubTest {
 		$this->assertEquals($level->getLevelNumber(), $this->VALID_LEVELNUMBER2);
 	}
 
+	/**
+	 * testing invalid level update
+	 *
+	 * @expectedException \PDOException
+	 **/
+	public function testInvalidLevelUpdate(): void {
+		// create an invaild level for a user or hub. invalid level
+
+		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
+		$level->update($this->getPDO());
 }
+	/**
+	 * Tests deleting a valid level into mySQL and verifying the data in mySQL matches
+	 **/
+	public function testDeletetValidLevel(): void {
+		$numRows = $this->getConnection()->getRowCount("level");
+
+		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
+		$level->insert($this->getPDO());
+
+
+
+		//delete the profile from mySQL
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
+		$level->delete($this->getPDO());
+		//grab the data from mySQL and enforce the level does not exist
+		$level = Level::getLevelbyLevelId($this->getPDO(), $level->getLevelId());
+		$this->assertNull($level);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("level"));
+	}
+
+
+
+/**
+ * test deleting a Level that does not exist
+ *
+ * @expectedException \PDOException
+ **/
+public function testDeleteInvalidProfile(): void {
+	// create a Level and try to delete it without actually inserting it
+	$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
+	$level->delete($this->getPDO());
+}
+
