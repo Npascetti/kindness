@@ -4,7 +4,6 @@
 
 namespace Edu\Cnm\kindHub;
 require_once("autoload.php");
-require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 /**
  * Created by PhpStorm.
@@ -17,7 +16,6 @@ use Ramsey\Uuid\Uuid;
 
 
 class Level implements \JsonSerializable {
-	use \Edu\Cnm\KindHub\ValidateUuid;
 
 	/**
 	 * Level of the hub; primary key
@@ -204,7 +202,7 @@ class Level implements \JsonSerializable {
 		$statement->execute($parameters);
 
 		try {
-			$hub = null;
+			$level = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
@@ -213,7 +211,7 @@ class Level implements \JsonSerializable {
 		} catch(\Exception $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return ($hub);
+		return ($level);
 	}
 
 	//TODO write a getAllLevels method use data-design tweet getAllTweets as a reference
