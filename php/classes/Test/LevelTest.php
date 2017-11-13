@@ -1,4 +1,15 @@
 <?php
+namespace Edu\Cnm\KindHub\Test;
+
+use Edu\Cnm\KindHub\{
+	Hub, Test\KindHubTest, User
+};
+use Ramsey\Uuid\Uuid;
+
+require_once(dirname(__DIR__)."autoload.php");
+require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
+
 /**
  *
  * Full PHPUnit test for the Level class
