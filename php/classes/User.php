@@ -550,6 +550,44 @@ class User implements \JsonSerializable {
 	}
 
 	/**
+	 * gets the User by user name
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $userUserName user name to search for
+	 * @return \SPLFixedArray of all users found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getUserByUserUserName(\PDO $pdo, string $userUserName) : \SPLFixedArray {
+		// sanitize the user name before searching
+		$userUserName = trim($userUserName);
+		$userUserName = filter_var($userUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($userUserName) === true) {
+			throw(new \PDOException("not a valid user name"));
+		}
+		// create query template
+		$query = "SELECT  userId, userActivationToken, userBio, userEmail, userFirstName, userHash, userImage, userLastName, userSalt, userUserName FROM user WHERE userUserName = :userUserName";
+		$statement = $pdo->prepare($query);
+		// bind the user user name to the place holder in the template
+		$parameters = ["userUserName" => $userUserName];
+		$statement->execute($parameters);
+		$users = new \SPLFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while (($row = $statement->fetch()) !== false) {
+			try {
+				$user = new User($row["userId"], $row["userActivationToken"], $row["userBio"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userImage"], $row["userLastName"], $row["userSalt"], $row["userUserName"]);
+				$users[$users->key()] = $user;
+				$users->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($users);
+	}
+
+
+	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
