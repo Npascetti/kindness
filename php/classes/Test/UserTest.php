@@ -132,7 +132,17 @@ class UserTest extends KindHubTest {
         $user->insert($this->getPDO());
     }
 
+		/**
+		 * test grabbing a User by username that doesn't exist
+		 **/
+		public function testGetInvalidUserByUserName() : void {
+			$user = User::getUserByUserName($this->getPDO(), "idontevenexist");
+			$this->assertCount(0, $user);
+		}
 
+		/**
+		 * test grabbing a User by email
+		 **/
 
 
 
