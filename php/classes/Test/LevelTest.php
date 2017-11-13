@@ -146,7 +146,7 @@ class LevelTest extends KindHubTest {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("user");
 		// create a new User and insert to into mySQL
-		$user = new User(null, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME, $this->VALID_SALT, $this->VALID_USERNAME);
+		$user = new User(generateUuidV4(), $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME, $this->VALID_SALT, $this->VALID_USERNAME);
 		$user->insert($this->getPDO());
 
 	}
@@ -158,7 +158,7 @@ class LevelTest extends KindHubTest {
 		$numRows = $this->getConnection()->getRowCount("level");
 
 		//TODO replace null with generateUuidV4() everywhere
-		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
+		$level = new Level(generateUuidV4(), $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
 		$level->insert($this->getPDO());
 
 		$level = Level::getLevelbyLevelId($this->getPDO(), $level->getLevelId());
@@ -172,7 +172,7 @@ class LevelTest extends KindHubTest {
 	 **/
 	public function testUpdateValidLevel(): void {
 		$numRows = $this->getConnection()->getRowCount("level");
-		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
+		$level = new Level(generateUuidV4(), $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
 		$level->insert($this->getPDO());
 		$level->setLevelNumber($this->VALID_LEVELNUMBER);
 		$level->setLevelName($this->VALID_LEVELNAME);
@@ -196,7 +196,7 @@ class LevelTest extends KindHubTest {
 	public function testDeletetValidLevel(): void {
 		$numRows = $this->getConnection()->getRowCount("level");
 
-		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
+		$level = new Level(generateUuidV4(), $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
 		$level->insert($this->getPDO());
 
 
