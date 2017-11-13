@@ -209,7 +209,7 @@ class LevelTest extends KindHubTest {
 	public function testDeletetValidLevel(): void {
 		$numRows = $this->getConnection()->getRowCount("level");
 
-		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
+		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
 		$level->insert($this->getPDO());
 
 
