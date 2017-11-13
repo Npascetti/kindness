@@ -72,11 +72,11 @@ class ReputationTest extends KindHubTest {
 			"shannon@gmail.com", "Shannon", $this->VALID_USER_HASH, "image.png", "Yule", $this->VALID_USER_SALT, "ShannonYule314");$this->user->insert($this->getPDO());
 
 		// create and insert the mocked hub
-		// $this->hub = new Hub(generateUuidV4()), newHubUserId(generateUuidV4())
-		// $this->hub->insert($this->getPDO());
+		 $this->hub = new Hub(generateUuidV4(), generateUuidV4(), "Downtown", "DowntownHub");
+		 $this->hub->insert($this->getPDO());
 
 		// create and insert the mocked level
-		$this->level = new Level(null, $this->user->getUserId(), "PHPUnit like test passing");
+		$this->level = new Level(generateUuidV4(), "Level 1", "1");
 		$this->hub->insert($this->getPDO());
 	}
 
@@ -89,11 +89,12 @@ class ReputationTest extends KindHubTest {
 		$numRows = $this->getConnection()->getRowCount("reputation");
 
 		// create a new Reputation and insert to into mySQL
-		$reputation = new Reputation($this->user->getUserId(), $this->hub->getHubId(), $this->level->getLevelId());
+		$reputationId = generateUuidV4();
+		$reputation = new Reputation($reputationId, $this->hub->getHubId(),$this->level->getLevelId(), $this->user->getUserId(), $this->VALID_REPUTATION_POINT);
 		$reputation->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoLike = Reputation::getReputationByReputationHubIdAndReputationLevelIdAndReputationUserId($this->getPDO(), $this->user->getUserId(), $this->hub->getHubId());
+		$pdoLike = Reputation::getReputationByReputationId($this->getPDO(), $this->user->getUserId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
 		$this->assertEquals($pdoReputation->getReputationUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoReputation->getReputationHubId(), $this->hub->getHubId());
