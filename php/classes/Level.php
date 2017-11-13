@@ -1,11 +1,6 @@
 <?php
 
-namespace Edu\Cnm\KindHub;
-
-require_once("autoload.php");
-require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
-
-use Ramsey\Uuid\Uuid;
+//TODO add namespace and import statements use Tweet as example
 
 /**
  * Created by PhpStorm.
@@ -14,6 +9,8 @@ use Ramsey\Uuid\Uuid;
  * Time: 3:22 PM
  * This is the Level entity
  */
+
+
 
 class Level implements \JsonSerializable {
 	use \Edu\Cnm\KindHub\ValidateUuid;
@@ -40,19 +37,8 @@ class Level implements \JsonSerializable {
 	private $levelNumber;
 
 	/**
-	 * Formats the state variables for JSON serialization
 	 *
-	 * @return array resulting state variables to serialize
-	 **/
-	public function jsonSerialize() {
-		$fields = get_object_vars($this);
-
-		$fields["levelId"] = $this->levelId->toString();
-		return ($fields);
-	}
-
-
-	/**
+	 * //TODO
 	 * Constructor method for the Level Class
 	 *
 	 * @param Uuid $newLevelId the ID of the user
@@ -200,7 +186,7 @@ class Level implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public function getLevelBylevelId(\PDO $pdo, $levelId): ?level {
+	public static function getLevelBylevelId(\PDO $pdo, $levelId): ?level {
 		try {
 			$levelId = self::validateUuid($levelId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -210,7 +196,7 @@ class Level implements \JsonSerializable {
 		$query = "SELECT levelId, levelName, levelNumber FROM level WHERE levelId = :levelId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["levelId" => $this->levelId->getBytes()];
+		$parameters = ["levelId" => $levelId->getBytes()];
 		$statement->execute($parameters);
 
 		try {
@@ -226,17 +212,20 @@ class Level implements \JsonSerializable {
 		return ($hub);
 	}
 
+	//TODO write a getAllLevels method use data-design tweet getAllTweets as a reference
+
 	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
 	 **/
-	public function jsonSerializable() {
+	public function jsonSerialize() {
 		$fields = get_object_vars($this);
 
 		$fields["levelId"] = $this->levelId->toString();
 		$fields["levelName"] = $this->levelName;
 		$fields["levelNumber"] = $this->levelNumber;
+		return($fields);
 	}
 
 }
