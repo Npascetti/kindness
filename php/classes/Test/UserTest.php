@@ -123,13 +123,43 @@ class UserTest extends KindHubTest {
     }
 
 
-		/**
-		 * test grabbing a User by username that doesn't exist
-		 **/
-		public function testGetInvalidUserByUserName() : void {
-			$user = User::getUserByUserName($this->getPDO(), "idontevenexist");
-			$this->assertCount(0, $user);
-		}
+    /**
+     * test grabbing a User by a userId that does not exist
+     **/
+    public function testGetInvalidUserByUserId() : void {
+        // grab a user id that exceeds the maximum allowable user id
+        $fakeUserId = generateUuidV4();
+        $user = User::getUserByUserId($this->getPDO(), $fakeUserId );
+        $this->assertNull($user);
+    }
+
+    /**Test grabbing valid user by userUserName */
+
+    public function testGetValidUserByUserUserName() {
+        // count the number of rows and save it for later
+        $numRows = $this->getConnection()->getRowCount("user");
+        $userId = generateUuidV4();
+        $user = new User($userId, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME, $this->VALID_USERNAME, $this->VALID_SALT);
+        //grab the data from MySQL
+        $results = User::getUserByUserUserUserName($this->getPDO(), $this->VALID_USERNAME);
+        $this->assertEquals($numRows +1, $this->getConnection()->getRowCount("user"));
+        //enforce no other objects are bleeding into user
+        $this->assertContainsOnlyInstancesOf("Edu\\CNM\\DataDesign\\User", $results);
+        //enforce the results meet expectations
+        $pdoUser = $results[0];
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
+        $this->assertEquals($pdoUser->getUserId(), $userId);
+        $this->assertEquals($pdoUser->getUserActivationToken(), $this->VALID_ACTIVATIONTOKEN);
+        $this->assertEquals($pdoUser->getUserBio(), $this->VALID_BIO);
+        $this->assertEquals($pdoUser->getUserEmail(), $this->VALID_EMAIL);
+        $this->assertEquals($pdoUser->getUserFirstName(),
+            $this->VALID_FIRSTNAME);
+        $this->assertEquals($pdoUser->getUserHash(), $this->VALID_HASH);
+        $this->assertEquals($pdoUser->getUserImage(), $this->VALID_IMAGE);
+        $this->assertEquals($pdoUser->getUserLastName(), $this->VALID_LASTNAME);
+        $this->assertEquals($pdoUser->getUserSalt(), $this->VALID_SALT);
+        $this->assertEquals($pdoUser->getUserUserName(), $this->VALID_USERNAME);
+    }
 
 		/**
 		 * test grabbing a User by email
@@ -154,8 +184,8 @@ class UserTest extends KindHubTest {
 		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_HASH);
 		$this->assertEquals($pdoUser->getUserImage(), $this->VALID_IMAGE);
 		$this->assertEquals($pdoUser->getUserLastName(), $this->VALID_LASTNAME);
-		$this->assertEquals($pdoUser->getUserUserName(), $this->VALID_USERNAME);
 		$this->assertEquals($pdoUser->getUserSalt(), $this->VALID_SALT);
+        $this->assertEquals($pdoUser->getUserUserName(), $this->VALID_USERNAME);
 	}
 
 	/**
@@ -234,7 +264,6 @@ class UserTest extends KindHubTest {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("user");
         $userId = generateUuidV4();
-        $user = new User($userId, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME, $this->VALID_SALT, $this->VALID_USERNAME);
         $user->insert($this->getPDO());
         // delete the User from mySQL
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
