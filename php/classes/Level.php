@@ -138,7 +138,7 @@ class Level implements \JsonSerializable {
 	 * @throws \TypeError when $pdo is not a PDO connection object
 	 */
 	public function insert(\PDO $pdo): void {
-		$query = "INSERT INTO `level`(levelId, levelName, levelNumber) 
+		$query = "INSERT INTO level(levelId, levelName, levelNumber) 
 			VALUES (:levelId, :levelName, :levelNumber)";
 		$statement = $pdo->prepare($query);
 
@@ -155,7 +155,7 @@ class Level implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function delete(\PDO $pdo): void {
-		$query = "DELETE FROM `level` WHERE levelId = :levelId";
+		$query = "DELETE FROM level WHERE levelId = :levelId";
 		$statement = $pdo->prepare($query);
 
 		$parameters = ["levelId" => $this->levelId->getBytes()];

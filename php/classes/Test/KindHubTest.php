@@ -50,9 +50,9 @@ abstract class KindHubTest extends TestCase {
 
 		// add all the tables for the project here
 		// THESE TABLES *MUST* BE LISTED IN THE SAME ORDER THEY WERE CREATED!!!!
-		$dataset->addTable("`user`");
+		$dataset->addTable("user");
 		$dataset->addTable("hub");
-		$dataset->addTable("`level`");
+		$dataset->addTable("level");
 		$dataset->addTable("reputation");
 		return($dataset);
 	}

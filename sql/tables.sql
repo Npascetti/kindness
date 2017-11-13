@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS reputation;
 DROP TABLE IF EXISTS hub;
-DROP TABLE IF EXISTS `level`;
+DROP TABLE IF EXISTS level;
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
@@ -30,7 +30,7 @@ CREATE TABLE hub (
 	PRIMARY KEY (hubId)
 );
 
-CREATE TABLE `level` (
+CREATE TABLE level (
 	levelId BINARY(16) NOT NULL,
 	levelName VARCHAR(64) NOT NULL,
 	levelNumber TINYINT(8) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE reputation (
 	reputationUserId BINARY(16),
 	reputationPoint TINYINT(8),
 	FOREIGN KEY (reputationHubId) REFERENCES hub(hubId),
-	FOREIGN KEY (reputationLevelId) REFERENCES `level`(levelId),
+	FOREIGN KEY (reputationLevelId) REFERENCES level(levelId),
 	FOREIGN KEY (reputationUserId) REFERENCES `user`(userId),
 	PRIMARY KEY (reputationId)
 );
