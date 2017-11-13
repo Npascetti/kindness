@@ -7,7 +7,7 @@ require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 
 /**
- * This is the User entity. This represents everything needed for a user and their profile to exist, as well as some other extra info, such as bio and image.
+ * This is the User entity. This represents everything needed for a user and their user to exist, as well as some other extra info, such as bio and image.
  *
  * @authors Nicklas Pascetti, Marcus Caldeira, Dylan McDonald <npascetti@gmail.com> <mac.caldr@gmail.com> <dmcdonald21@cnm.edu>
  * @version 1.0.0
@@ -32,12 +32,12 @@ class User implements \JsonSerializable {
 	 **/
 	private $userBio;
 	/**
-	 * the email of the user associated with this User profile
+	 * the email of the user associated with this User user
 	 * @var string $userEmail
 	 **/
 	private $userEmail;
 	/**
-	 * the first name of the user associated with this User profile
+	 * the first name of the user associated with this User user
 	 * @var string $userFirstName
 	 **/
 	private $userFirstName;
@@ -47,17 +47,17 @@ class User implements \JsonSerializable {
 	 **/
 	private $userHash;
 	/**
-	 * the image link representing the user associated with this User profile
+	 * the image link representing the user associated with this User user
 	 * @var string $userImage
 	 **/
 	private $userImage;
 	/**
-	 *the last name of the user associated with this User profile
+	 *the last name of the user associated with this User user
 	 * @var string $userLastName
 	 **/
 	private $userLastName;
 	/**
-	 * the user display name of the user associated with this User profile
+	 * the user display name of the user associated with this User user
 	 * @var string $userUserName
 	 **/
 	private $userUserName;
@@ -71,10 +71,10 @@ class User implements \JsonSerializable {
 	 * constructor for this User
 	 *
 	 * @param string | Uuid $newUserId id of this User or null if a new user
-	 * @param string $newUserUserName string containing the profile username
-	 * @param string $newUserImage string containing link to profile avatar image or null if unused
-	 * @param string | null $newUserHash string containing the profile password hash
-	 * @param string $newUserSalt string containing the profile password salt
+	 * @param string $newUserUserName string containing the user username
+	 * @param string $newUserImage string containing link to user avatar image or null if unused
+	 * @param string | null $newUserHash string containing the user password hash
+	 * @param string $newUserSalt string containing the user password salt
 	 * @param string $newUserBio string containing textual content of user's bio
 	 * @param string $newUserFirstName string containing the first name of the user
 	 * @param string $newUserLastName string containting the last name of the user
@@ -133,9 +133,9 @@ class User implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for profile activation token
+	 * accessor method for user activation token
 	 *
-	 * @return string value of profile activation token
+	 * @return string value of user activation token
 	 **/
 	public function getUserActivationToken(): string {
 		return ($this->userActivationToken);
@@ -151,7 +151,7 @@ class User implements \JsonSerializable {
 	 **/
 	public function setUserActivationToken(string $newUserActivationToken) : void {
 		if(empty($newUserActivationToken) === true) {
-			throw(new \InvalidArgumentException("profile activation token empty or insecure"));
+			throw(new \InvalidArgumentException("user activation token empty or insecure"));
 		}
 
 		//enforce that activation token is a string
@@ -161,7 +161,7 @@ class User implements \JsonSerializable {
 
 		//enforce that activation token is exactly 32 characters
 		if(strlen($newUserActivationToken) !== 32) {
-			throw(new \RangeException("profile activation token must be 32 characters"));
+			throw(new \RangeException("user activation token must be 32 characters"));
 		}
 
 		//store the activation token
@@ -186,13 +186,13 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError if $newUserBio is not a string
 	 */
 	public function setUserBio(string $newUserBio): void {
-		//verify the profile Bio is secure
+		//verify the user Bio is secure
 		$newUserBio = trim($newUserBio);
 		$newUserBio = filter_var($newUserBio, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newUserBio) === true) {
 			throw (new \InvalidArgumentException("user bio is empty or insecure"));
 		}
-		// verify the profile user bio will fit in database
+		// verify the user user bio will fit in database
 		if(strlen($newUserBio) > 3000) {
 			throw(new \RangeException("user bio is too large"));
 		}
@@ -250,7 +250,7 @@ class User implements \JsonSerializable {
 		if(empty($newUserFirstName) === true) {
 			throw (new \InvalidArgumentException("user first name is empty or insecure"));
 		}
-		// verify the profile username will fit in database
+		// verify the user username will fit in database
 		if(strlen($newUserFirstName) > 64) {
 			throw(new \RangeException("user first name is too large"));
 		}
@@ -274,7 +274,7 @@ class User implements \JsonSerializable {
 	 * @param string $newUserHash
 	 * @throws \InvalidArgumentException if the hash is not secure
 	 * @throws \RangeException if the hash is not 128 characters
-	 * @throws \TypeError if profile hash is not a string
+	 * @throws \TypeError if user hash is not a string
 	 **/
 	public function setUserHash(string $newUserHash) : void {
 		//enforce that the hash is properly formatted
@@ -291,7 +291,7 @@ class User implements \JsonSerializable {
 
 		//enforce that hash is exactly 128 characters
 		if(strlen($newUserHash) !== 128) {
-			throw(new \RangeException("profile hash must be 128 characters"));
+			throw(new \RangeException("user hash must be 128 characters"));
 		}
 
 		//store the hash
@@ -350,13 +350,13 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError if $newUserLastName is not a string
 	 */
 	public function setUserLastName(string $newUserLastName): void {
-		//verify the profile user last name is secure
+		//verify the user user last name is secure
 		$newUserLastName = trim($newUserLastName);
 		$newUserLastName = filter_var($newUserLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newUserLastName) === true) {
 			throw (new \InvalidArgumentException("username is empty or insecure"));
 		}
-		// verify the profile user last name will fit in database
+		// verify the user user last name will fit in database
 		if(strlen($newUserLastName) > 128) {
 			throw(new \RangeException("user last name is too large"));
 		}
@@ -366,7 +366,7 @@ class User implements \JsonSerializable {
 	}
 
 	/**
-	 * accessor method for profile user salt
+	 * accessor method for user user salt
 	 *
 	 * @return string value of user salt
 	 **/
@@ -392,12 +392,12 @@ class User implements \JsonSerializable {
 
 		//enforce that the salt is a string representation of hexadecimal
 		if(!ctype_xdigit($newUserSalt)) {
-			throw(new \InvalidArgumentException("profile password salt is empty or insecure"));
+			throw(new \InvalidArgumentException("user password salt is empty or insecure"));
 		}
 
 		//enforce that the salt is exactly 64 characters
 		if(strlen($newUserSalt) !== 128) {
-			throw(new \RangeException("profile salt must be 64 characters"));
+			throw(new \RangeException("user salt must be 64 characters"));
 		}
 
 		//store the salt
@@ -422,13 +422,13 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError if $newUserUserName is not a string
 	 */
 	public function setUserUserName(string $newUserUserName): void {
-		//verify the profile username is secure
+		//verify the user username is secure
 		$newUserUserName = trim($newUserUserName);
 		$newUserUserName = filter_var($newUserUserName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newUserUserName) === true) {
 			throw (new \InvalidArgumentException("username is empty or insecure"));
 		}
-		// verify the profile username will fit in database
+		// verify the user username will fit in database
 		if(strlen($newUserUserName) > 128) {
 			throw(new \RangeException("username is too large"));
 		}
@@ -510,6 +510,43 @@ class User implements \JsonSerializable {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 		return($user);
+	}
+
+	/**
+	 * gets the User by email
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $userEmail email to search for
+	 * @return User|null User or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getUserByUserEmail(\PDO $pdo, string $userEmail): ?User {
+		// sanitize the email before searching
+		$userEmail = trim($userEmail);
+		$userEmail = filter_var($userEmail, FILTER_VALIDATE_EMAIL);
+		if(empty($userEmail) === true) {
+			throw(new \PDOException("not a valid email"));
+		}
+		// create query template
+		$query = "SELECT userId, userActivationToken, userBio, userEmail, userFirstName, userHash, userImage, userLastName, userSalt, userUserName FROM user WHERE userEmail = :userEmail";
+		$statement = $pdo->prepare($query);
+		// bind the user id to the place holder in the template
+		$parameters = ["userEmail" => $userEmail];
+		$statement->execute($parameters);
+		// grab the User from mySQL
+		try {
+			$user = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$user = new User($row["userId"], $row["userActivationToken"], $row["userBio"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userImage"], $row["userLastName"], $row["userSalt"], $row["userUserName"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($user);
 	}
 
 	/**
