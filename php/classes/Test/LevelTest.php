@@ -146,7 +146,7 @@ class LevelTest extends KindHubTest {
 	public function testInsertValidLevel(): void {
 		$numRows = $this->getConnection()->getRowCount("level");
 
-		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_NUMBER);
+		$level = new Level(null, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
 		$level->insert($this->getPDO());
 
 		$level = Level::getLevelbyLevelId($this->getPDO(), $level->getLevelId());
