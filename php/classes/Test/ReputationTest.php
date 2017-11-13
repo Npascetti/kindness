@@ -31,7 +31,7 @@ class ReputationTest extends KindHubTest {
 	 * @var Hub that created the Reputation;
 	 */
 	protected $hub = null;
-	/**
+	/*
 	 * @var Level that created the Reputation;
 	 */
 	protected $level = null;
@@ -62,18 +62,18 @@ class ReputationTest extends KindHubTest {
 		parent::setUp();
 
 		// create the salt and hash of mocked user
-		$password = "abc123";
+		$password = "password";
 		$this->VALID_USER_SALT = bin2hex(random_bytes(32));
 		$this->VALID_USER_HASH = hash_pbkdf2("sha512", $password, $this->VALID_USER_SALT, 262144);
-		$this->VALID_ACTIVATION = bin2hex(random_bytes(16));
 
 		// create and insert the mocked user
-		$this->user = new User(null, null, "@phpunit", "test@phpunit.de", $this->VALID_HASH, "+12125551212", $this->VALID_SALT);
-		$this->user->insert($this->getPDO());
+		$this->user = new User(generateUuidV4(), "45b7ece24d4078df061abfca7a30d163
+", "I want to make a difference in the world",
+			"shannon@gmail.com", "Shannon", $this->VALID_USER_HASH, "image.png", "Yule", $this->VALID_USER_SALT, "ShannonYule314");$this->user->insert($this->getPDO());
 
 		// create and insert the mocked hub
-		$this->hub = new Hub(null, $this->user->getUserId(), "PHPUnit like test passing");
-		$this->hub->insert($this->getPDO());
+		// $this->hub = new Hub(generateUuidV4()), newHubUserId(generateUuidV4())
+		// $this->hub->insert($this->getPDO());
 
 		// create and insert the mocked level
 		$this->level = new Level(null, $this->user->getUserId(), "PHPUnit like test passing");
@@ -95,9 +95,9 @@ class ReputationTest extends KindHubTest {
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoLike = Reputation::getReputationByReputationHubIdAndReputationLevelIdAndReputationUserId($this->getPDO(), $this->user->getUserId(), $this->hub->getHubId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
-		$this->assertEquals($pdoLike->getReputationUserId(), $this->user->getUserId());
-		$this->assertEquals($pdoLike->getReputationHubId(), $this->hub->getHubId());
-		$this->assertEquals($pdoLike->getReputationLevelId(), $this->level->getLevelId());
+		$this->assertEquals($pdoReputation->getReputationUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoReputation->getReputationHubId(), $this->hub->getHubId());
+		$this->assertEquals($pdoReputation->getReputationLevelId(), $this->level->getLevelId());
 	}
 
 	/**

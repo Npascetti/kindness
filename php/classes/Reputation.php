@@ -14,7 +14,6 @@ use Ramsey\Uuid\Uuid;
  **/
 
 class Reputation implements \JsonSerializable {
-	use ValidateDate;
 	use ValidateUuid;
 	/**
 	 * id for this Reputation; this is the primary key
@@ -49,7 +48,7 @@ class Reputation implements \JsonSerializable {
 	 * @param Uuid $newReputationHubId id of the hub that gets reputation
 	 * @param Uuid $newReputationLevelId id of the level the reputation is at
 	 * @param Uuid $newReputationUserId id of the user that has reputation
-	 * @param int $newReputationPoint string containing actual tweet data
+	 * @param int $newReputationPoint int containing actual hub data
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
 	 * @throws \TypeError if data types violate type hints
@@ -64,6 +63,7 @@ class Reputation implements \JsonSerializable {
 			$this->setReputationLevelId($newReputationLevelId);
 			$this->setReputationUserId($newReputationUserId);
 			$this->setReputationPoint($newReputationPoint);
+
 		} //determine what exception type was thrown
 		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
@@ -81,9 +81,9 @@ class Reputation implements \JsonSerializable {
 	}
 
 	/**
-	 * mutator method for tweet id
+	 * mutator method for reputation id
 	 *
-	 * @param Uuid/string $newReputationId new value of reputation id
+	 * @param Uuid | string $newReputationId new value of reputation id
 	 * @throws \RangeException if $newReputationId is not positive
 	 * @throws \TypeError if $newReputationId is not a uuid or string
 	 **/
