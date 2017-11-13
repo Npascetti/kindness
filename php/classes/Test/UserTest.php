@@ -144,7 +144,7 @@ class UserTest extends KindHubTest {
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoUser = User::getUserByUserEmail($this->getPDO(), $user->getUserEmail());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("profile"));
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
 		$this->assertEquals($pdoUser->getUserId(), $userId);
 		$this->assertEquals($pdoUser->getUserActivationToken(), $this->VALID_ACTIVATIONTOKEN);
 		$this->assertEquals($pdoUser->getUserBio(), $this->VALID_BIO);
@@ -194,14 +194,39 @@ class UserTest extends KindHubTest {
 	/**
 	 * test grabbing a User by an activation that does not exists
 	 **/
-	public function testGetInvalidProfileActivation() : void {
-		// grab an activation that does not exist
-		$user = User::getUserByUserActivationToken($this->getPDO(), "5ebc7867885cb8dd25af05b991dd5609");
-		$this->assertNull($user);
-	}
-
-
-
+	public function testGetInvalidUserActivation() : void
+    {
+        // grab an activation that does not exist
+        $user = User::getUserByUserActivationToken($this->getPDO(), "5ebc7867885cb8dd25af05b991dd5609");
+        $this->assertNull($user);
+    }
+    /**
+     * test inserting a User, editing it, and then updating it
+     **/
+    public function testUpdateValidUser() {
+        // count the number of rows and save it for later
+        $numRows = $this->getConnection()->getRowCount("user");
+        // create a new User and insert to into mySQL
+        $userId = generateUuidV4();
+        $user = new User($userId, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME, $this->VALID_SALT, $this->VALID_USERNAME);
+        $user->insert($this->getPDO());
+        // edit the User and update it in mySQL
+        $user->setUserAtHandle($this->VALID_ATHANDLE2);
+        $user->update($this->getPDO());
+        // grab the data from mySQL and enforce the fields match our expectations
+        $pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
+        $this->assertEquals($pdoUser->getUserId(), $userId);
+        $this->assertEquals($pdoUser->getUserActivationToken(), $this->VALID_ACTIVATION);
+        $this->assertEquals($pdoUser->getUserBio(), $this->VALID_BIO);
+        $this->assertEquals($pdoUser->getUserEmail(), $this->VALID_EMAIL);
+        $this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_FIRSTNAME);
+        $this->assertEquals($pdoUser->getUserHash(), $this->VALID_HASH);
+        $this->assertEquals($pdoUser->getUserImage(), $this->VALID_IMAGE);
+        $this->assertEquals($pdoUser->getUserLastName(), $this->VALID_LASTNAME);
+        $this->assertEquals($pdoUser->getUserSalt(), $this->VALID_SALT);
+        $this->assertEquals($pdoUser->getUserUserName(), $this->VALID_USERNAME);
+    }
 
 
 

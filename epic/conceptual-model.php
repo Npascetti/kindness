@@ -31,8 +31,8 @@
 				<li>userHash</li>
 				<li>userImage</li>
 				<li>userLastName</li>
-				<li>userUserName</li>
 				<li>userSalt</li>
+                <li>userUserName</li>
 			</ul>
  
 			<h2>Hub</h2>
