@@ -3,7 +3,7 @@
 		<testsuite name="KindHub">
 			<file>UserTest.php</file>
 			<file>HubTest.php</file>
-			<file>UserTest.php</file>
+			<file>LevelTest.php</file>
 			<file>ReputationTest.php</file>
 		</testsuite>
 	</testsuites>
