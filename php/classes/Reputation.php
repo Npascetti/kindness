@@ -27,12 +27,12 @@ class Reputation implements \JsonSerializable {
 	private $reputationHubId;
 	/**
 	 * id for the level the reputation is at; this is a foreign key
-	 * @var string $reputationLevelId
+	 * @var Uuid $reputationLevelId
 	 **/
 	private $reputationLevelId;
 	/**
 	 * id for the user that has reputation; this is a foreign key
-	 * @var string $reputationUserId
+	 * @var Uuid $reputationUserId
 	 **/
 	private $reputationUserId;
 	/**
