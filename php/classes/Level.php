@@ -1,5 +1,12 @@
 <?php
 
+namespace Edu\Cnm\KindHub;
+
+require_once("autoload.php");
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
+
+use Ramsey\Uuid\Uuid;
+
 /**
  * Created by PhpStorm.
  * User: jermainejennings
