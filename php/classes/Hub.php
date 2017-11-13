@@ -14,7 +14,7 @@ use Ramsey\Uuid\Uuid;
  * @author Calder Benjamin <calderbenjamin@gmail.com>
  **/
 class Hub implements \JsonSerializable {
-	use \Edu\Cnm\KindHub\ValidateUuid; /* FIX THE CAPITAL V */
+	use \Edu\Cnm\KindHub\ValidateUuid;
 
 	/**
 	 * ID of the hub; primary key

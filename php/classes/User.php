@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
  **/
 
 class User implements \JsonSerializable {
-	use Edu\Cnm\Kindhub\ValidateUuid;
+	use \Edu\Cnm\KindHub\ValidateUuid;
 	/**
 	 *id for this User; this is the primary key
 	 * @var Uuid $userId
