@@ -586,6 +586,43 @@ class User implements \JsonSerializable {
 		return ($users);
 	}
 
+	/**
+	 * get the user by user activation token
+	 *
+	 * @param string $userActivationToken
+	 * @param \PDO object $pdo
+	 * @return User|null User or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public
+	static function getUserByUserActivationToken(\PDO $pdo, string $userActivationToken) : ?User {
+		//make sure activation token is in the right format and that it is a string representation of a hexadecimal
+		$userActivationToken = trim($userActivationToken);
+		if(ctype_xdigit($userActivationToken) === false) {
+			throw(new \InvalidArgumentException("user activation token is empty or in the wrong format"));
+		}
+		//create the query template
+		$query = "SELECT  userId, userActivationToken, userBio, userEmail, userFirstName, userHash, userImage, userLastName, userSalt, userUserName FROM user WHERE userActivationToken = :userActivationToken";
+		$statement = $pdo->prepare($query);
+		// bind the user activation token to the placeholder in the template
+		$parameters = ["userActivationToken" => $userActivationToken];
+		$statement->execute($parameters);
+		// grab the User from mySQL
+		try {
+			$user = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$user = new User($row["userId"], $row["userActivationToken"], $row["userBio"], $row["userEmail"], $row["userFirstName"], $row["userHash"], $row["userImage"], $row["userLastName"], $row["userSalt"], $row["userUserName"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return ($user);
+	}
+
 
 	/**
 	 * formats the state variables for JSON serialization
@@ -602,3 +639,5 @@ class User implements \JsonSerializable {
 	}
 
 }
+
+
