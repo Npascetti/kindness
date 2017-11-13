@@ -2,6 +2,10 @@
 
 //TODO add namespace and import statements use Tweet as example
 
+namespace Edu\Cnm\DataDesign;
+require_once("autoload.php");
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
+use Ramsey\Uuid\Uuid;
 /**
  * Created by PhpStorm.
  * User: jermainejennings
@@ -38,12 +42,12 @@ class Level implements \JsonSerializable {
 
 	/**
 	 *
-	 * //TODO
+	 *
 	 * Constructor method for the Level Class
 	 *
 	 * @param Uuid $newLevelId the ID of the user
-	 * @param Uuid $newLevelName The Name of the user
-	 * @param Uuid $newLevelNumber
+	 * @param string $newLevelName The Name of the user
+	 * @param integer $newLevelNumber
 	 */
 	public function __construct($newLevelId, $newLevelName, $newLevelNumber) {
 		try {
@@ -83,7 +87,7 @@ class Level implements \JsonSerializable {
 	/**
 	 * accessor method for LevelName
 	 *
-	 * @return Uuid The Name of the Hub or user
+	 * @return string The Name of the Hub or user
 	 */
 	public function getLevelName(): Uuid {
 		return ($this->levelName);
@@ -106,7 +110,7 @@ class Level implements \JsonSerializable {
 	/**
 	 * accessor method for LevelNumber
 	 *
-	 * @return Uuid value of the Level Number
+	 * @return integer value of the Level Number
 	 */
 	public function getLevelNumber(): Uuid {
 		return ($this->levelNumber);
@@ -115,7 +119,7 @@ class Level implements \JsonSerializable {
 	/**
 	 * mutator method for LevelNumber
 	 *
-	 * @param Uuid $newLevelNumber The new value of the Level number
+	 * @param integer $newLevelNumber The new value of the Level number
 	 */
 	public function setLevelNumber($newLevelNumber): void {
 		try {
@@ -181,7 +185,7 @@ class Level implements \JsonSerializable {
 	 * Gets the level by levelId
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param  Uuid $hubId levelId to search for
+	 * @param  Uuid $levelId levelId to search for
 	 * @return level|null level found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
@@ -213,6 +217,38 @@ class Level implements \JsonSerializable {
 	}
 
 	//TODO write a getAllLevels method use data-design tweet getAllTweets as a reference
+
+
+	/**
+	 * gets all Levels
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of Levels found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getAllLevels(\PDO $pdo) : \SPLFixedArray {
+		// create query template
+		$query = "SELECT levelId, levelName, levelNumber FROM level";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+		// build an array of levels
+		$levels = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$level = new Level($row["levelId"], $row["levelName"], $row["levelNumber"] );
+				$levels[$levels->key()] = $level;
+				$levels->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($levels);
+	}
+
+
 
 	/**
 	 * formats the state variables for JSON serialization

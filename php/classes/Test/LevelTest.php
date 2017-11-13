@@ -87,7 +87,7 @@ class LevelTest extends KindHubTest {
 	 *  this is for foreign key relations
 	 * @var Level $level
 	 **/
-	protected $level = null;
+	protected $level = "generateUuidV4()";
 
 	/**
 	 * Name of the LEVELNAME
@@ -99,7 +99,7 @@ class LevelTest extends KindHubTest {
 	 * Name of the LEVELNAME
 	 * @var string $INVALID_LEVELNAME
 	 */
-	protected $INVALID_LEVELNAME = "null";
+	protected $INVALID_LEVELNAME = "generateUuidV4()";
 
 	/**
 	 * Number of the LEVELNUMBER
@@ -205,7 +205,7 @@ class LevelTest extends KindHubTest {
 		$level->delete($this->getPDO());
 		//grab the data from mySQL and enforce the level does not exist
 		$level = Level::getLevelbyLevelId($this->getPDO(), $level->getLevelId());
-		$this->assertNull($level);
+		$this->assertgenerateUuidV4()($level);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("level"));
 	}
 
@@ -233,7 +233,7 @@ class LevelTest extends KindHubTest {
 	public function testGetInvalidLevelByLevelId(): void {
 		// get a levelId that is not valid
 		$level = Level::getLevelbyLevelId($this->getPDO(), "fuyguyg");
-		$this->assertNull($level);
+		$this->assertgenerateUuidV4()($level);
 	}
 
 	//TODO add a valid and invalid test for getting allLevels
