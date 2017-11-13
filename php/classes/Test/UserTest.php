@@ -2,7 +2,7 @@
 namespace Edu\Cnm\KindHub\Test;
 
 use Edu\Cnm\KindHub\{
-	Test\KindHubTest, User
+	 User
 };
 use function Sodium\randombytes_buf;
 use function Sodium\randombytes_random16;
@@ -99,7 +99,7 @@ class UserTest extends KindHubTest {
 	}
 
 	/**
-	 * test inserting a valid User and verify that the actual mySQL data matches
+	 * test inserting a User and verify that the actual mySQL data matches
 	 **/
 	public function testInsertValidUser() : void {
 		// count the number of rows and save it for later
@@ -121,16 +121,7 @@ class UserTest extends KindHubTest {
         $this->assertEquals($pdoUser->getUSerSalt(), $this->VALID_SALT);
         $this->assertEquals($pdoUser->getUserUserName(), $this->VALID_USERNAME);
     }
-    /**
-     * test inserting a User that already exists
-     *
-     * @expectedException \PDOException
-     **/
-    public function testInsertInvalidUser() : void {
-        // create a User with a non null UserId and watch it fail
-        $user = new User(KindHubTest::INVALID_KEY, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL,  $this->VALID_FIRSTNAME,  $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME,$this->VALID_SALT, $this->VALID_USERNAME);
-        $user->insert($this->getPDO());
-    }
+
 
 		/**
 		 * test grabbing a User by username that doesn't exist
@@ -201,12 +192,12 @@ class UserTest extends KindHubTest {
 	}
 
 	/**
-	 * test grabbing a User by an email that does not exists
+	 * test grabbing a User by an activation that does not exists
 	 **/
 	public function testGetInvalidProfileActivation() : void {
-		// grab an email that does not exist
-		$profile = Profile::getProfileByProfileActivationToken($this->getPDO(), "5ebc7867885cb8dd25af05b991dd5609");
-		$this->assertNull($profile);
+		// grab an activation that does not exist
+		$user = User::getUserByUserActivationToken($this->getPDO(), "5ebc7867885cb8dd25af05b991dd5609");
+		$this->assertNull($user);
 	}
 
 

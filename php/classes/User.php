@@ -511,31 +511,6 @@ class User implements \JsonSerializable {
 		}
 		return($user);
 	}
-	/**
-	 * gets all users
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @return \SplFixedArray SplFixedArray of Users found or null if not found
-	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError when variables are not the correct data type
-	 **/
-	public static function getAllUsers(\PDO $pdo) : \SPLFixedArray {
-		$query = "SELECT userId, userActivationToken, userBio, userEmail, userFirstName,  userHash, userImage, userLastName, userSalt, userUserName FROM `user`";
-		$statement = $pdo->prepare($query);
-		$statement->execute();
-		$users = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$user = new User($row["userId"], $row["userActivationToken"], $row["userBio"], $row["userEmail"], $row["userFirstName"], $row["userHash"],$row["userImage"],$row["userLastName"], $row["userSalt"], $row["userUserName"]);
-				$user[$users->key()] = $user;
-				$users->next();
-			} catch(\Exception $exception) {
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
-		}
-		return ($users);
-	}
 
 	/**
 	 * formats the state variables for JSON serialization
