@@ -7,7 +7,7 @@ require_once("autoload.php");
 use Ramsey\Uuid\Uuid;
 /**
  * Created by PhpStorm.
- * User: jermainejennings
+ * User: jermainjennings
  * Date: 11/7/17
  * Time: 3:22 PM
  * This is the Level entity
