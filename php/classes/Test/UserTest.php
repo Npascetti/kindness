@@ -157,14 +157,56 @@ class UserTest extends KindHubTest {
 		$this->assertEquals($pdoUser->getUserId(), $userId);
 		$this->assertEquals($pdoUser->getUserActivationToken(), $this->VALID_ACTIVATIONTOKEN);
 		$this->assertEquals($pdoUser->getUserBio(), $this->VALID_BIO);
-		$this->assertEquals($pdoUser->getProfileEmail(), $this->VALID_EMAIL);
+		$this->assertEquals($pdoUser->getUserEmail(), $this->VALID_EMAIL);
 		$this->assertEquals($pdoUser->getUserFirstName(),
 	$this->VALID_FIRSTNAME);
 		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_HASH);
 		$this->assertEquals($pdoUser->getUserImage(), $this->VALID_IMAGE);
 		$this->assertEquals($pdoUser->getUserLastName(), $this->VALID_LASTNAME);
 		$this->assertEquals($pdoUser->getUserUserName(), $this->VALID_USERNAME);
-		$this->assertEquals($pdoUser->getProfileSalt(), $this->VALID_SALT);
+		$this->assertEquals($pdoUser->getUserSalt(), $this->VALID_SALT);
+	}
+
+	/**
+	 **test grabbing a user by email that doesn't exist
+	**/
+	public function testGetInvalidUserByEmail() : void {
+		// grab an email that does not exist
+		$user = User::getUserByUserEmail($this->getPDO(), "someone@not.exist");
+		$this->assertNull($user);
+	}
+
+	/**
+	 * test grabbing a user by its activation
+	 **/
+	public function testGetValidUserByActivationToken() : void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("user");
+		$userId = generateUuidV4();
+		$user = new User($userId, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME, $this->VALID_SALT, $this->VALID_USERNAME);
+		$user->insert($this->getPDO());
+		// grab the data from mySQL and enforce the fields match our expectations
+		$pdoUser = User::getUserByUserActivationToken($this->getPDO(), $user->getUserActivationToken());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
+		$this->assertEquals($pdoUser->getUserId(), $userId);
+		$this->assertEquals($pdoUser->getUserActivationToken(), $this->VALID_ACTIVATION);
+		$this->assertEquals($pdoUser->getUserBio(), $this->VALID_BIO);
+		$this->assertEquals($pdoUser->getUserEmail(), $this->VALID_EMAIL);
+		$this->assertEquals($pdoUser->getUserFirstName(), $this->VALID_FIRSTNAME);
+		$this->assertEquals($pdoUser->getUserHash(), $this->VALID_HASH);
+		$this->assertEquals($pdoUser->getUserImage(), $this->VALID_IMAGE);
+		$this->assertEquals($pdoUser->getUserLastName(), $this->VALID_LASTNAME);
+		$this->assertEquals($pdoUser->getUserSalt(), $this->VALID_SALT);
+		$this->assertEquals($pdoUser->getUserUserName(), $this->VALID_USERNAME);
+	}
+
+	/**
+	 * test grabbing a User by an email that does not exists
+	 **/
+	public function testGetInvalidProfileActivation() : void {
+		// grab an email that does not exist
+		$profile = Profile::getProfileByProfileActivationToken($this->getPDO(), "5ebc7867885cb8dd25af05b991dd5609");
+		$this->assertNull($profile);
 	}
 
 

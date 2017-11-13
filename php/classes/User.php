@@ -433,7 +433,7 @@ class User implements \JsonSerializable {
 			throw(new \RangeException("username is too large"));
 		}
 
-		// store the username
+		// store the username`
 		$this->userUserName = $newUserUserName;
 	}
 
