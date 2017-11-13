@@ -44,7 +44,7 @@ CREATE TABLE reputation (
 	reputationUserId BINARY(16),
 	reputationPoint TINYINT(8),
 	FOREIGN KEY (reputationHubId) REFERENCES hub(hubId),
-	FOREIGN KEY (reputationLevelId) REFERENCES level(levelId),
+	FOREIGN KEY (reputationLevelId) REFERENCES `level`(levelId),
 	FOREIGN KEY (reputationUserId) REFERENCES `user`(userId),
 	PRIMARY KEY (reputationId)
 );
