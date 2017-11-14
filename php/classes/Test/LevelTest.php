@@ -181,13 +181,12 @@ class LevelTest extends KindHubTest {
 		$level->setLevelNumber($this->VALID_LEVELNUMBER2);
 		$level->update($this->getPDO());
 
-		// grab level data from mysql, verify level updated correctly.
+		// get level data from mysql, verify level updated correctly.
 		$level = Level::getLevelbyLevelId($this->getPDO(), $level->getLevelId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
 		$this->assertEquals($level->getLevelName(), $this->VALID_LEVELNAME);
 		$this->assertEquals($level->getLevelNumber(), $this->VALID_LEVELNUMBER2);
 	}
-
 
 
 	/**
@@ -242,7 +241,7 @@ class LevelTest extends KindHubTest {
 	/**
 	 * test getting all Levels
 	 **/
-	public function testGetAllValidLevels() : void {
+	public function testGetAllValidLevels(): void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("level");
 		// create a new Level and insert to into mySQL
@@ -260,5 +259,14 @@ class LevelTest extends KindHubTest {
 		$this->assertEquals($level->getLevelName(), $this->VALID_LEVELNAME);
 		$this->assertEquals($level->getLevelNumber(), $this->VALID_LEVELNUMBER);
 	}
+		/**
+		 * test getting all Levels that do not exist
+		 **/
+		public
+		function testGetAllInvalidLevels(): void {
+			// get a level id that exceeds the maximum allowable level id
+			$level = Level::getLevelBylevelId($this->getPDO(), generateUuidV4());
+			$this->assertNull($level);
+		}
 
 }

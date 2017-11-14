@@ -109,7 +109,7 @@ class Level implements \JsonSerializable {
 	/**
 	 * accessor method for LevelNumber
 	 *
-	 * @return integer value of the Level Number
+	 * @return int value of the Level Number
 	 */
 	public function getLevelNumber(): Uuid {
 		return ($this->levelNumber);
@@ -118,7 +118,7 @@ class Level implements \JsonSerializable {
 	/**
 	 * mutator method for LevelNumber
 	 *
-	 * @param integer $newLevelNumber The new value of the Level number
+	 * @param int $newLevelNumber The new value of the Level number
 	 */
 	public function setLevelNumber($newLevelNumber): void {
 		try {
