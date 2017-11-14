@@ -12,6 +12,8 @@ require_once(dirname(__DIR__) . "/autoload.php");
 
 // grab the uuid generator
 require_once(dirname(__DIR__) . "/lib/uuid.php");
+require_once(dirname(__DIR__, 3) . "/vendor/autoload.php");
+
 
 /**
  * Full PHPUnit test for the User class
