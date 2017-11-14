@@ -2,7 +2,7 @@
 namespace Edu\Cnm\KindHub\Test;
 
 use Edu\Cnm\KindHub\{
-	Hub, Test\KindHubTest, User
+	Level, User
 };
 use Ramsey\Uuid\Uuid;
 
@@ -17,7 +17,7 @@ require_once(dirname(__DIR__, 3) . "/vendor/autoload.php");
  * This is a complete PHPUnit test of the Level class. It is complete because *ALL* mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
  *
- * @see Tweet
+ * @see Level
  * @author Jermain Jennings
  **/
 
@@ -232,9 +232,33 @@ class LevelTest extends KindHubTest {
 	 **/
 	public function testGetInvalidLevelByLevelId(): void {
 		// get a levelId that is not valid
-		$level = Level::getLevelbyLevelId($this->getPDO(), "fuyguyg");
-		$this->assertgenerateUuidV4()($level);
+		$level = Level::getLevelbyLevelId($this->getPDO(), generateUuidV4());
+		$this->assertEmpty($level);
 	}
 
 	//TODO add a valid and invalid test for getting allLevels
+
+
+	/**
+	 * test getting all Levels
+	 **/
+	public function testGetAllValidLevels() : void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("level");
+		// create a new Level and insert to into mySQL
+		$levelId = generateUuidV4();
+		$level = new Level(generateUuidV4(), $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
+		$level->insert($this->getPDO());
+		// grab the data from mySQL and enforce the fields match our expectations
+		$results = Level::getAllLevels($this->getPDO());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Kindness\\Level", $results);
+		// grab the result from the array and validate it
+		$pdoLevel = $results[0];
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
+		$this->assertEquals($level->getLevelName(), $this->VALID_LEVELNAME);
+		$this->assertEquals($level->getLevelNumber(), $this->VALID_LEVELNUMBER);
+	}
+
 }

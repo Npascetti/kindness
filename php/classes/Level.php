@@ -1,9 +1,10 @@
 <?php
 
-//TODO add namespace and import statements use Tweet as example
+//TODO add vendor autoloader
 
 namespace Edu\Cnm\kindHub;
 require_once("autoload.php");
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 /**
  * Created by PhpStorm.
@@ -34,7 +35,7 @@ class Level implements \JsonSerializable {
 	/**
 	 * current level of user or hub
 	 *
-	 * @var string $levelNumber
+	 * @var int $levelNumber
 	 */
 	private $levelNumber;
 
@@ -43,16 +44,16 @@ class Level implements \JsonSerializable {
 	 *
 	 * Constructor method for the Level Class
 	 *
-	 * @param Uuid $newLevelId the ID of the user
+	 * @param Uuid|string $newLevelId the ID of the user
 	 * @param string $newLevelName The Name of the user
-	 * @param integer $newLevelNumber
+	 * @param int $newLevelNumber
 	 */
-	public function __construct($newLevelId, $newLevelName, $newLevelNumber) {
+	public function __construct($newLevelId, string $newLevelName, int $newLevelNumber) {
 		try {
 			$this->setlevelId($newLevelId);
 			$this->setLevelName($newLevelName);
 			$this->setLevelNumber($newLevelNumber);
-		} catch(\InvalidArgumentException | Exception | \RangeException | \TypeError $exception) {
+		} catch(\InvalidArgumentException | \Exception | \RangeException | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
@@ -183,14 +184,14 @@ class Level implements \JsonSerializable {
 	 * Gets the level by levelId
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param  Uuid $levelId levelId to search for
+	 * @param  Uuid|string $levelId levelId to search for
 	 * @return level|null level found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
 	public static function getLevelBylevelId(\PDO $pdo, $levelId): ?level {
 		try {
-			$levelId = self::validateUuid($levelId);
+			$levelId = self::ValidateUuid($levelId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
@@ -213,9 +214,6 @@ class Level implements \JsonSerializable {
 		}
 		return ($level);
 	}
-
-	//TODO write a getAllLevels method use data-design tweet getAllTweets as a reference
-
 
 	/**
 	 * gets all Levels
