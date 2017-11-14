@@ -188,6 +188,53 @@ class ReputationTest extends KindHubTest {
 		$this->assertEquals($pdoReputation->getReputationHubId(), $this->hub->getHubId());
 	}
 
+	/**
+	 * test grabbing a Reputation by a hub id that does not exist
+	 **/
+	public function testGetInvalidReputationByHubId() : void {
+
+		// grab a hub id that exceeds the maximum allowable hub id
+		$reputation = Reputation::getReputationByReputationHubId($this->getPDO(), generateUuidV4());
+		$this->assertCount(0, $reputation);
+	}
+
+	/**
+	 * test grabbing a Reputation by user id
+	 **/
+	public function testGetValidReputationByUserId() : void {
+
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("reputation");
+
+		// create a new Reputation and insert to into mySQL
+		$reputationId = generateUuidV4();
+		$reputation = new Reputation($reputationId, $this->hub->getHubId(),$this->level->getLevelId(), $this->user->getUserId(), $this->VALID_REPUTATION_POINT);
+		$reputation->insert($this->getPDO());
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$results = Reputation::getReputationByReputationUserId($this->getPDO(), $this->user->getUserId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reputation"));
+		$this->assertCount(1, $results);
+
+		// enforce no other objects are bleeding into the test
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\KindHub\\Reputation", $results);
+
+		// grab the result from the array and validate it
+		$pdoReputation = $results[0];
+		$this->assertEquals($pdoReputation->getReputationUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoReputation->getReputationHubId(), $this->hub->getTweetId());
+	}
+
+	/**
+	 * test grabbing a Reputation by a user id that does not exist
+	 **/
+	public function testGetInvalidReputationByUserId() : void {
+
+		// grab a hub id that exceeds the maximum allowable user id
+		$reputation = Reputation::getReputationByReputationUserId($this->getPDO(), generateUuidV4());
+		$this->assertCount(0, $reputation);
+	}
+
 }
 
 
