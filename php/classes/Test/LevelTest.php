@@ -131,34 +131,17 @@ class LevelTest extends KindHubTest {
 	 */
 	protected $INVALID_LEVELID = "";
 
-	/**
-	 * create dependent object
-	 **/
-	public final function setup(): void {
-		parent::setup();
-		//
-		$password = "mysecurepass";
-		$this->VALID_SALT = bin2hex(random_bytes(32));
-		$this->VALID_HASH = hash_pbkdf2("sha512", $password, $this->VALID_SALT, 262144);
 
-		$this->VALID_SALT2 = bin2hex(random_bytes(32));
-		$this->VALID_HASH2 = hash_pbkdf2("sha512", $password, $this->VALID_SALT, 262144);
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("user");
-		// create a new User and insert to into mySQL
-		$user = new User(generateUuidV4(), $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME, $this->VALID_SALT, $this->VALID_USERNAME);
-		$user->insert($this->getPDO());
-
-	}
 
 	/**
 	 * Tests inserting a valid level into mySQL and verifying the data in mySQL matches
 	 **/
 	public function testInsertValidLevel(): void {
 		$numRows = $this->getConnection()->getRowCount("level");
+		$levelId = generateUuidV4();
 
 		//TODO replace null with generateUuidV4() everywhere
-		$level = new Level(generateUuidV4(), $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
+		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
 		$level->insert($this->getPDO());
 
 		$level = Level::getLevelbyLevelId($this->getPDO(), $level->getLevelId());

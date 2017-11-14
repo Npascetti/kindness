@@ -17,6 +17,7 @@ use Ramsey\Uuid\Uuid;
 
 
 class Level implements \JsonSerializable {
+	use ValidateUuid;
 
 	/**
 	 * Level of the hub; primary key
@@ -71,7 +72,7 @@ class Level implements \JsonSerializable {
 	/**
 	 * mutator method for LevelId
 	 *
-	 * @param Uuid $newLevelId The new value of the Level ID
+	 * @param Uuid|string $newLevelId The new value of the Level ID
 	 */
 	public function setLevelId($newLevelId): void {
 		try {
@@ -88,7 +89,7 @@ class Level implements \JsonSerializable {
 	 *
 	 * @return string The Name of the Hub or user
 	 */
-	public function getLevelName(): Uuid {
+	public function getLevelName(): string {
 		return ($this->levelName);
 	}
 
@@ -97,7 +98,7 @@ class Level implements \JsonSerializable {
 	 *
 	 * @param string $newLevelName The new name of the hub
 	 */
-	public function setLevelName($newLevelName): void {
+	public function setLevelName(string $newLevelName): void {
 		$newLevelName = trim($newLevelName);
 		$newLevelName = filter_var($newLevelName, FILTER_SANITIZE_STRING);
 		if(empty($newLevelName)) {
@@ -143,7 +144,7 @@ class Level implements \JsonSerializable {
 			VALUES (:levelId, :levelName, :levelNumber)";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["levelId" => $this->levelId->getBytes(), "levelName" => $this->levelName->getBytes(),
+		$parameters = ["levelId" => $this->levelId->getBytes(), "levelName" => $this->levelName->getLevelName(),
 			"levelNumber" => $this->levelNumber, "levelName" => $this->levelName];
 		$statement->execute($parameters);
 	}
