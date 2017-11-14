@@ -104,48 +104,43 @@ class ReputationTest extends KindHubTest {
 	}
 
 	/**
-	 * test creating Reputation that makes no sense
-	 *
-	 * @expectedException \TypeError
-	 **/
-	public function testInsertInvalidReputation() : void {
-		// create a reputation without foreign keys and watch it fail
-		$reputationId = generateUuidV4();
-		$reputation = new Reputation($reputationId, $this->hub->getHubId(), $this->level->getLevelId(), $this->user->getUserId(), $this->VALID_REPUTATION_POINT);
-		$reputation->insert($this->getPDO());
-	}
-
-	/**
 	 * test creating a Reputation and then deleting it
 	 **/
 	public function testDeleteValidReputation() : void {
+
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("reputation");
 
 		// create a new Reputation and insert to into mySQL
 		$reputationId = generateUuidV4();
-		$reputation = new Reputation($reputationId, $this->hub->getHubId(), $this->level->getLevelId(), $this->user->getUserId(), $this->VALID_REPUTATION_POINT);
+		$reputation = new Reputation($reputationId, $this->hub->getHubId(),$this->level->getLevelId(), $this->user->getUserId(), $this->VALID_REPUTATION_POINT);
 		$reputation->insert($this->getPDO());
 
 		// delete the Reputation from mySQL
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reputation"));
 		$reputation->delete($this->getPDO());
 
-		// grab the data from mySQL and enforce the Hub does not exist
-		$pdoLike = Reputation::getReputationByReputationId($this->getPDO(), $this->user->getUserId(), $this->hub->getHubId());
-		$this->assertNull($pdoLike);
-		$this->assertEquals($numRows, $this->getConnection()->getRowCount("reputation"));
+		// grab the data from mySQL and enforce the Reputation does not exist
+		$pdoReputation = Reputation::getReputationByReputationId($this->getPDO(), $reputation->getReputationId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reputation"));
+		$this->assertEquals($pdoReputation->getReputationId(), $reputationId);
+		$this->assertEquals($pdoReputation->getReputationHubId(), $this->hub->getHubId());
+		$this->assertEquals($pdoReputation->getReputationLevelId(), $this->level->getLevelId());
+		$this->assertEquals($pdoReputation->getReputationUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoReputation->getReputationPoint(), $this->VALID_REPUTATION_POINT);
 	}
 
 	/**
 	 * test inserting a Reputation and regrabbing it from mySQL
 	 **/
-	public function testGetValidReputationByUserIdAndHubIdAndLevelIdAndUserId() : void {
+	public function testGetValidReputationbyReputationId() : void {
+
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("reputation");
 
 		// create a new Reputation and insert to into mySQL
-		$reputation = new Reputation($this->user->getUserId(), $this->hub->gethubId(), $this->level->getLevelId);
+		$reputationId = generateUuidV4();
+		$reputation = new Reputation($reputationId, $this->hub->getHubId(),$this->level->getLevelId(), $this->user->getUserId(), $this->VALID_REPUTATION_POINT);
 		$reputation->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -155,84 +150,7 @@ class ReputationTest extends KindHubTest {
 		$this->assertEquals($pdoReputation->getReputationHubId(), $this->hub->getHubId());
 		$this->assertEquals($pdoReputation->getReputationLevelId(), $this->level->getLevelId());
 		$this->assertEquals($pdoReputation->getReputationUserId(), $this->user->getUserId());
-		$this->assertEquals($pdoReputation->getReputationPoint(), $this->VALID_REPUTATION_POINT);;
-	}
-
-	/**
-	 * test grabbing a Reputation that does not exist
-	 **/
-	public function testGetInvalidReputationByHubIdAndLevelIdAndUserId() {
-		// grab a hub id and user id that exceeds the maximum allowable hub id and user id
-		$reputation = Reputation::getReputationByReputationHubIdAndReputationLevelAndReputationUserId($this->getPDO(), KindHubTest::INVALID_KEY, KindHubTest::INVALID_KEY);
-		$this->assertNull($reputation);
-	}
-
-	/**
-	 * test grabbing a Reputation by Hub id
-	 **/
-	public function testGetValidReputationByHubId() : void {
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("reputation");
-
-		// create a new Reputation and insert to into mySQL
-		$reputation = new Reputation($this->user->getProfileId(), $this->hub->getHubId(), $this->level->getlevelId());
-		$reputation->insert($this->getPDO());
-
-		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Reputation::getReputationByReputationHubId($this->getPDO(), $this->hub->getHubId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reputation"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\KindHub\\Reputation", $results);
-
-		// grab the result from the array and validate it
-		$pdoReputation = $results[0];
-		$this->assertEquals($pdoReputation->getReputationUserId(), $this->user->getUserId());
-		$this->assertEquals($pdoReputation->getReputationHubId(), $this->hub->getHubId());
-		$this->assertEquals($pdoReputation->getReputationLevelId(), $this->level->getLevelId());
-	}
-
-	/**
-	 * test grabbing a Reputation by a hub id that does not exist
-	 **/
-	public function testGetInvalidReputationByHubId() : void {
-		// grab a hub id that exceeds the maximum allowable hub id
-		$reputation = Reputation::getReputationByReputationHubId($this->getPDO(), KindHubTest::INVALID_KEY);
-		$this->assertCount(0, $reputation);
-	}
-
-	/**
-	 * test grabbing a Reputation by user id
-	 **/
-	public function testGetValidReputationByUserId() : void {
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("reputation");
-
-		// create a new Reputation and insert to into mySQL
-		$reputation = new Reputation($this->user->getUserId(), $this->hub->getHubId(), $this->level->getLevelId);
-		$reputation->insert($this->getPDO());
-
-		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Reputation::getreputationByReputationUserId($this->getPDO(), $this->user->getUserId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reputation"));
-		$this->assertCount(1, $results);
-
-		// enforce no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\KindHubTest\\Reputation", $results);
-
-		// grab the result from the array and validate it
-		$pdoReputation = $results[0];
-		$this->assertEquals($pdoReputation->getReputationUserId(), $this->user->getUserId());
-		$this->assertEquals($pdoReputation->getReputationHubId(), $this->hub->getHubId());
-		$this->assertEquals($pdoReputation->getReputationLevelId(), $this->level->getLevelId());
-	}
-
-	/**
-	 * test grabbing a Reputation by a user id that does not exist
-	 **/
-	public function testGetInvalidReputationByUserId() : void {
-		// grab a hub id that exceeds the maximum allowable user id
-		$reputation = Reputation::getReputationByReputationUserId($this->getPDO(), KindHubTest::INVALID_KEY);
-		$this->assertCount(0, $reputation);
+		$this->assertEquals($pdoReputation->getReputationPoint(), $this->VALID_REPUTATION_POINT);
 	}
 
 }
