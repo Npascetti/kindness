@@ -70,7 +70,7 @@ class HubTest extends KindHubTest {
 		// Sets up the framework for a fake user to own the hubs created
 		parent::setUp();
 		$password = "mockpassword";
-		$this->VALID_USER_SALT = bin2hex(random_bytes(32));
+		$this->VALID_USER_SALT = bin2hex(random_bytes(64));
 		$this->VALID_USER_HASH = hash_pbkdf2("sha512", $password, $this->VALID_USER_SALT, 262144);
 
 		// Creates the user and inserts them into mySQL
