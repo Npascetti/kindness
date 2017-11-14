@@ -76,7 +76,7 @@ class ReputationTest extends KindHubTest {
 		 $this->hub->insert($this->getPDO());
 
 		// create and insert the mocked level
-		$this->level = new Level(generateUuidV4(), "Level 1", "1");
+		$this->level = new Level(generateUuidV4(), "Level", "1");
 		$this->hub->insert($this->getPDO());
 	}
 
@@ -110,7 +110,8 @@ class ReputationTest extends KindHubTest {
 	 **/
 	public function testInsertInvalidReputation() : void {
 		// create a reputation without foreign keys and watch it fail
-		$reputation = new reputation(null, null, null);
+		$reputationId = generateUuidV4();
+		$reputation = new Reputation($reputationId, $this->hub->getHubId(), $this->level->getLevelId(), $this->user->getUserId(), $this->VALID_REPUTATION_POINT);
 		$reputation->insert($this->getPDO());
 	}
 
@@ -122,7 +123,8 @@ class ReputationTest extends KindHubTest {
 		$numRows = $this->getConnection()->getRowCount("reputation");
 
 		// create a new Reputation and insert to into mySQL
-		$reputation = new Reputation($this->user->getUserId(), $this->hub->getHubId(), $this->level->getUserId);
+		$reputationId = generateUuidV4();
+		$reputation = new Reputation($reputationId, $this->hub->getHubId(), $this->level->getLevelId(), $this->user->getUserId(), $this->VALID_REPUTATION_POINT);
 		$reputation->insert($this->getPDO());
 
 		// delete the Reputation from mySQL
@@ -130,7 +132,7 @@ class ReputationTest extends KindHubTest {
 		$reputation->delete($this->getPDO());
 
 		// grab the data from mySQL and enforce the Hub does not exist
-		$pdoLike = Reputation::getReputationByReputationHubIdAndReputationLevelId($this->getPDO(), $this->user->getUserId(), $this->hub->getHubId());
+		$pdoLike = Reputation::getReputationByReputationId($this->getPDO(), $this->user->getUserId(), $this->hub->getHubId());
 		$this->assertNull($pdoLike);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("reputation"));
 	}
@@ -147,11 +149,13 @@ class ReputationTest extends KindHubTest {
 		$reputation->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoLike = Reputation::getReputationByReputationHubIdAndReputationLevelIdAndReputationUserId($this->getPDO(), $this->user->getUserId(), $this->hub->getHubId(), $this->level->getLevelId());
+		$pdoReputation = Reputation::getReputationByReputationId($this->getPDO(), $reputation->getReputationId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reputation"));
-		$this->assertEquals($pdoReputation->getReputationUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoReputation->getReputationId(), $reputationId);
 		$this->assertEquals($pdoReputation->getReputationHubId(), $this->hub->getHubId());
 		$this->assertEquals($pdoReputation->getReputationLevelId(), $this->level->getLevelId());
+		$this->assertEquals($pdoReputation->getReputationUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoReputation->getReputationPoint(), $this->VALID_REPUTATION_POINT);;
 	}
 
 	/**
