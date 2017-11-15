@@ -67,8 +67,7 @@ class ReputationTest extends KindHubTest {
 		$this->VALID_USER_HASH = hash_pbkdf2("sha512", $password, $this->VALID_USER_SALT, 262144);
 
 		// create and insert the mocked user
-		$this->user = new User(generateUuidV4(), "45b7ece24d4078df061abfca7a30d163
-", "I want to make a difference in the world",
+		$this->user = new User(generateUuidV4(), bin2hex(random_bytes(16)), "I want to make a difference in the world",
 			"shannon@gmail.com", "Shannon", $this->VALID_USER_HASH, "image.png", "Yule", $this->VALID_USER_SALT, "ShannonYule314");$this->user->insert($this->getPDO());
 
 		// create and insert the mocked hub
