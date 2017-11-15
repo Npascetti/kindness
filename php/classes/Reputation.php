@@ -304,7 +304,7 @@ class Reputation implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$reputation = new Reputation($row["reputationUserId"], $row["reputationHub"], $row["reputationLevel"]);
+				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
 			}
 		} catch(\Exception $exception) {
 
