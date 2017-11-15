@@ -82,6 +82,12 @@ class UserTest extends KindHubTest {
      **/
     protected $VALID_USERNAME = "PascettiSpaghetti";
 
+	/**
+	 * valid user user name2 to use
+	 * @var string $VALID_USERNAME2
+	 **/
+	protected $VALID_USERNAME2 = "TrumpLoverxx69420blayzeit";
+
 
 
 
@@ -245,7 +251,7 @@ class UserTest extends KindHubTest {
         $user->insert($this->getPDO());
         // edit the User and update it in mySQL
        //TODO actually update something
-		 $user->setUserUserName($this->VALID_USERNAME);
+		 $user->setUserUserName($this->VALID_USERNAME2);
         $user->update($this->getPDO());
         // grab the data from mySQL and enforce the fields match our expectations
         $pdoUser = User::getUserByUserId($this->getPDO(), $user->getUserId());

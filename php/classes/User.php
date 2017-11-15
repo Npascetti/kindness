@@ -449,7 +449,7 @@ class User implements \JsonSerializable {
 			VALUES(:userId, :userActivationToken, :userBio, :userEmail, :userFirstName, :userHash, :userImage, :userLastName, :userSalt, :userUserName)";
 		$statement = $pdo->prepare($query);
 		$parameters = ["userId" => $this->userId->getBytes(), "userActivationToken" => $this->userActivationToken, "userBio" => $this-> userBio, "userEmail" => $this->userEmail,
-			"userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userImage" => $this->userImage, "userLastName" => $this->userImage, "userSalt" => $this->userSalt, "userUserName" => $this->userUserName];
+			"userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userImage" => $this->userImage, "userLastName" => $this->userLastName, "userSalt" => $this->userSalt, "userUserName" => $this->userUserName];
 		$statement->execute($parameters);
 	}
 	/**
