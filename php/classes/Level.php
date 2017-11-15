@@ -154,8 +154,8 @@ class Level implements \JsonSerializable {
 			VALUES (:levelId, :levelName, :levelNumber)";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["levelId" => $this->levelId->getBytes(), "levelName" => $this->levelName->getLevelName(),
-			"levelNumber" => $this->levelNumber->getLevelNumber()];
+		$parameters = ["levelId" => $this->levelId->getBytes(), "levelName" => $this->levelName,
+			"levelNumber" => $this->levelNumber];
 		$statement->execute($parameters);
 	}
 
@@ -186,7 +186,7 @@ class Level implements \JsonSerializable {
 			WHERE levelId = :levelId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["levelId" => $this->levelId->getBytes(), "levelName" => $this->levelName->getBytes(),
+		$parameters = ["levelId" => $this->levelId->getBytes(), "levelName" => $this->levelName,
 			"levelNumber" => $this->levelNumber];
 		$statement->execute($parameters);
 	}
