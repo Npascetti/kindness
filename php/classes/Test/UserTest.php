@@ -148,12 +148,13 @@ class UserTest extends KindHubTest {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("user");
         $userId = generateUuidV4();
-        $user = new User($userId, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME, $this->VALID_USERNAME, $this->VALID_SALT);
+        $user = new User($userId, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL, $this->VALID_FIRSTNAME, $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME, $this->VALID_SALT, $this->VALID_USERNAME);
+		 $user->insert($this->getPDO());
         //grab the data from MySQL
         $results = User::getUserByUserUserName($this->getPDO(), $this->VALID_USERNAME);
         $this->assertEquals($numRows +1, $this->getConnection()->getRowCount("user"));
         //enforce no other objects are bleeding into user
-        $this->assertContainsOnlyInstancesOf("Edu\\CNM\\DataDesign\\User", $results);
+        $this->assertContainsOnlyInstancesOf("Edu\\CNM\\KindHub\\User", $results);
         //enforce the results meet expectations
         $pdoUser = $results[0];
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("user"));
