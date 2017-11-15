@@ -1,8 +1,8 @@
 <?php
-namespace Edu\Cnm\DataDesign\Test;
+namespace Edu\Cnm\KindHub\Test;
 
 use Edu\Cnm\KindHub\{
-	Reputation, Test\KindHubTest, Hub, Level, User
+	Reputation, Hub, Level, User
 };
 use Ramsey\Uuid\Uuid;
 
