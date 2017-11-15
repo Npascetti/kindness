@@ -146,7 +146,7 @@ class Level implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		$parameters = ["levelId" => $this->levelId->getBytes(), "levelName" => $this->levelName->getLevelName(),
-			"levelNumber" => $this->levelNumber, "levelName" => $this->levelName];
+			"levelNumber" => $this->levelNumber->getLevelNumber()];
 		$statement->execute($parameters);
 	}
 
