@@ -270,14 +270,15 @@ class Reputation implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the Reputation by hub id and user id
+	 * gets the Reputation by hub id and user id and level id
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param string $reputationUserId user id to search for
 	 * @param string $reputationHubIdId hub id to search for
+	 * @param string $reputationLevelId level id to search for
 	 * @return Reputation|null Reputation found or null if not found
 	 */
-	public static function getReputationByReputationHubIdAndReputationUserId(\PDO $pdo, string $reputationUserId, string $reputationHubId) : ?Reputation {
+	public static function getReputationByReputationHubIdAndReputationUserIdAndLevelId(\PDO $pdo, string $reputationUserId, string $reputationHubId, string $reputationLevelId) : ?Reputation {
 		//
 		try {
 			$reputationUserId = self::validateUuid($reputationUserId);
@@ -289,12 +290,17 @@ class Reputation implements \JsonSerializable {
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
+		try {
+			$reputationLevelId = self::validateUuid($reputationLevelId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
 		// create query template
-		$query = "SELECT reputationUserId, reputationHubId FROM `reputation` WHERE reputationUserId = :reputationUserId AND reputationHubId = :reputationHubId";
+		$query = "SELECT reputationUserId, reputationHubId, reputationLevelId FROM `reputation` WHERE reputationUserId = :reputationUserId AND reputationHubId = :reputationHubId AND reputationLevelId = :reputationLevelId";
 		$statement = $pdo->prepare($query);
 
-		// bind the hub id and user id to the place holder in the template
-		$parameters = ["reputationUserId" => $reputationUserId->getBytes(), "reputationHubId" => $reputationHubId->getBytes()];
+		// bind the hub id and user id and level id to the place holder in the template
+		$parameters = ["reputationUserId" => $reputationUserId->getBytes(), "reputationHubId" => $reputationHubId->getBytes(), "reputationLevelId" => $reputationLevelId->getBytes()];
 		$statement->execute($parameters);
 
 		// grab the reputation from mySQL
@@ -303,7 +309,7 @@ class Reputation implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$reputation = new Reputation($row["reputationUserId"], $row["reputationHub"]);
+				$reputation = new Reputation($row["reputationUserId"], $row["reputationHub"], $row["reputationLevel"]);
 			}
 		} catch(\Exception $exception) {
 
