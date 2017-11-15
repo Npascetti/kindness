@@ -125,13 +125,7 @@ class Level implements \JsonSerializable {
 	 * @throws \RangeException if $newLevelNumber is +- 1 characters
 	 * @throws \TypeError if $newLevelNumber is not a string
 	 **/
-	public function setReputationPoint(int $newLevelNumber) : void {
-		// verify the LevelNumber is secure
-		$newLevelNumber = filter_var($newLevelNumber, FILTER_SANITIZE_NUMBER_INT);
-		if(empty($newLevelNumber) === true) {
-			throw(new \InvalidArgumentException("level number is empty or insecure"));
-		}
-
+	public function setLevelNumber(int $newLevelNumber) : void {
 		// verify the level number will fit in the database
 		if($newLevelNumber > 127){
 			throw(new \RangeException("level too large"));
@@ -244,6 +238,7 @@ class Level implements \JsonSerializable {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
+
 				$level = new Level($row["levelId"], $row["levelName"], $row["levelNumber"] );
 				$levels[$levels->key()] = $level;
 				$levels->next();

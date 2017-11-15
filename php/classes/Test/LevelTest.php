@@ -173,7 +173,7 @@ class LevelTest extends KindHubTest {
 	/**
 	 * Tests deleting a valid level into mySQL and verifying the data in mySQL matches
 	 **/
-	public function testDeletetValidLevel(): void {
+	public function testDeleteValidLevel(): void {
 		$numRows = $this->getConnection()->getRowCount("level");
 
 		$level = new Level(generateUuidV4(), $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
@@ -224,17 +224,19 @@ class LevelTest extends KindHubTest {
 		$numRows = $this->getConnection()->getRowCount("level");
 		// create a new Level and insert to into mySQL
 		$levelId = generateUuidV4();
-		$level = new Level(generateUuidV4(), $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
+		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
+		var_dump($level);
 		$level->insert($this->getPDO());
 		// grab the data from mySQL and enforce the fields match our expectations
 		$results = Level::getAllLevels($this->getPDO());
+
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Kindness\\Level", $results);
+		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Kindhub\\Level", $results);
 		// grab the result from the array and validate it
 		$pdoLevel = $results[0];
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("level"));
-		$this->assertEquals($level->getLevelName(), $this->VALID_LEVELNAME);
+		$this->assertEquals($pdoLevel->getLevelName(), $this->VALID_LEVELNAME);
 		$this->assertEquals($level->getLevelNumber(), $this->VALID_LEVELNUMBER);
 	}
 		/**
