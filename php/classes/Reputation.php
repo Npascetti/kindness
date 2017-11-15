@@ -201,11 +201,6 @@ class Reputation implements \JsonSerializable {
 	 * @throws \TypeError if $newReputationPoint is not a string
 	 **/
 	public function setReputationPoint(int $newReputationPoint) : void {
-		// verify the reputation point is secure
-		$newReputationPoint = filter_var($newReputationPoint, FILTER_SANITIZE_NUMBER_INT);
-		if(empty($newReputationPoint) === true) {
-			throw(new \InvalidArgumentException("reputation point is empty or insecure"));
-		}
 
 		// verify the reputation point will fit in the database
 		if($newReputationPoint > 127){
