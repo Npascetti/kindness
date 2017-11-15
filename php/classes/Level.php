@@ -76,7 +76,7 @@ class Level implements \JsonSerializable {
 	 */
 	public function setLevelId($newLevelId): void {
 		try {
-			$uuid = self::validateUuid($newLevelId);
+			$uuid = self::ValidateUuid($newLevelId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -119,16 +119,17 @@ class Level implements \JsonSerializable {
 	/**
 	 * mutator method for LevelNumber
 	 *
-	 * @param int $newLevelNumber The new value of the Level number
+	 *
+	 * @param int $newLevelNumber The new name of the hub
 	 */
-	public function setLevelNumber($newLevelNumber): void {
-		try {
-			$uuid = self::validateUuid($newLevelNumber);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			$exceptionType = get_class($exception);
-			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+	public function setLevelNumber(string $newLevelNumber): void {
+		$newLevelNumber = trim($newLevelNumber);
+		$newLevelNumber = filter_var($newLevelNumber, FILTER_SANITIZE_NUMBER_INT);
+		if(empty($newLevelNumber)) {
+			throw(new \InvalidArgumentException("Number is empty or insecure"));
 		}
-		$this->levelId = $uuid;
+		// store the level point
+		$this->levelNumber = $newLevelNumber;
 	}
 
 
