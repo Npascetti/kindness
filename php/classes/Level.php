@@ -138,7 +138,7 @@ class Level implements \JsonSerializable {
 		}
 
 		// store the level point
-		$this->levelNumber = $newLevelNumber;
+		$this->levelNumber = $newLevelNumber
 	}
 
 
