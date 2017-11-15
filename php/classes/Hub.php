@@ -303,7 +303,7 @@ class Hub implements \JsonSerializable {
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$hub = new Hub($row["hubId"], $row["hubUserId"], $row["hubLocation"], $row["hubName"]);
-				$hub[$hubs->key()] = $hub;
+				$hubs[$hubs->key()] = $hub;
 				$hubs->next();
 			} catch(\Exception $exception) {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -350,7 +350,7 @@ class Hub implements \JsonSerializable {
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$hub = new Hub($row["hubId"], $row["hubUserId"], $row["hubLocation"], $row["hubName"]);
-				$hub[$hubs->key()] = $hub;
+				$hubs[$hubs->key()] = $hub;
 				$hubs->next();
 			} catch(\Exception $exception) {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
