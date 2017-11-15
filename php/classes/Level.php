@@ -112,23 +112,31 @@ class Level implements \JsonSerializable {
 	 *
 	 * @return int value of the Level Number
 	 */
-	public function getLevelNumber(): Uuid {
+	public function getLevelNumber(): int {
 		return ($this->levelNumber);
 	}
+
 
 	/**
 	 * mutator method for LevelNumber
 	 *
-	 *
-	 * @param int $newLevelNumber The new name of the hub
-	 */
-	//TODO  handle level number like a number
-	public function setLevelNumber(string $newLevelNumber): void {
-		$newLevelNumber = trim($newLevelNumber);
+	 * @param int $newLevelNumber new value of level
+	 * @throws \InvalidArgumentException if $newLevelNumber is not a string or insecure
+	 * @throws \RangeException if $newLevelNumber is +- 1 characters
+	 * @throws \TypeError if $newLevelNumber is not a string
+	 **/
+	public function setReputationPoint(int $newLevelNumber) : void {
+		// verify the LevelNumber is secure
 		$newLevelNumber = filter_var($newLevelNumber, FILTER_SANITIZE_NUMBER_INT);
-		if(empty($newLevelNumber)) {
-			throw(new \InvalidArgumentException("Number is empty or insecure"));
+		if(empty($newLevelNumber) === true) {
+			throw(new \InvalidArgumentException("level number is empty or insecure"));
 		}
+
+		// verify the level number will fit in the database
+		if($newLevelNumber > 127){
+			throw(new \RangeException("level too large"));
+		}
+
 		// store the level point
 		$this->levelNumber = $newLevelNumber;
 	}
@@ -146,7 +154,6 @@ class Level implements \JsonSerializable {
 			VALUES (:levelId, :levelName, :levelNumber)";
 		$statement = $pdo->prepare($query);
 
-		//TODO get rid of non existant accessors
 		$parameters = ["levelId" => $this->levelId->getBytes(), "levelName" => $this->levelName->getLevelName(),
 			"levelNumber" => $this->levelNumber->getLevelNumber()];
 		$statement->execute($parameters);
