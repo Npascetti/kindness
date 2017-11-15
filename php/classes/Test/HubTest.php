@@ -268,7 +268,7 @@ class HubTest extends KindHubTest {
 		$hub1->insert($this->getPDO());
 
 		$hubId2 = generateUuidV4();
-		$hub2 = new Hub($hubId2, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
+		$hub2 = new Hub($hubId2, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME2);
 		$hub2->insert($this->getPDO());
 
 		// Gets all valid hubs and checks that two have been returned
