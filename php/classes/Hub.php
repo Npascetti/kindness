@@ -86,7 +86,7 @@ class Hub implements \JsonSerializable {
 	public function setHubId($newHubId): void {
 		// Makes sure the Uuid is valid, throws an exception if it is not
 		try {
-			$uuid = self::validateUuid($newHubId);
+			$uuid = self::ValidateUuid($newHubId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
