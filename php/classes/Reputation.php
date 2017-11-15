@@ -273,6 +273,7 @@ class Reputation implements \JsonSerializable {
 	 * @param string $reputationLevelId level id to search for
 	 * @return Reputation|null Reputation found or null if not found
 	 */
+	//TODO  meet with Dylan :scream_cat:
 	public static function getReputationByReputationHubIdAndReputationUserIdAndLevelId(\PDO $pdo, string $reputationUserId, string $reputationHubId, string $reputationLevelId) : ?Reputation {
 		//
 		try {
@@ -364,7 +365,8 @@ class Reputation implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public function getreputationByreputationHubId(\PDO $pdo, $reputationHubId): \SplFixedArray {
+	//TODO  meet with Dylan :scream_cat:
+	public function getReputationByReputationHubId(\PDO $pdo, $reputationHubId): \SplFixedArray {
 		try {
 			$reputationHubId = self::validateUuid($reputationHubId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -440,6 +442,7 @@ class Reputation implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
+	//TODO  meet with Dylan :scream_cat:
 	public function getreputationByreputationUserId(\PDO $pdo, $reputationUserId): \SplFixedArray {
 		try {
 			$reputationUserId = self::validateUuid($reputationUserId);

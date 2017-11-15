@@ -32,7 +32,7 @@ class ReputationTest extends KindHubTest {
 	 */
 	protected $hub = null;
 	/*
-	 * @var Level that created the Reputation;
+	 * @var Level $level that created the Reputation;
 	 */
 	protected $level = null;
 	/**
