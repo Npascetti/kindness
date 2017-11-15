@@ -139,8 +139,6 @@ class LevelTest extends KindHubTest {
 	public function testInsertValidLevel(): void {
 		$numRows = $this->getConnection()->getRowCount("level");
 		$levelId = generateUuidV4();
-
-		//TODO replace null with generateUuidV4() everywhere
 		$level = new Level($levelId, $this->VALID_LEVELNAME, $this->VALID_LEVELNUMBER);
 		$level->insert($this->getPDO());
 
@@ -187,7 +185,7 @@ class LevelTest extends KindHubTest {
 		$level->delete($this->getPDO());
 		//grab the data from mySQL and enforce the level does not exist
 		$level = Level::getLevelbyLevelId($this->getPDO(), $level->getLevelId());
-		$this->assertgenerateUuidV4()($level);
+		$this->assertNull($level);
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("level"));
 	}
 
@@ -217,9 +215,6 @@ class LevelTest extends KindHubTest {
 		$level = Level::getLevelbyLevelId($this->getPDO(), generateUuidV4());
 		$this->assertEmpty($level);
 	}
-
-	//TODO add a valid and invalid test for getting allLevels
-
 
 	/**
 	 * test getting all Levels

@@ -122,6 +122,7 @@ class Level implements \JsonSerializable {
 	 *
 	 * @param int $newLevelNumber The new name of the hub
 	 */
+	//TODO  handle level number like a number
 	public function setLevelNumber(string $newLevelNumber): void {
 		$newLevelNumber = trim($newLevelNumber);
 		$newLevelNumber = filter_var($newLevelNumber, FILTER_SANITIZE_NUMBER_INT);
@@ -145,6 +146,7 @@ class Level implements \JsonSerializable {
 			VALUES (:levelId, :levelName, :levelNumber)";
 		$statement = $pdo->prepare($query);
 
+		//TODO get rid of non existant accessors
 		$parameters = ["levelId" => $this->levelId->getBytes(), "levelName" => $this->levelName->getLevelName(),
 			"levelNumber" => $this->levelNumber->getLevelNumber()];
 		$statement->execute($parameters);
