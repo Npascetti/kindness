@@ -329,7 +329,7 @@ class User implements \JsonSerializable {
 		}
 
 		// store the user image
-		$this->newUserImage = $newUserImage;
+		$this->userImage = $newUserImage;
 	}
 
 	/**
