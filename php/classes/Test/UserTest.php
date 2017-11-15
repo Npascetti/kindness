@@ -266,7 +266,7 @@ class UserTest extends KindHubTest {
         $this->assertEquals($pdoUser->getUserImage(), $this->VALID_IMAGE);
         $this->assertEquals($pdoUser->getUserLastName(), $this->VALID_LASTNAME);
         $this->assertEquals($pdoUser->getUserSalt(), $this->VALID_SALT);
-        $this->assertEquals($pdoUser->getUserUserName(), $this->VALID_USERNAME);
+        $this->assertEquals($pdoUser->getUserUserName(), $this->VALID_USERNAME2);
     }
     /**
      * test creating a User and then deleting it

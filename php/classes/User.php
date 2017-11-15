@@ -473,7 +473,7 @@ class User implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function update(\PDO $pdo) : void {
-		$query = "UPDATE `user` SET userActivationToken = :userActivationToken, userBio = :userBio, userEmail = :userEmail, userFirstName = userFirstName, userHash = :userHash, userImage = :userImage, userLastName = userLastName, userSalt = :userSalt,
+		$query = "UPDATE `user` SET userActivationToken = :userActivationToken, userBio = :userBio, userEmail = :userEmail, userFirstName = :userFirstName, userHash = :userHash, userImage = :userImage, userLastName = :userLastName, userSalt = :userSalt,
 			userUserName = :userUserName WHERE userId = :userId";
 		$statement = $pdo->prepare($query);
 		$parameters = ["userId" => $this->userId->getBytes(),"userActivationToken" => $this->userActivationToken, "userBio" => $this-> userBio,"userEmail" => $this->userEmail, "userFirstName" => $this->userFirstName,
