@@ -107,7 +107,9 @@ class UserTest extends KindHubTest {
 		// count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("user");
         // create a new User and insert to into mySQL
-        $user = new User(null, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL,  $this->VALID_FIRSTNAME,  $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME,$this->VALID_SALT, $this->VALID_USERNAME);
+		$userId = generateUuidV4();
+
+        $user = new User($userId, $this->VALID_ACTIVATIONTOKEN, $this->VALID_BIO, $this->VALID_EMAIL,  $this->VALID_FIRSTNAME,  $this->VALID_HASH, $this->VALID_IMAGE, $this->VALID_LASTNAME,$this->VALID_SALT, $this->VALID_USERNAME);
         //var_dump($user);
         $user->insert($this->getPDO());
         // grab the data from mySQL and enforce the fields match our expectations
