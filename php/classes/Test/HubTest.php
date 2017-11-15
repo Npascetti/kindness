@@ -40,6 +40,12 @@ class HubTest extends KindHubTest {
 	protected $VALID_USER_SALT;
 
 	/**
+	 * Valid user activation token to create the owner of the hub
+	 * @var string $VALID_ACTIVATION_TOKEN
+	 */
+	protected $VALID_ACTIVATION_TOKEN;
+
+	/**
 	 * Location of the hub
 	 * @var string $VALID_HUBLOCATION
 	 **/
@@ -70,11 +76,12 @@ class HubTest extends KindHubTest {
 		// Sets up the framework for a fake user to own the hubs created
 		parent::setUp();
 		$password = "mockpassword";
-		$this->VALID_USER_SALT = bin2hex(random_bytes(64));
+		$this->VALID_USER_SALT = bin2hex(random_bytes(32));
 		$this->VALID_USER_HASH = hash_pbkdf2("sha512", $password, $this->VALID_USER_SALT, 262144);
+		$this->VALID_ACTIVATION_TOKEN = bin2hex(random_bytes(16));
 
 		// Creates the user and inserts them into mySQL
-		$this->user = new User(generateUuidV4(), "CytkEMSYDTm3YrNnnQ1UOH2tIaEvD0kX", "I am a human",
+		$this->user = new User(generateUuidV4(), $this->VALID_ACTIVATION_TOKEN, "I am a human",
 			"somedude@gmail.com", "Some", $this->VALID_USER_HASH, "image.png", "Dude",
 			$this->VALID_USER_SALT, "SomeDude");
 		$this->user->insert($this->getPDO());
@@ -173,7 +180,7 @@ class HubTest extends KindHubTest {
 		$hub1->insert($this->getPDO());
 
 		$hubId2 = generateUuidV4();
-		$hub2 = new Hub($hubId2, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
+		$hub2 = new Hub($hubId2, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME2);
 		$hub2->insert($this->getPDO());
 
 		// Checks that the hubUserId's are equivalent
