@@ -103,31 +103,31 @@ class LevelTest extends KindHubTest {
 
 	/**
 	 * Number of the LEVELNUMBER
-	 * @var string $VALID_LEVELNUMBER
+	 * @var int $VALID_LEVELNUMBER
 	 */
 	protected $VALID_LEVELNUMBER = "8";
 
 	/**
 	 * Number of the LEVELNUMBER
-	 * @var string $VALID_LEVELNUMBER
+	 * @var int $VALID_LEVELNUMBER
 	 */
 	protected $VALID_LEVELNUMBER2 = "18";
 
 	/**
 	 * Number of the LEVELNUMBER
-	 * @var string $INVALID_LEVELNUMBER
+	 * @var int $INVALID_LEVELNUMBER
 	 */
 	protected $INVALID_LEVELNUMBER = "nan";
 
 	/**
 	 * Id of the LEVELID
-	 * @var string $VALID_LEVELID
+	 * @var Uuid $VALID_LEVELID
 	 */
 	protected $VALID_LEVELID;
 
 	/**
 	 * Id of the LEVELID
-	 * @var string $VINALID_LEVELID
+	 * @var Uuid $VINALID_LEVELID
 	 */
 	protected $INVALID_LEVELID = "";
 
