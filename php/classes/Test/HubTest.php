@@ -132,7 +132,7 @@ class HubTest extends KindHubTest {
 		$this->assertEquals($pdoHub->getHubId(), $hubId);
 		$this->assertEquals($pdoHub->getHubUserId(), $this->user->getUserId());
 		$this->assertEquals($pdoHub->getHubLocation(), $this->VALID_HUBLOCATION);
-		$this->assertEquals($pdoHub->getHubName(), $this->VALID_HUBNAME);
+		$this->assertEquals($pdoHub->getHubName(), $this->VALID_HUBNAME2);
 
 		// Deletes the hub from mySQL
 		$hub->delete($this->getPDO());
