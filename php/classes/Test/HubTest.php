@@ -175,39 +175,25 @@ class HubTest extends KindHubTest {
 		$numRows = $this->getConnection()->getRowCount("hub");
 
 		// Creates two different hubs from the same user to search for and inserts them into mySQL
-		$hubId1 = generateUuidV4();
-		$hub1 = new Hub($hubId1, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
-		$hub1->insert($this->getPDO());
-
-		$hubId2 = generateUuidV4();
-		$hub2 = new Hub($hubId2, $this->user->getUserId(), $this->VALID_HUBLOCATION2, $this->VALID_HUBNAME2);
-		$hub2->insert($this->getPDO());
-
-		// Checks that the hubUserId's are equivalent
-		$this->assertEquals($hub1->getHubUserId(), $hub2->getHubUserId());
+		$hubId = generateUuidV4();
+		$hub = new Hub($hubId, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
+		$hub->insert($this->getPDO());
 
 		// Gets the hubs, and checks that all attributes are as expected
-		$results = Hub::getHubsByHubUserId($this->getPDO(), $hub1->getHubUserId());
-		$this->assertEquals($numRows + 2, $this->getConnection()->getRowCount("hub"));
-		$this->assertCount(2, $results);
+		$results = Hub::getHubsByHubUserId($this->getPDO(), $hub->getHubUserId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
+		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Kindhub\\Hub", $results);
 
-		$pdoHub1 = $results[0];
-		$pdoHub2 = $results[1];
+		$pdoHub = $results[0];
 
-		$this->assertEquals($pdoHub1->getHubId(), $hubId1);
-		$this->assertEquals($pdoHub1->getHubUserId(), $this->user->getUserId());
-		$this->assertEquals($pdoHub1->getHubLocation(), $this->VALID_HUBLOCATION);
-		$this->assertEquals($pdoHub1->getHubName(), $this->VALID_HUBNAME);
-
-		$this->assertEquals($pdoHub2->getHubId(), $hubId2);
-		$this->assertEquals($pdoHub2->getHubUserId(), $this->user->getUserId());
-		$this->assertEquals($pdoHub2->getHubLocation(), $this->VALID_HUBLOCATION2);
-		$this->assertEquals($pdoHub2->getHubName(), $this->VALID_HUBNAME2);
+		$this->assertEquals($pdoHub->getHubId(), $hubId);
+		$this->assertEquals($pdoHub->getHubUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoHub->getHubLocation(), $this->VALID_HUBLOCATION);
+		$this->assertEquals($pdoHub->getHubName(), $this->VALID_HUBNAME);
 
 		// Deletes the hubs from mySQL
-		$hub1->delete($this->getPDO());
-		$hub2->delete($this->getPDO());
+		$hub->delete($this->getPDO());
 	}
 
 	/**
@@ -263,36 +249,25 @@ class HubTest extends KindHubTest {
 		$numRows = $this->getConnection()->getRowCount("hub");
 
 		// Creates two different hubs to get
-		$hubId1 = generateUuidV4();
-		$hub1 = new Hub($hubId1, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
-		$hub1->insert($this->getPDO());
-
-		$hubId2 = generateUuidV4();
-		$hub2 = new Hub($hubId2, $this->user->getUserId(), $this->VALID_HUBLOCATION2, $this->VALID_HUBNAME2);
-		$hub2->insert($this->getPDO());
+		$hubId = generateUuidV4();
+		$hub = new Hub($hubId, $this->user->getUserId(), $this->VALID_HUBLOCATION, $this->VALID_HUBNAME);
+		$hub->insert($this->getPDO());
 
 		// Gets all valid hubs and checks that two have been returned
 		$results = Hub::getAllHubs($this->getPDO());
-		$this->assertEquals($numRows + 2, $this->getConnection()->getRowCount("hub"));
-		$this->assertCount(2, $results);
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("hub"));
+		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\Kindhub\\Hub", $results);
 
 		// Checks that all attributes are as expected
-		$pdoHub1 = $results[0];
-		$pdoHub2 = $results[1];
+		$pdoHub = $results[0];
 
-		$this->assertEquals($pdoHub1->getHubId(), $hubId1);
-		$this->assertEquals($pdoHub1->getHubUserId(), $this->user->getUserId());
-		$this->assertEquals($pdoHub1->getHubLocation(), $this->VALID_HUBLOCATION);
-		$this->assertEquals($pdoHub1->getHubName(), $this->VALID_HUBNAME);
-
-		$this->assertEquals($pdoHub2->getHubId(), $hubId2);
-		$this->assertEquals($pdoHub2->getHubUserId(), $this->user->getUserId());
-		$this->assertEquals($pdoHub2->getHubLocation(), $this->VALID_HUBLOCATION2);
-		$this->assertEquals($pdoHub2->getHubName(), $this->VALID_HUBNAME2);
+		$this->assertEquals($pdoHub->getHubId(), $hubId);
+		$this->assertEquals($pdoHub->getHubUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoHub->getHubLocation(), $this->VALID_HUBLOCATION);
+		$this->assertEquals($pdoHub->getHubName(), $this->VALID_HUBNAME);
 
 		// Deletes the hubs from mySQL
-		$hub1->delete($this->getPDO());
-		$hub2->delete($this->getPDO());
+		$hub->delete($this->getPDO());
 	}
 }
