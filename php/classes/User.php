@@ -396,7 +396,7 @@ class User implements \JsonSerializable {
 		}
 
 		//enforce that the salt is exactly 64 characters
-		if(strlen($newUserSalt) !== 128) {
+		if(strlen($newUserSalt) !== 64) {
 			throw(new \RangeException("user salt must be 64 characters"));
 		}
 
@@ -449,7 +449,7 @@ class User implements \JsonSerializable {
 			VALUES(:userId, :userActivationToken, :userBio, :userEmail, :userFirstName, :userHash, :userImage, :userLastName, :userSalt, :userUserName)";
 		$statement = $pdo->prepare($query);
 		$parameters = ["userId" => $this->userId->getBytes(), "userActivationToken" => $this->userActivationToken, "userBio" => $this-> userBio, "userEmail" => $this->userEmail,
-			"userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userImage" => $this->userImage, "userLastName" => $this->userImage,"userSalt" => $this->userSalt, "userUserName "=> $this->userUserName];
+			"userFirstName" => $this->userFirstName, "userHash" => $this->userHash, "userImage" => $this->userImage, "userLastName" => $this->userImage, "userSalt" => $this->userSalt, "userUserName" => $this->userUserName];
 		$statement->execute($parameters);
 	}
 	/**
