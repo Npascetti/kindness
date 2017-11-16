@@ -70,22 +70,24 @@ try {
         if($user === null) {
             throw(new RuntimeException("User does not exist", 404));
         }
-        //user at handle
-        if(empty($requestObject->userAtHandle) === true) {
-            throw(new \InvalidArgumentException ("No user at handle", 405));
+        //User
+        if(empty($requestObject->userUserName) === true) {
+            throw(new \InvalidArgumentException ("No username present", 405));
         }
         //user email is a required field
         if(empty($requestObject->userEmail) === true) {
             throw(new \InvalidArgumentException ("No user email present", 405));
         }
-        //user phone # | if null use the user phone that is in the database
-        if(empty($requestObject->userPhone) === true) {
-            $requestObject->UserPhone = $user->getUserPhone();
+
+        if(empty($requestObject->userFirstName) === true) {
+            throw(new \InvalidArgumentException ("No user firstname present", 405));
         }
-        $user->setUserAtHandle($requestObject->userAtHandle);
+        $user->setUserUserName($requestObject->userUserName);
         $user->setUserEmail($requestObject->userEmail);
-        $user->setUserPhone($requestObject->userPhone);
+        $user->setUserFirstName($requestObject->userFirstName);
+        $user->setUserLastName($requestObject->userLastName);
         $user->update($pdo);
+
         // update reply
         $reply->message = "User information updated";
     } elseif($method === "DELETE") {
