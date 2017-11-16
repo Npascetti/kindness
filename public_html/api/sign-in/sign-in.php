@@ -17,3 +17,5 @@ try {
 	if(session_status() !== PHP_SESSION_ACTIVE) {
 		session_start();
 	}
+//grab mySQL statement
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/kindness.ini");
