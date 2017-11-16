@@ -72,5 +72,66 @@ try {
 		}
 	}
 
+	// Handles a PUT or POST request, checking which method it is and inserting or updating a hub
+	else if($method === "PUT" || $method === "POST") {
+		// Verifies that the user has an xsrf token
+		verifyXsrf();
 
+		$requestContent = file_get_contents("php://input");
+		// Retrieves the JSON package that the front end sent, and stores it in $requestContent. Here we are using file_get_contents("php://input") to get the request from the front end. file_get_contents() is a PHP function that reads a file into a string. The argument for the function, here, is "php://input". This is a read only stream that allows raw data to be read from the front end request which is, in this case, a JSON package.
+		$requestObject = json_decode($requestContent);
+		// This line Then decodes the JSON package and stores that result in $requestObject
+
+		// Make sure hub name is available (required field)
+		if(empty($requestObject->hubName) === true) {
+			throw(new \InvalidArgumentException("No name for Hub", 405));
+		}
+
+		// Make sure hub location is available (required field)
+		if(empty($requestObject->hubLocation) === true) {
+			throw(new \ImagickException("No location for Hub", 405));
+		}
+
+		// Make sure hub user id is available
+		if(empty($requestObject->hubUserId) === true) {
+			throw(new \InvalidArgumentException("No user ID", 405));
+		}
+
+		// Handles the request if it is PUT
+		if($method === "PUT") {
+			// Retrieve the hub to update
+			$hub = Hub::getHubByHubId($pdo, $hubId);
+			if($hub === null) {
+				throw(new \RuntimeException("Hub does not exist", 404));
+			}
+
+			// Enforce the user is signed in and only trying to edit their own hub
+			if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId() !== $hub->getHubUserId()) {
+				throw(new \InvalidArgumentException("You are not allowed to edit this hub", 403));
+			}
+
+			// Update all attributes
+			$hub->setHubLocation($requestObject->hubLocation);
+			$hub->getHubName($requestObject->hubName);
+			$hub->update($pdo);
+
+			// Update reply
+			$reply->message = "Hub updated successfully";
+		}
+
+		// Handles the request if it is POST
+		else if($method === "POST") {
+			// Enforce the user is signed in
+			if(empty($_SESSION["user"]) === true) {
+				throw(new \InvalidArgumentException("You must be logged in to create a hub", 403));
+			}
+
+			// Creates a new hub and inserts it into the database
+			$hub = new Hub(generateUuidV4(), $_SESSION["user"]->getUserId(), $requestObject->hubLocation, $requestObject->hubName);
+			$hub->insert($pdo);
+
+			// Update reply
+			$reply->message = "Hub created successfully";
+		}
+	}
 }
