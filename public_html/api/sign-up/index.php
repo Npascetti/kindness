@@ -3,11 +3,13 @@ require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
-use Edu\Cnm\DataDesign\Profile;
+use Edu\Cnm\KindHub\User;
+
+
 /**
- * api for signing up too DDC Twitter
+ * api for signing up too KindHub
  *
- * @author Gkephart <GKephart@cnm.edu>
+ * @author Nick Pascetti Marcus Caldeira
  **/
 //verify the session, start if not active
 if(session_status() !== PHP_SESSION_ACTIVE) {
@@ -19,51 +21,51 @@ $reply->status = 200;
 $reply->data = null;
 try {
     //grab the mySQL connection
-    $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/ddctwitter.ini");
+    $pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/kindness.ini");
     //determine which HTTP method was used
     $method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
     if($method === "POST") {
         //decode the json and turn it into a php object
         $requestContent = file_get_contents("php://input");
         $requestObject = json_decode($requestContent);
-        //profile at handle is a required field
-        if(empty($requestObject->profileAtHandle) === true) {
-            throw(new \InvalidArgumentException ("No profile @handle", 405));
+        //user at handle is a required field
+        if(empty($requestObject->userUserName) === true) {
+            throw(new \InvalidArgumentException ("No User Name", 405));
         }
-        //profile email is a required field
-        if(empty($requestObject->profileEmail) === true) {
-            throw(new \InvalidArgumentException ("No profile email present", 405));
+        //user email is a required field
+        if(empty($requestObject->userEmail) === true) {
+            throw(new \InvalidArgumentException ("No user email present", 405));
         }
-        //verify that profile password is present
-        if(empty($requestObject->profilePassword) === true) {
+        //verify that user password is present
+        if(empty($requestObject->userPassword) === true) {
             throw(new \InvalidArgumentException ("Must input valid password", 405));
         }
         //verify that the confirm password is present
-        if(empty($requestObject->profilePasswordConfirm) === true) {
+        if(empty($requestObject->userPasswordConfirm) === true) {
             throw(new \InvalidArgumentException ("Must input valid password", 405));
         }
         //if phone is empty set it too null
-        if(empty($requestObject->profilePhone) === true) {
-            $requestObject->profilePhone = null;
+        if(empty($requestObject->userPhone) === true) {
+            $requestObject->userPhone = null;
         }
         //make sure the password and confirm password match
-        if ($requestObject->profilePassword !== $requestObject->profilePasswordConfirm) {
+        if ($requestObject->userPassword !== $requestObject->userPasswordConfirm) {
             throw(new \InvalidArgumentException("passwords do not match"));
         }
         $salt = bin2hex(random_bytes(32));
-        $hash = hash_pbkdf2("sha512", $requestObject->profilePassword, $salt, 262144);
-        $profileActivationToken = bin2hex(random_bytes(16));
-        //create the profile object and prepare to insert into the database
-        $profile = new Profile(null, $profileActivationToken, $requestObject->profileAtHandle, $requestObject->profileEmail, $hash, $requestObject->profilePhone, $salt);
-        //insert the profile into the database
-        $profile->insert($pdo);
+        $hash = hash_pbkdf2("sha512", $requestObject->userPassword, $salt, 262144);
+        $userActivationToken = bin2hex(random_bytes(16));
+        //create the user object and prepare to insert into the database
+        $user = new User(null, $userActivationToken, $requestObject->userUserName, $requestObject->userEmail, $hash, $requestObject->userPhone, $salt);
+        //insert the user into the database
+        $user->insert($pdo);
         //compose the email message to send with th activation token
         $messageSubject = "One step closer to Sticky Head -- Account Activation";
         //building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
         //make sure URL is /public_html/api/activation/$activation
         $basePath = dirname($_SERVER["SCRIPT_NAME"], 3);
         //create the path
-        $urlglue = $basePath . "/api/activation/?activation=" . $profileActivationToken;
+        $urlglue = $basePath . "/api/activation/?activation=" . $userActivationToken;
         //create the redirect link
         $confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
         //compose message to send with email
@@ -84,7 +86,7 @@ EOF;
          * this reduces the probability of the email is marked as spam
          */
         //define who the recipient is
-        $recipients = [$requestObject->profileEmail];
+        $recipients = [$requestObject->userEmail];
         //set the recipient to the swift message
         $swiftMessage->setTo($recipients);
         //attach the subject line to the email message
@@ -120,7 +122,7 @@ EOF;
             throw(new RuntimeException("unable to send email"));
         }
         // update reply
-        $reply->message = "Thank you for creating a profile with DDC-Twitter";
+        $reply->message = "Thank you for creating a user with DDC-Twitter";
     } else {
         throw (new InvalidArgumentException("invalid http request"));
     }
