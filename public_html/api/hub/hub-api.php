@@ -43,7 +43,34 @@ try {
 		throw(new InvalidArgumentException("hubId cannot be empty or negative", 405));
 	}
 
+	// Handle a get request, if a field is provided, gets hubs based off of that, if not gets all hubs
 	if($method === "GET") {
+		// sets the xsrf cookie
 		setXsrfCookie();
+
+		// Gets a specific hub based on the arguments provided, or gets all hubs
+		if(empty($hubId) === false) {
+			$hub = Hub::getHubByHubId($pdo, $hubId);
+			if($hub !== null) {
+				$reply->data = $hub;
+			}
+		}else if(empty($hubUserId) === false) {
+			$hubs = Hub::getHubsByHubUserId($pdo, $hubUserId)->toArray();
+			if($hubs !== null) {
+				$reply->data = $hubs;
+			}
+		} else if(empty($hubName) === false) {
+			$hubs = Hub::getHubsByHubName($pdo, $hubName)->toArray();
+			if($hubs !== null) {
+				$reply->data = $hubs;
+			}
+		} else {
+			$hubs = Hub::getAllHubs($pdo)->toArray();
+			if($hubs !== null) {
+				$reply->data = $hubs;
+			}
+		}
 	}
+
+
 }
