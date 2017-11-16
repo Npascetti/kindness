@@ -80,8 +80,12 @@ try {
         }
 
         if(empty($requestObject->userFirstName) === true) {
-            throw(new \InvalidArgumentException ("No user firstname present", 405));
+            throw(new \InvalidArgumentException ("No user first name present", 405));
         }
+        if(empty($requestObject->userLastName) === true) {
+            throw(new \InvalidArgumentException ("No user last name present", 405));
+        }
+
         $user->setUserUserName($requestObject->userUserName);
         $user->setUserEmail($requestObject->userEmail);
         $user->setUserFirstName($requestObject->userFirstName);
