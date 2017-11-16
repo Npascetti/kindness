@@ -134,4 +134,40 @@ try {
 			$reply->message = "Hub created successfully";
 		}
 	}
+
+	// Handles a DELETE request,
+	else if($method === "DELETE") {
+		// Enforce the user has an xsrf token
+		verifyXsrf();
+
+		//Retrieve the hub to be deleted
+		$hub = Hub::getHubByHubId($pdo, $hubId);
+		if($hub === null) {
+			throw(new \RuntimeException("Hub does not exist", 404));
+		}
+
+		// Enforce the user is logged in and only trying to delete their own hub
+		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getProfileId() !== $hub->getHubUserId()) {
+			throw(new \InvalidArgumentException("You are not allowed to delete this hub", 403));
+		}
+
+		// Delete hub
+		$hub->delete($pdo);
+		// Update reply
+		$reply->message = "Hub deleted successfully";
+	} else {
+		throw(new \InvalidArgumentException("Invalid HTTP method request"));
+	}
+	// Update the $reply->status $reply->message
+} catch(\Exception | \TypeError $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
 }
+
+header("Content-type: application/json");
+if($reply->data === null) {
+	unset($reply->data);
+}
+
+// encode and return reply to front end caller
+echo json_encode($reply);
