@@ -225,7 +225,7 @@ class Reputation implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
-		$parameters = ["reputationId" => $this->reputationId->getBytes(), "reputationHubId" => $this->reputationHubId->getBytes(), "reputationLevelId" => $this->reputationLevelId->getBytes(), "reputationUserId" => $this->reputationUserId->getBytes(), "reputationPoint=> $this->reputationPoint"];
+		$parameters = ["reputationId" => $this->reputationId->getBytes(), "reputationHubId" => $this->reputationHubId->getBytes(), "reputationLevelId" => $this->reputationLevelId->getBytes(), "reputationUserId" => $this->reputationUserId->getBytes(), "reputationPoint" => $this->reputationPoint];
 		$statement->execute($parameters);
 	}
 

@@ -39,3 +39,11 @@ $levelId2 = generateUuidV4();
 $level2 = new Level($levelId2,"Level", "1");
 $level2->insert($pdo);
 
+$reputationId = generateUuidV4();
+$reputation = new Reputation($reputationId,$hub->getHubId(), $level->getLevelId(), $user->getUserId(), 1);
+$reputation->insert($pdo);
+
+$reputationId2 = generateUuidV4();
+$reputation2 = new Reputation($reputationId2, $hub2->getHubId(), $level2->getLevelId(), $user2->getUserId(), 1 );
+$reputation2->insert($pdo);
+
