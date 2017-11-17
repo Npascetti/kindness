@@ -366,7 +366,7 @@ class Reputation implements \JsonSerializable {
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
 	//TODO  meet with Dylan :scream_cat:
-	public function getReputationByReputationHubId(\PDO $pdo, $reputationHubId): \SplFixedArray {
+	public static function getReputationByReputationHubId(\PDO $pdo, $reputationHubId): \SplFixedArray {
 		try {
 			$reputationHubId = self::validateUuid($reputationHubId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -376,7 +376,7 @@ class Reputation implements \JsonSerializable {
 		$query = "SELECT reputationId, reputationHubId, reputationLevelId, reputationUserId, reputationPoint FROM reputation WHERE reputationHubId = :reputationHubId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["reputationHubId" => $this->reputationHubId->getBytes()];
+		$parameters = ["reputationHubId" => $reputationHubId->getBytes()];
 		$statement->execute($parameters);
 
 		$reputations = new \SplFixedArray($statement->rowCount());
