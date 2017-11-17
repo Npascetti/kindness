@@ -53,22 +53,52 @@ try {
 		if(empty($hubId) === false) {
 			$hub = Hub::getHubByHubId($pdo, $hubId);
 			if($hub !== null) {
-				$reply->data = $hub;
+				$reputation = Reputation::getReputationByReputationHubId($pdo, $hubId);
+				$data = [];
+				$data[] = (object)[
+					"hub" => $hub,
+					"reputation" => $reputation
+				];
+				$reply->data = $data;
 			}
 		}else if(empty($hubUserId) === false) {
 			$hubs = Hub::getHubsByHubUserId($pdo, $hubUserId)->toArray();
 			if($hubs !== null) {
-				$reply->data = $hubs;
+				$data = [];
+				foreach($hubs as $hub) {
+					$reputation = Reputation::getReputationByReputationHubId($pdo, $hubId);
+					$data[] = (object)[
+						"hub" => $hub,
+						"reputation" => $reputation
+					];
+				}
+				$reply->data = $data;
 			}
 		} else if(empty($hubName) === false) {
 			$hubs = Hub::getHubsByHubName($pdo, $hubName)->toArray();
 			if($hubs !== null) {
-				$reply->data = $hubs;
+				$data = [];
+				foreach($hubs as $hub) {
+					$reputation = Reputation::getReputationByReputationHubId($pdo, $hubId);
+					$data[] = (object)[
+						"hub" => $hub,
+						"reputation" => $reputation
+					];
+				}
+				$reply->data = $data;
 			}
 		} else {
 			$hubs = Hub::getAllHubs($pdo)->toArray();
 			if($hubs !== null) {
-				$reply->data = $hubs;
+				$data = [];
+				foreach($hubs as $hub) {
+					$reputation = Reputation::getReputationByReputationHubId($pdo, $hubId);
+					$data[] = (object)[
+						"hub" => $hub,
+						"reputation" => $reputation
+					];
+				}
+				$reply->data = $data;
 			}
 		}
 	}
