@@ -36,7 +36,6 @@ try {
 	//sanitize input
 	$hubId = filter_input(INPUT_GET, "hubId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$hubUserId = filter_input(INPUT_GET, "hubUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$hubLocation = filter_input(INPUT_GET, "hubLocation", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$hubName = filter_input(INPUT_GET, "hubName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	//make sure the id is valid for methods that require it
