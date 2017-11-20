@@ -317,7 +317,6 @@ class Reputation implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	//TODO  meet with Dylan :scream_cat:
 	public static function getReputationByReputationHubId(\PDO $pdo, $reputationHubId): \SplFixedArray {
 		try {
 			$reputationHubId = self::validateUuid($reputationHubId);
@@ -336,7 +335,7 @@ class Reputation implements \JsonSerializable {
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
-				$reputation[$reputations->key()] = $reputation;
+				$reputations[$reputations->key()] = $reputation;
 				$reputations->next();
 			} catch(\Exception $exception) {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -363,7 +362,7 @@ class Reputation implements \JsonSerializable {
 		}
 
 		// create query template
-		$query = "SELECT reputationId, reputationHubId, reputationLevelId, reputationUserId, reputationPoint FROM reputation WHERE reputationId = :reputationId";
+		$query = "SELECT reputationId, reputationHubId, reputationLevelId, reputationUserId, reputationPoint FROM reputation WHERE reputationLevelId = :reputationLevelId";
 		$statement = $pdo->prepare($query);
 
 		// bind the reputation level id to the place holder in the template
@@ -386,7 +385,7 @@ class Reputation implements \JsonSerializable {
 	}
 
 	/**
-	 * Gets hubs by reputationUserId
+	 * Gets Reputation by reputationUserId
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param Uuid $reputationUserId
@@ -394,8 +393,7 @@ class Reputation implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	//TODO  meet with Dylan :scream_cat:
-	public function getreputationByreputationUserId(\PDO $pdo, $reputationUserId): \SplFixedArray {
+	public static function getReputationByReputationUserId(\PDO $pdo, $reputationUserId): \SplFixedArray {
 		try {
 			$reputationUserId = self::validateUuid($reputationUserId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -405,7 +403,7 @@ class Reputation implements \JsonSerializable {
 		$query = "SELECT reputationId, reputationHubId, reputationLevelId, reputationUserId, reputationPoint FROM reputation WHERE reputationUserId = :reputationUserId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["reputationUserId" => $this->reputationUserId->getBytes()];
+		$parameters = ["reputationUserId" => $reputationUserId->getBytes()];
 		$statement->execute($parameters);
 
 		$reputations = new \SplFixedArray($statement->rowCount());
@@ -413,7 +411,7 @@ class Reputation implements \JsonSerializable {
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
-				$reputation[$reputations->key()] = $reputation;
+				$reputations[$reputations->key()] = $reputation;
 				$reputations->next();
 			} catch(\Exception $exception) {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
