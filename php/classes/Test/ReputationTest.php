@@ -132,12 +132,8 @@ class ReputationTest extends KindHubTest {
 
 		// grab the data from mySQL and enforce the Reputation does not exist
 		$pdoReputation = Reputation::getReputationByReputationId($this->getPDO(), $reputation->getReputationId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reputation"));
-		$this->assertEquals($pdoReputation->getReputationId(), $reputationId);
-		$this->assertEquals($pdoReputation->getReputationHubId(), $this->hub->getHubId());
-		$this->assertEquals($pdoReputation->getReputationLevelId(), $this->level->getLevelId());
-		$this->assertEquals($pdoReputation->getReputationUserId(), $this->user->getUserId());
-		$this->assertEquals($pdoReputation->getReputationPoint(), $this->VALID_REPUTATION_POINT);
+		$this->assertNull($pdoReputation);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("reputation"));
 	}
 
 	/**
