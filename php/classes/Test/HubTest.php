@@ -2,7 +2,7 @@
 namespace Edu\Cnm\KindHub\Test;
 
 use Edu\Cnm\KindHub\{
-	Hub, Test\KindHubTest, User
+	Hub, User
 };
 use Ramsey\Uuid\Uuid;
 
