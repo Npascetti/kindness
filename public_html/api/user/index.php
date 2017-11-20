@@ -29,7 +29,9 @@ try {
     $id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $userUserName = filter_input(INPUT_GET, "userUserName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $userEmail = filter_input(INPUT_GET, "userEmail", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-    // make sure the id is valid for methods that require it
+
+
+	// make sure the id is valid for methods that require it
     if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
         throw(new InvalidArgumentException("id cannot be empty or negative", 405));
     }
@@ -53,18 +55,46 @@ try {
                 $reply->data = $user;
             }
         }
-    } elseif($method === "PUT") {
+    } elseif($method === "PUT" || $method === "POST") {
         //enforce that the XSRF token is present in the header
         verifyXsrf();
         //enforce the end user has a JWT token
         //validateJwtHeader();
+
+		 //decode the response from the front end
+		 $requestContent = file_get_contents("php://input");
+		 $requestObject = json_decode($requestContent);
+
+		 if(empty($requestObject->userBio) === true) {
+		 	$requestObject->userBio = null;
+		 }
+
+		 if(empty($requestObject->userEmail) === true) {
+			 throw(new \InvalidArgumentException("No email for User", 405));
+		 }
+
+		 if(empty($requestObject->userFirstName) === true) {
+		 	$requestObject->userFirstName = null;
+		 }
+
+		 if(empty($requestObject->userImage) === true) {
+			 $requestObject->userImage = null;
+		 }
+
+		 if(empty($requestObject->userLastName) === true) {
+			 $requestObject->userLasttName = null;
+		 }
+
+		 if(empty($requestObject->userUserName) === true) {
+			 throw(new \InvalidArgumentException("No User Name for User", 405));
+		 }
+
         //enforce the user is signed in and only trying to edit their own user
         if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $id) {
             throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
         }
-        //decode the response from the front end
-        $requestContent = file_get_contents("php://input");
-        $requestObject = json_decode($requestContent);
+
+
         //retrieve the user to be updated
         $user = User::getUserByUserId($pdo, $id);
         if($user === null) {
