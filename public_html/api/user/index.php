@@ -103,13 +103,21 @@ try {
 
 			 $user->setUserUserName($requestObject->userUserName);
 			 $user->setUserEmail($requestObject->userEmail);
+			 $user->setUserBio($requestObject->userBio);
+			 $user->setUserFirstName($requestObject->userFirstName);
+			 $user->setUserImage($requestObject->userImage);
+			 $user->setUserLastName($requestObject->userLastName);
 			 $user->update($pdo);
 
 			 // update reply
 			 $reply->message = "User information updated";
 		 } elseif($method === "POST") {
-		 	$user = new User(generateUuidV4(), bin2hex(random_bytes(16), $requestObject->userBio, $requestObject->userEmail, $requestObject->userFirstName,
-				);
+		 	$salt = bin2hex(random_bytes(32));
+		 	$user = new User(generateUuidV4(), bin2hex(random_bytes(16)), $requestObject->userBio, $requestObject->userEmail, $requestObject->userFirstName,
+				hash_pbkdf2("sha512", $requestObject->password, $salt, "262144"), $requestObject->userLastName, $salt, $requestObject->userUserName);
+		 	$user->insert($pdo);
+
+		 	$reply->message ="User created";
 		 }
     } elseif($method === "DELETE") {
         //verify the XSRF Token
