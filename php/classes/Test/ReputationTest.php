@@ -137,29 +137,6 @@ class ReputationTest extends KindHubTest {
 	}
 
 	/**
-	 * test inserting a Reputation and regrabbing it from mySQL
-	 **/
-	public function testGetValidReputationbyReputationId() : void {
-
-		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("reputation");
-
-		// create a new Reputation and insert to into mySQL
-		$reputationId = generateUuidV4();
-		$reputation = new Reputation($reputationId, $this->hub->getHubId(),$this->level->getLevelId(), $this->user->getUserId(), $this->VALID_REPUTATION_POINT);
-		$reputation->insert($this->getPDO());
-
-		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoReputation = Reputation::getReputationByReputationId($this->getPDO(), $reputation->getReputationId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reputation"));
-		$this->assertEquals($pdoReputation->getReputationId(), $reputationId);
-		$this->assertEquals($pdoReputation->getReputationHubId(), $this->hub->getHubId());
-		$this->assertEquals($pdoReputation->getReputationLevelId(), $this->level->getLevelId());
-		$this->assertEquals($pdoReputation->getReputationUserId(), $this->user->getUserId());
-		$this->assertEquals($pdoReputation->getReputationPoint(), $this->VALID_REPUTATION_POINT);
-	}
-
-	/**
 	 * test grabbing a Reputation that does not exist
 	 **/
 	public function testGetInvalidReputationByHubIdAndUserIdAndLevelId() {
