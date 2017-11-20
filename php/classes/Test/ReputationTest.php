@@ -22,29 +22,37 @@ require_once(dirname(__DIR__) . "/lib/uuid.php");
  * @author Dylan McDonald <dmcdonald21@cnm.edu> @author Michael Romero <dmcdonald21@cnm.edu
  **/
 class ReputationTest extends KindHubTest {
+
 	/**
-	 * User that created the Reputation; this is for foreign key relations
+	 * User that is linked to the reputation; this is for foreign key relations
 	 * @var User user
 	 **/
 	protected $user = null;
+
 	/**
+	 * Hub that the reputation is linked to; this is for foreign key relations
 	 * @var Hub that created the Reputation;
 	 */
 	protected $hub = null;
-	/*
+
+	/**
+	 * Level that will be linked to the Repuation; this is for foreign key relations
 	 * @var Level $level that created the Reputation;
 	 */
 	protected $level = null;
+
 	/**
 	 * valid profile hash to create the user object to own the test
 	 * @var $VALID_HASH
 	 */
 	protected $VALID_USER_HASH;
+
 	/**
 	 * valid salt to use to create the user object to own the test
 	 * @var string $VALID_SALT
 	 */
 	protected $VALID_USER_SALT;
+
 	/**
 	 * content of the Reputation
 	 * @var string $VALID_REPUTATION_POINT
@@ -68,7 +76,8 @@ class ReputationTest extends KindHubTest {
 
 		// create and insert the mocked user
 		$this->user = new User(generateUuidV4(), bin2hex(random_bytes(16)), "I want to make a difference in the world",
-			"shannon@gmail.com", "Shannon", $this->VALID_USER_HASH, "image.png", "Yule", $this->VALID_USER_SALT, "ShannonYule314");$this->user->insert($this->getPDO());
+			"shannon@gmail.com", "Shannon", $this->VALID_USER_HASH, "image.png", "Yule", $this->VALID_USER_SALT, "ShannonYule314");
+		$this->user->insert($this->getPDO());
 
 		// create and insert the mocked hub
 		 $this->hub = new Hub(generateUuidV4(), generateUuidV4(), "Downtown", "DowntownHub");
