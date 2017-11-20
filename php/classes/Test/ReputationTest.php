@@ -82,7 +82,7 @@ class ReputationTest extends KindHubTest {
 		$this->user->insert($this->getPDO());
 
 		// create and insert the mocked hub
-		 $this->hub = new Hub(generateUuidV4(), generateUuidV4(), "Downtown", "DowntownHub");
+		 $this->hub = new Hub(generateUuidV4(), $this->user->getUserId(), "Downtown", "DowntownHub");
 		 $this->hub->insert($this->getPDO());
 
 		// create and insert the mocked level
