@@ -202,9 +202,7 @@ class ReputationTest extends KindHubTest {
 	 * test grabbing a Reputation by a hub id that does not exist
 	 **/
 	public function testGetInvalidReputationByHubId() : void {
-
-		// grab a hub id that exceeds the maximum allowable hub id
-		$reputation = Reputation::getReputationByReputationHubIdAndReputationUserIdAndLevelId($this->getPDO(), generateUuidV4(), generateUuidV4(), generateUuidV4());
+		$reputation = Reputation::getReputationByReputationId($this->getPDO(), generateUuidV4());
 		$this->assertCount(0, $reputation);
 	}
 
@@ -222,7 +220,7 @@ class ReputationTest extends KindHubTest {
 		$reputation->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Reputation::getReputationByReputationHubIdAndReputationUserIdAndLevelId($this->getPDO(), $this->user->getUserId(), $this->hub->getHubId(), $this->level->getLevelId());
+		$results = Reputation::getReputationByReputationUserId()($this->getPDO(), $this->user->getUserId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("reputation"));
 		$this->assertCount(1, $results);
 
@@ -231,18 +229,20 @@ class ReputationTest extends KindHubTest {
 
 		// grab the result from the array and validate it
 		$pdoReputation = $results[0];
-		$this->assertEquals($pdoReputation->getReputationUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoReputation->getReputationId(), $reputationId);
 		$this->assertEquals($pdoReputation->getReputationHubId(), $this->hub->getHubId());
 		$this->assertEquals($pdoReputation->getReputationLevelId(), $this->level->getLevelId());
+		$this->assertEquals($pdoReputation->getReputationUserId(), $this->user->getUserId());
+		$this->assertEquals($pdoReputation->getReputationPoint(), $this->VALID_REPUTATION_POINT);
 	}
 
 	/**
 	 * test grabbing a Reputation by a user id that does not exist
 	 **/
-	public function testGetInvalidReputationByUserIdAndLevelId() : void {
+	public function testGetInvalidReputationByUserId() : void {
 
 		// grab a hub id that exceeds the maximum allowable user id
-		$reputation = Reputation::getReputationByReputationHubIdAndReputationUserIdAndLevelId($this->getPDO(), generateUuidV4(), generateUuidV4(), generateUuidV4());
+		$reputation = Reputation::getReputationByReputationUserId($this->getPDO(), generateUuidV4());
 		$this->assertCount(0, $reputation);
 	}
 
