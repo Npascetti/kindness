@@ -89,31 +89,28 @@ try {
 			 throw(new \InvalidArgumentException("No User Name for User", 405));
 		 }
 
-        //enforce the user is signed in and only trying to edit their own user
-        if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $id) {
-            throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
-        }
+
+		 if($method === "PUT") {
+			 //enforce the user is signed in and only trying to edit their own user
+			 $user = User::getUserByUserId($pdo, $id);
+			 if($user === null) {
+				 throw(new \RuntimeException("User does not exist", 403));
+			 }
+			 if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $id) {
+				 throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
+			 }
 
 
-        //retrieve the user to be updated
-        $user = User::getUserByUserId($pdo, $id);
-        if($user === null) {
-            throw(new RuntimeException("User does not exist", 404));
-        }
-        //User
-        if(empty($requestObject->userUserName) === true) {
-            throw(new \InvalidArgumentException ("No username present", 405));
-        }
-        //user email is a required field
-        if(empty($requestObject->userEmail) === true) {
-            throw(new \InvalidArgumentException ("No user email present", 405));
-        }
-        $user->setUserUserName($requestObject->userUserName);
-        $user->setUserEmail($requestObject->userEmail);
-        $user->update($pdo);
+			 $user->setUserUserName($requestObject->userUserName);
+			 $user->setUserEmail($requestObject->userEmail);
+			 $user->update($pdo);
 
-        // update reply
-        $reply->message = "User information updated";
+			 // update reply
+			 $reply->message = "User information updated";
+		 } elseif($method === "POST") {
+		 	$user = new User(generateUuidV4(), bin2hex(random_bytes(16), $requestObject->userBio, $requestObject->userEmail, $requestObject->userFirstName,
+				);
+		 }
     } elseif($method === "DELETE") {
         //verify the XSRF Token
         verifyXsrf();
