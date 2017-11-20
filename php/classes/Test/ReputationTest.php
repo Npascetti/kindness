@@ -87,7 +87,7 @@ class ReputationTest extends KindHubTest {
 
 		// create and insert the mocked level
 		$this->level = new Level(generateUuidV4(), "Level", "1");
-		$this->hub->insert($this->getPDO());
+		$this->level->insert($this->getPDO());
 	}
 
 
