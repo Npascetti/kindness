@@ -15,26 +15,31 @@ use Ramsey\Uuid\Uuid;
 
 class Reputation implements \JsonSerializable {
 	use ValidateUuid;
+
 	/**
 	 * id for this Reputation; this is the primary key
 	 * @var Uuid $reputationId
 	 **/
 	private $reputationId;
+
 	/**
 	 * id of the hub that has reputation; this is a foreign key
 	 * @var Uuid $reputationHubId
 	 **/
 	private $reputationHubId;
+
 	/**
 	 * id for the level the reputation is at; this is a foreign key
 	 * @var Uuid $reputationLevelId
 	 **/
 	private $reputationLevelId;
+
 	/**
 	 * id for the user that has reputation; this is a foreign key
 	 * @var Uuid $reputationUserId
 	 **/
 	private $reputationUserId;
+
 	/**
 	 * reputation point
 	 * @var int $reputationPoint
@@ -55,7 +60,6 @@ class Reputation implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
-
 	public function __construct($newReputationId, $newReputationHubId, $newReputationLevelId, $newReputationUserId, int $newReputationPoint) {
 		try {
 			$this->setReputationId($newReputationId);
@@ -87,7 +91,7 @@ class Reputation implements \JsonSerializable {
 	 * @throws \RangeException if $newReputationId is not positive
 	 * @throws \TypeError if $newReputationId is not a uuid or string
 	 **/
-	public function setReputationId( $newReputationId) : void {
+	public function setReputationId($newReputationId) : void {
 		try {
 			$uuid = self::validateUuid($newReputationId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -221,7 +225,7 @@ class Reputation implements \JsonSerializable {
 	public function insert(\PDO $pdo) : void {
 
 		// create query template
-		$query = "INSERT INTO reputation(reputationId,reputationHubId, reputationLevelId, reputationUserId, reputationPoint) VALUES(:reputationId, :reputationHubId, :reputationLevelId, :reputationUserId, :reputationPoint)";
+		$query = "INSERT INTO reputation(reputationId, reputationHubId, reputationLevelId, reputationUserId, reputationPoint) VALUES(:reputationId, :reputationHubId, :reputationLevelId, :reputationUserId, :reputationPoint)";
 		$statement = $pdo->prepare($query);
 
 		// bind the member variables to the place holders in the template
@@ -239,7 +243,7 @@ class Reputation implements \JsonSerializable {
 	public function update(\PDO $pdo) : void {
 
 		// create query template
-		$query = "UPDATE reputation SET reputationId = :reputationId, reputationHubId = :reputationHubId, reputationLevelId = :reputationLevelId, reputationUserId = :reputationUserId, reputationPoint = :reputationPoint WHERE reputationId = :reputationId";
+		$query = "UPDATE reputation SET reputationHubId = :reputationHubId, reputationLevelId = :reputationLevelId, reputationUserId = :reputationUserId, reputationPoint = :reputationPoint WHERE reputationId = :reputationId";
 		$statement = $pdo->prepare($query);
 
 		$parameters = ["reputationId" => $this->reputationId->getBytes(),"reputationHubId" => $this->reputationHubId->getBytes(), "reputationLevelId" => $this->reputationLevelId->getBytes(), "reputationUserId" => $this->reputationUserId->getBytes(), "reputationPoint" => $this->reputationPoint];
@@ -263,58 +267,6 @@ class Reputation implements \JsonSerializable {
 		$parameters = ["reputationId" => $this->reputationId->getBytes()];
 		$statement->execute($parameters);
 	}
-
-	/**
-	 * gets the Reputation by hub id and user id and level id
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @param string $reputationUserId user id to search for
-	 * @param string $reputationHubIdId hub id to search for
-	 * @param string $reputationLevelId level id to search for
-	 * @return Reputation|null Reputation found or null if not found
-	 */
-	//TODO  meet with Dylan :scream_cat:
-	public static function getReputationByReputationHubIdAndReputationUserIdAndLevelId(\PDO $pdo, string $reputationUserId, string $reputationHubId, string $reputationLevelId) : ?Reputation {
-		//
-		try {
-			$reputationUserId = self::validateUuid($reputationUserId);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		try {
-			$reputationHubId = self::validateUuid($reputationHubId);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		try {
-			$reputationLevelId = self::validateUuid($reputationLevelId);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		// create query template
-		$query = "SELECT reputationUserId, reputationHubId, reputationLevelId FROM `reputation` WHERE reputationUserId = :reputationUserId AND reputationHubId = :reputationHubId AND reputationLevelId = :reputationLevelId";
-		$statement = $pdo->prepare($query);
-
-		// bind the hub id and user id and level id to the place holder in the template
-		$parameters = ["reputationUserId" => $reputationUserId->getBytes(), "reputationHubId" => $reputationHubId->getBytes(), "reputationLevelId" => $reputationLevelId->getBytes()];
-		$statement->execute($parameters);
-
-		// grab the reputation from mySQL
-		try {
-			$reputation = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
-			}
-		} catch(\Exception $exception) {
-
-			// if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
-		return ($reputation);
-	}
-
 
 	/**
 	 * gets the Reputation by reputationId
