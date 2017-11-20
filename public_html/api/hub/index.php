@@ -143,7 +143,7 @@ try {
 
 			// Update all attributes
 			$hub->setHubLocation($requestObject->hubLocation);
-			$hub->getHubName($requestObject->hubName);
+			$hub->setHubName($requestObject->hubName);
 			$hub->update($pdo);
 
 			// Update reply
