@@ -343,7 +343,7 @@ class Reputation implements \JsonSerializable {
 		}
 		$points = 0;
 		for($i = 0; $i < count($reputations); $i++) {
-			$points = $points + $reputations[$i]->getReputationPoints();
+			$points = $points + $reputations[$i]->getReputationPoint();
 		}
 		return($points);
 	}
@@ -423,7 +423,7 @@ class Reputation implements \JsonSerializable {
 		}
 		$points = 0;
 		for($i = 0; $i < count($reputations); $i++) {
-			$points = $points + $reputations[$i]->getReputationPoints();
+			$points = $points + $reputations[$i]->getReputationPoint();
 		}
 		return($points);
 	}
