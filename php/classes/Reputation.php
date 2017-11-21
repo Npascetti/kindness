@@ -317,7 +317,7 @@ class Reputation implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getReputationByReputationHubId(\PDO $pdo, $reputationHubId): \SplFixedArray {
+	public static function getReputationByReputationHubId(\PDO $pdo, $reputationHubId): int {
 		try {
 			$reputationHubId = self::validateUuid($reputationHubId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
