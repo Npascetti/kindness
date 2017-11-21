@@ -341,7 +341,11 @@ class Reputation implements \JsonSerializable {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($reputations);
+		$points = 0;
+		for($i = 0; $i < count($reputations); $i++) {
+			$points = $points + $reputations[$i]->getReputationPoints();
+		}
+		return($points);
 	}
 
 	/**
@@ -393,7 +397,7 @@ class Reputation implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getReputationByReputationUserId(\PDO $pdo, $reputationUserId): \SplFixedArray {
+	public static function getReputationByReputationUserId(\PDO $pdo, $reputationUserId): int {
 		try {
 			$reputationUserId = self::validateUuid($reputationUserId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -417,7 +421,11 @@ class Reputation implements \JsonSerializable {
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($reputations);
+		$points = 0;
+		for($i = 0; $i < count($reputations); $i++) {
+			$points = $points + $reputations[$i]->getReputationPoints();
+		}
+		return($points);
 	}
 
 	/**
