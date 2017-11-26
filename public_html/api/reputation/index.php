@@ -31,9 +31,50 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize the search parameters
-	$reputationId = $id = filter_input(INPUT_GET, "reputationId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
-	$reputationHubId = $id = filter_input(INPUT_GET, "reputationHubId", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
+	$reputationId = $id = filter_input(INPUT_GET, "reputationId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$reputationHubId = $id = filter_input(INPUT_GET, "reputationHubId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$reputationLevelId = $id = filter_input(INPUT_GET, "reputationLevelId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$reputationUserId = $id = filter_input(INPUT_GET, "reputationUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+
+	// make sure the id is valid for methods that require it
+	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
+		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
+	}
+
+// handle GET request - if id is present, that repuation is returned, otherwise all reputations are returned
+	if($method === "GET") {
+		//set XSRF cookie
+		setXsrfCookie();
+
+		//get a specific reputation or all repuations and update reply
+		if(empty($id) === false) {
+			$reputation = Reputation::getReputationByReputationId($pdo, $reputationId);
+			if($reputation !== null) {
+				$reply->data = $reputation;
+			}
+		} else if(empty($reputationHubId) === false) {
+			$reputation = Reputation::getReputationByReputationHubId($pdo, $reputationHubId)->toArray();
+			if($reputation !== null) {
+				$reply->data = $reputation;
+			}
+		} else if(empty($reputationLevelId) === false) {
+			$reputation = Reputation::getReputationByReputationLevelId($pdo, $reputationLevelId);
+			if($reputation !== null) {
+				$reply->data = $reputation;
+			}
+		} else if(empty($reputationUserId) === false) {
+			$reputation = Reputation::getReputationByReputationUserId($pdo, $reputationUserId);
+			if($reputation !== null) {
+				$reply->data = $reputation;
+			}
+		}
+	}
+
+	else if($method === "PUT" || $method === "POST") {
+
+		//enforce that the user has an XSRF token
+		verifyXsrf();
+	}
+
 
 
