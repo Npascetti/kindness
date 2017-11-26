@@ -13,12 +13,14 @@ use Edu\Cnm\KindHub\{
 /**
  * Api for the Reputation class
  *
- * @author Michael Romero
+ * @author Michael Romero <m.romero1989@gmail.com>
  */
+
 //verify the session, start if not active
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
+
 //prepare an empty reply
 $reply = new stdClass();
 $reply->status = 200;
@@ -41,7 +43,7 @@ try {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 
-// handle GET request - if id is present, that repuation is returned, otherwise all reputations are returned
+	// handle GET request - if id is present, that repuation is returned, otherwise all reputations are returned
 	if($method === "GET") {
 		//set XSRF cookie
 		setXsrfCookie();
