@@ -130,8 +130,42 @@ try {
 			// update reply
 			$reply->message = "Reputation Created Successfully";
 		}
-
 	}
 
+	 else if($method === "DELETE") {
+		//enforce the user has a XSRF token.
+		verifyXsrf();
+
+		// retrieve the Reputation to be deleted
+		$repuation = Reputation::getReputationByReputationId($pdo, $reputationId);
+		if($reputationId === null) {
+			throw(new RuntimeException("Reputation does not exist", 404));
+	}
+
+		//enforce the user is signed in and only trying to delete their own reputation
+		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId() !== $reputationId->getReputationByreputationUserId()) {
+			throw(new \InvalidArgumentException("You are not allowed to delete this reputation", 403));
+	}
+
+		// delete reputation
+		$reputationId->delete($pdo);
+		// update reply
+		$reply->message = "Reputation deleted Successfully";
+	} else {
+		throw (new InvalidArgumentException("Invalid HTTP method request"));
+}
+		// update the $reply->status $reply->message
+} catch(\Exception | \TypeError $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
+}
+
+header("Content-type: application/json");
+if($reply->data === null) {
+	unset($reply->data);
+}
+
+// encode and return reply to front end caller
+echo json_encode($reply);
 
 
