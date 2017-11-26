@@ -74,6 +74,63 @@ try {
 
 		//enforce that the user has an XSRF token
 		verifyXsrf();
+
+		$requestContent = file_get_contents("php://input");
+		// Retrieves the JSON package that the front end sent, and stores it in $requestContent. Here we are using file_get_contents("php://input") to get the request from the front end. file_get_contents() is a PHP function that reads a file into a string. The argument for the function, here, is "php://input". This is a read only stream that allows raw data to be read from the front end request which is, in this case, a JSON package.
+		$requestObject = json_decode($requestContent);
+		// This Line Then decodes the JSON package and stores that result in $requestObject
+
+		//make sure reputation user id is available (required field)
+		if(empty($requestObject->reputationUserId) === true) {
+			throw(new \InvalidArgumentException ("No user for reputation.", 405));
+		}
+
+		// make sure reputation level is available (optional field)
+		if(empty($requestObject->reputationLevelId) === true) {
+			throw(new \InvalidArgumentException("No level for reputation.", 405));
+		}
+
+		// make sure reputation hub is available (optional field)
+		if(empty($requestObject->reputationHubId) === true) {
+			throw(new \InvalidArgumentException("No hub for reputation.", 405));
+		}
+
+		//perform the actual put or post
+		if($method === "PUT") {
+
+			// retrieve the reputation to update
+			$reputation = Reputation::getReputationByReputationId($pdo, $reputationId);
+			if($reputation === null) {
+				throw(new RuntimeException("Reputation does not exist", 404));
+			}
+
+			//enforce the user is signed in and only trying to edit their own reputation
+			if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId() !== $reputation->getReputationUserId()) {
+				throw(new \InvalidArgumentException("You are not allowed to edit this reputation", 403));
+			}
+
+			// update all attributes
+			$reputation->setReputationPoint($requestObject->reputationPoint);
+			$reputation->update($pdo);
+
+			// update reply
+			$reply->message = "Reputation Updated Swimmingly";
+
+		} else if($method === "POST") {
+
+			// enforce the user is signed in
+			if(empty($_SESSION["user"]) === true) {
+				throw(new \InvalidArgumentException("you must be logged in to create a reputation", 403));
+			}
+
+			// create new reputation and insert it into the database
+			$reputation = new Reputation(generateUuidV4(), $_SESSION["user"]->getReputationUserId(), $requestObject->reputationLevelId, $requestObject->reputationHubId, 1);
+			$reputation->insert($pdo);
+
+			// update reply
+			$reply->message = "Reputation Created Successfully";
+		}
+
 	}
 
 
