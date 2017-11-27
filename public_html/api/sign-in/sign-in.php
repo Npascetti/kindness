@@ -29,34 +29,34 @@ try {
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
 		//check to make sure the password and email field is not empty.s
-		if(empty($requestObject->profileEmail) === true) {
+		if(empty($requestObject->userEmail) === true) {
 			throw(new \InvalidArgumentException("Wrong email address.", 401));
 		} else {
-			$profileEmail = filter_var($requestObject->profileEmail, FILTER_SANITIZE_EMAIL);
+			$userEmail = filter_var($requestObject->userEmail, FILTER_SANITIZE_EMAIL);
 		}
-		if(empty($requestObject->profilePassword) === true) {
+		if(empty($requestObject->userPassword) === true) {
 			throw(new \InvalidArgumentException("Must enter a password.", 401));
 		} else {
-			$profilePassword = $requestObject->profilePassword;
+			$userPassword = $requestObject->userPassword;
 		}
-		//grab the profile from the database by the email provided
-		$profile = Profile::getProfileByProfileEmail($pdo, $profileEmail);
-		if(empty($profile) === true) {
+		//grab the user from the database by the email provided
+		$user = User::getUserByUserEmail($pdo, $userEmail);
+		if(empty($user) === true) {
 			throw(new \InvalidArgumentException("Invalid Email", 401));
 		}
-		//if the profile activation is not null throw an error
-		if($profile->getProfileActivationToken() !== null){
+		//if the user activation is not null throw an error
+		if($user->getUserActivationToken() !== null){
 			throw (new \InvalidArgumentException ("you are not allowed to sign in unless you have activated your account", 403));
 		}
 		//hash the password given to make sure it matches.
-		$hash = hash_pbkdf2("sha512", $profilePassword, $profile->getProfileSalt(), 262144);
+		$hash = hash_pbkdf2("sha512", $userPassword, $user->getUserSalt(), 262144);
 		//verify hash is correct
-		if($hash !== $profile->getProfileHash()) {
+		if($hash !== $user->getUserHash()) {
 			throw(new \InvalidArgumentException("Password or email is incorrect."));
 		}
-		//grab profile from database and put into a session
-		$profile = Profile::getProfileByProfileId($pdo, $profile->getProfileId());
-		$_SESSION["profile"] = $profile;
+		//grab user from database and put into a session
+		$user = User::getUserByUserId($pdo, $user->getUserId());
+		$_SESSION["user"] = $user;
 		$reply->message = "Sign in was successful.";
 	} else {
 		throw(new \InvalidArgumentException("Invalid HTTP method request."));
