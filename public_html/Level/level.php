@@ -46,7 +46,7 @@ try {
 			if($level !== null) {
 				$reply->data = $level;
 			}
-			//get all the likes associated with the tweetId
+			//get all the levels associated with the hub
 		} else if(empty($hubLevelId) === false) {
 			$level = Level::getLevelByHubLevelId($pdo, $hubLevelId)->toArray();
 			if($level !== null) {
