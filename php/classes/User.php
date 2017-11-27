@@ -315,10 +315,6 @@ class User implements \JsonSerializable {
 		// verify the user image is secure
 		$newUserImage = trim($newUserImage);
 		$newUserImage = filter_var($newUserImage, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newUserImage) === true) {
-			throw(new \InvalidArgumentException("user image is empty or insecure"));
-
-		}
 
 		// verify the user image will fit in the database
 		if(strlen($newUserImage) > 128) {

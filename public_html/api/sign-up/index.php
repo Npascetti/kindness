@@ -46,25 +46,29 @@ try {
             throw(new \InvalidArgumentException ("Must input valid password", 405));
         }
 
+		 //if FirstName is empty set it to null
+		 if(empty($requestObject->userFirstName) === true) {
+			 throw(new \InvalidArgumentException ("Must input valid first name", 405));
+		 }
+
+		 //if LastName is empty set it to null
+		 if(empty($requestObject->userLastName) === true) {
+			 throw(new \InvalidArgumentException ("Must input valid last name", 405));
+		 }
+
 		 //if Bio is empty set it to null
 		 if(empty($requestObject->userBio) === true) {
 			 $requestObject->userBio = null;
 		 }
 
-		 //if FirstName is empty set it to null
-		 if(empty($requestObject->userFirstName) === true) {
-			 $requestObject->userFirstName = null;
-		 }
+
 
 		 //if Image is empty set it to null
 		 if(empty($requestObject->userImage) === true) {
 			 $requestObject->userImage = null;
 		 }
 
-		 //if LastName is empty set it to null
-		 if(empty($requestObject->userLastName) === true) {
-			 $requestObject->userLastName = null;
-		 }
+
 
         //make sure the password and confirm password match
         if ($requestObject->userPassword !== $requestObject->userPasswordConfirm) {
