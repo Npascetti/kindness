@@ -119,7 +119,7 @@ try {
 
 		// Make sure hub location is available (required field)
 		if(empty($requestObject->hubLocation) === true) {
-			throw(new \ImagickException("No location for Hub", 405));
+			throw(new \InvalidArgumentException("No location for Hub", 405));
 		}
 
 		// Make sure hub user id is available
