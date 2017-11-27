@@ -85,7 +85,7 @@ class User implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @documentation php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct($newUserId, string $newUserActivationToken, string $newUserBio, string $newUserEmail, string $newUserFirstName, string $newUserHash, string $newUserImage = null, string $newUserLastName, string $newUserSalt, string $newUserUserName ) {
+	public function __construct($newUserId, string $newUserActivationToken, ?string $newUserBio, string $newUserEmail, ?string $newUserFirstName, string $newUserHash, ?string $newUserImage, ?string $newUserLastName, string $newUserSalt, string $newUserUserName ) {
 		try {
 			$this->setUserId($newUserId);
 			$this->setUserActivationToken($newUserActivationToken);
@@ -173,7 +173,7 @@ class User implements \JsonSerializable {
 	 *
 	 * @return string value of userBio
 	 **/
-	public function getUserBio(): string {
+	public function getUserBio(): ?string {
 		return ($this->userBio);
 	}
 
@@ -185,7 +185,7 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUserBio is > 3000 characters
 	 * @throws \TypeError if $newUserBio is not a string
 	 */
-	public function setUserBio(string $newUserBio): void {
+	public function setUserBio(?string $newUserBio): void {
 		//verify the user Bio is secure
 		$newUserBio = trim($newUserBio);
 		$newUserBio = filter_var($newUserBio, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -230,7 +230,7 @@ class User implements \JsonSerializable {
 	 *
 	 * @return string value of user first name
 	 **/
-	public function getUserFirstName(): string {
+	public function getUserFirstName(): ?string {
 		return ($this->userFirstName);
 	}
 
@@ -243,7 +243,7 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUserFirstName is > 64 characters
 	 * @throws \TypeError if $newUserFirstName is not a string
 	 */
-	public function setUserFirstName(string $newUserFirstName): void {
+	public function setUserFirstName(?string $newUserFirstName): void {
 		//verify the user first name is secure
 		$newUserFirstName = trim($newUserFirstName);
 		$newUserFirstName = filter_var($newUserFirstName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -303,7 +303,7 @@ class User implements \JsonSerializable {
 	 *
 	 * @return string value of user image
 	 **/
-	public function getUserImage(): string {
+	public function getUserImage(): ?string {
 		return ($this->userImage);
 	}
 	/**
@@ -314,7 +314,7 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUserImage is > 128 characters
 	 * @throws \TypeError if $newUserImage is not a string
 	 **/
-	public function setUserImage(string $newUserImage): void {
+	public function setUserImage(?string $newUserImage): void {
 		// verify the user image is secure
 		$newUserImage = trim($newUserImage);
 		$newUserImage = filter_var($newUserImage, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -337,7 +337,7 @@ class User implements \JsonSerializable {
 	 *
 	 * @return string value of user user last name
 	 **/
-	public function getUserLastName(): string {
+	public function getUserLastName(): ?string {
 		return ($this->userLastName);
 	}
 
@@ -349,7 +349,7 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUserLastName is > 128 characters
 	 * @throws \TypeError if $newUserLastName is not a string
 	 */
-	public function setUserLastName(string $newUserLastName): void {
+	public function setUserLastName(?string $newUserLastName): void {
 		//verify the user user last name is secure
 		$newUserLastName = trim($newUserLastName);
 		$newUserLastName = filter_var($newUserLastName, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
