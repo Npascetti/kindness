@@ -32,8 +32,27 @@ try {
 		//set XSRF cookie
 		setXsrfCookie();
 		//gets  a specific level associated based on its composite key
-		if ($hubLevelId !== null && $userLevelId !== null) {
+		if($hubLevelId !== null && $userLevelId !== null) {
 			$level = Level::getLevelByHubLevelIdAndUserLevelId($pdo, $hubLevelId, $userLevelId);
-			if($level!== null) {
+			if($level !== null) {
 				$reply->data = $level;
 			}
+			if($level !== null) {
+				$reply->data = $level;
+			}
+			//if none of the search parameters are met throw an exception
+		} else if(empty($userLevelId) === false) {
+			$level = Level::getLevelByUserLevelId($pdo, $UserLevelId)->toArray();
+			if($level !== null) {
+				$reply->data = $level;
+			}
+			//get all the likes associated with the tweetId
+		} else if(empty($hubLevelId) === false) {
+			$level = Level::getLevelByHubLevelId($pdo, $hubLevelId)->toArray();
+			if($level !== null) {
+				$reply->data = $level;
+			}
+		} else {
+			throw new InvalidArgumentException("incorrect search parameters ", 404);
+		}
+	}
