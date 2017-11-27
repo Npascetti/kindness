@@ -40,7 +40,9 @@ try{
         if($user!== null){
             //make sure the activation token matches
             if($activation === $user->getUserActivationToken()) {
-                //update the userin the database
+					//set activation to null
+					$user->setUserActivationToken(null);
+            	//update the user in the database
                 $user->update($pdo);
                 //set the reply for the end user
                 $reply->data = "Thank you for activating your account, you will be auto-redirected to your user profile shortly.";
