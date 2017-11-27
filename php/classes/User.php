@@ -137,7 +137,7 @@ class User implements \JsonSerializable {
 	 *
 	 * @return string value of user activation token
 	 **/
-	public function getUserActivationToken(): string {
+	public function getUserActivationToken(): ?string {
 		return ($this->userActivationToken);
 	}
 
