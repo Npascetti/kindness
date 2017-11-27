@@ -70,8 +70,8 @@ try {
         $confirmLink = "https://" . $_SERVER["SERVER_NAME"] . $urlglue;
         //compose message to send with email
         $message = <<< EOF
-<h2>Welcome to DDCTwitter.</h2>
-<p>In order to start posting tweets of cats you must confirm your account </p>
+<h2>Welcome to KindHub.</h2>
+<p>In order to start spreading the kindness, we must first confirm your account. </p>
 <p><a href="$confirmLink">$confirmLink</a></p>
 EOF;
         //create swift email
@@ -122,7 +122,7 @@ EOF;
             throw(new RuntimeException("unable to send email"));
         }
         // update reply
-        $reply->message = "Thank you for creating a user with DDC-Twitter";
+        $reply->message = "Thank you for creating a user with KindHub";
     } else {
         throw (new InvalidArgumentException("invalid http request"));
     }
