@@ -77,7 +77,7 @@ class User implements \JsonSerializable {
 	 * @param string $newUserSalt string containing the user password salt
 	 * @param string $newUserBio string containing textual content of user's bio
 	 * @param string $newUserFirstName string containing the first name of the user
-	 * @param string $newUserLastName string containting the last name of the user
+	 * @param string $newUserLastName string containing the last name of the user
 	 * @param string $newUserEmail string containing the email of the user
 	 * @throws \InvalidArgumentException if data types are not valid
 	 * @throws \RangeException if data values are out of bounds (e.g., string too long, negative integers)

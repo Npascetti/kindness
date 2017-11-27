@@ -28,7 +28,7 @@ try {
         //decode the json and turn it into a php object
         $requestContent = file_get_contents("php://input");
         $requestObject = json_decode($requestContent);
-        //user at handle is a required field
+        //user userName is a required field
         if(empty($requestObject->userUserName) === true) {
             throw(new \InvalidArgumentException ("No User Name", 405));
         }
@@ -44,10 +44,7 @@ try {
         if(empty($requestObject->userPasswordConfirm) === true) {
             throw(new \InvalidArgumentException ("Must input valid password", 405));
         }
-        //if phone is empty set it too null
-        if(empty($requestObject->userPhone) === true) {
-            $requestObject->userPhone = null;
-        }
+
         //make sure the password and confirm password match
         if ($requestObject->userPassword !== $requestObject->userPasswordConfirm) {
             throw(new \InvalidArgumentException("passwords do not match"));
@@ -56,11 +53,11 @@ try {
         $hash = hash_pbkdf2("sha512", $requestObject->userPassword, $salt, 262144);
         $userActivationToken = bin2hex(random_bytes(16));
         //create the user object and prepare to insert into the database
-        $user = new User(null, $userActivationToken, $requestObject->userUserName, $requestObject->userEmail, $hash, $requestObject->userPhone, $salt);
+        $user = new User(generateUuidV4(), $userActivationToken, $requestObject->userBio, $requestObject->userEmail, $requestObject->userFirstName, $hash, $requestObject->userImage, $requestObject->userLastName, $salt, $requestObject->userUserName);
         //insert the user into the database
         $user->insert($pdo);
         //compose the email message to send with th activation token
-        $messageSubject = "One step closer to Sticky Head -- Account Activation";
+        $messageSubject = "You're almost ready to spread the kindess! -- Account Activation";
         //building the activation link that can travel to another server and still work. This is the link that will be clicked to confirm the account.
         //make sure URL is /public_html/api/activation/$activation
         $basePath = dirname($_SERVER["SCRIPT_NAME"], 3);
