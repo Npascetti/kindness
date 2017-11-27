@@ -85,7 +85,7 @@ class User implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @documentation php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct($newUserId, string $newUserActivationToken, ?string $newUserBio, string $newUserEmail, string $newUserFirstName, string $newUserHash, ?string $newUserImage, string $newUserLastName, string $newUserSalt, string $newUserUserName ) {
+	public function __construct($newUserId, $newUserActivationToken, ?string $newUserBio, string $newUserEmail, string $newUserFirstName, string $newUserHash, ?string $newUserImage, string $newUserLastName, string $newUserSalt, string $newUserUserName ) {
 		try {
 			$this->setUserId($newUserId);
 			$this->setUserActivationToken($newUserActivationToken);

@@ -37,7 +37,7 @@ try{
         //find userassociated with the activation token
         $user= User::getUserByUserActivationToken($pdo, $activation);
         //verify the useris not null
-        if($user!== null){
+        if($user !== null){
             //make sure the activation token matches
             if($activation === $user->getUserActivationToken()) {
 					//set activation to null
