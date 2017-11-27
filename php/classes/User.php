@@ -149,7 +149,12 @@ class User implements \JsonSerializable {
 	 * @throws \RangeException if $newUserActivationToken is not 32 characters
 	 * @throws \TypeError if $newUserActivationToken is not a string
 	 **/
-	public function setUserActivationToken(string $newUserActivationToken) : void {
+	public function setUserActivationToken($newUserActivationToken) : void {
+		if($newUserActivationToken === null) {
+			$this->userActivationToken = null;
+			return;
+		}
+
 		if(empty($newUserActivationToken) === true) {
 			throw(new \InvalidArgumentException("user activation token empty or insecure"));
 		}
