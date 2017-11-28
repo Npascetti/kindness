@@ -38,8 +38,8 @@ try {
 	$hubUserId = filter_input(INPUT_GET, "hubUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$hubName = filter_input(INPUT_GET, "hubName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-	//make sure the id is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
+//	make sure the id is valid for methods that require it
+	if(($method === "DELETE" || $method === "PUT") && (empty($hubId) === true)) {
 		throw(new InvalidArgumentException("hubId cannot be empty or negative", 405));
 	}
 
@@ -65,7 +65,7 @@ try {
 			if($hubs !== null) {
 				$data = [];
 				foreach($hubs as $hub) {
-					$reputation = Reputation::getReputationByReputationHubId($pdo, $hubId);
+					$reputation = Reputation::getReputationByReputationHubId($pdo, $hub->getHubId());
 					$data[] = (object)[
 						"hub" => $hub,
 						"reputation" => $reputation
@@ -91,7 +91,7 @@ try {
 			if($hubs !== null) {
 				$data = [];
 				foreach($hubs as $hub) {
-					$reputation = Reputation::getReputationByReputationHubId($pdo, $hubId);
+					$reputation = Reputation::getReputationByReputationHubId($pdo, $hub->getHubId());
 					$data[] = (object)[
 						"hub" => $hub,
 						"reputation" => $reputation
