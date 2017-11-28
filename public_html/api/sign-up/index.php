@@ -8,7 +8,7 @@ use Edu\Cnm\KindHub\User;
 
 
 /**
- * api for signing up too KindHub
+ * api for signing up to KindHub
  *
  * @author Nick Pascetti Marcus Caldeira
  **/

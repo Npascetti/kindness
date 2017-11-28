@@ -30,7 +30,7 @@ try {
 		//process the request content and decode the json object into a php object
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
-		//check to make sure the password and email field is not empty.s
+		//check to make sure the password and email field is not empty
 		if(empty($requestObject->userEmail) === true) {
 			throw(new \InvalidArgumentException("Wrong email address.", 401));
 		} else {
