@@ -71,6 +71,7 @@ class User implements \JsonSerializable {
 	 * constructor for this User
 	 *
 	 * @param string | Uuid $newUserId id of this User or null if a new user
+	 * @param string | null $newUserActivationToken activation token of the new user
 	 * @param string $newUserUserName string containing the user username
 	 * @param string $newUserImage string containing link to user avatar image or null if unused
 	 * @param string | null $newUserHash string containing the user password hash
@@ -85,7 +86,7 @@ class User implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @documentation php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct($newUserId, $newUserActivationToken, ?string $newUserBio, string $newUserEmail, string $newUserFirstName, string $newUserHash, ?string $newUserImage, string $newUserLastName, string $newUserSalt, string $newUserUserName ) {
+	public function __construct($newUserId, ?string $newUserActivationToken, ?string $newUserBio, string $newUserEmail, string $newUserFirstName, string $newUserHash, ?string $newUserImage, string $newUserLastName, string $newUserSalt, string $newUserUserName ) {
 		try {
 			$this->setUserId($newUserId);
 			$this->setUserActivationToken($newUserActivationToken);
