@@ -4,7 +4,7 @@ require_once dirname(__DIR__,3)."/php/lib/xsrf.php";
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\KindHub\User;
 /**
- * API to check useractivation status
+ * API to check user activation status
  * @author Nick Pascetti Marcus Caldeira
  */
 // Check the session. If it is not active, start the session.
@@ -34,9 +34,9 @@ try{
     if($method === "GET"){
         // set XSRF Cookie
         setXsrfCookie();
-        //find userassociated with the activation token
+        //find user associated with the activation token
         $user= User::getUserByUserActivationToken($pdo, $activation);
-        //verify the useris not null
+        //verify the user is not null
         if($user !== null){
             //make sure the activation token matches
             if($activation === $user->getUserActivationToken()) {

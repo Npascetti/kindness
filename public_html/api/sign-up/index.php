@@ -76,7 +76,7 @@ try {
         }
         $salt = bin2hex(random_bytes(32));
         $hash = hash_pbkdf2("sha512", $requestObject->userPassword, $salt, 262144);
-        $userActivationToken = bin2hex(random_bytes(16));
+        $userActivationToken = bin2hex(random_bytes(32));
         //create the user object and prepare to insert into the database
         $user = new User(generateUuidV4(), $userActivationToken, $requestObject->userBio, $requestObject->userEmail, $requestObject->userFirstName, $hash, $requestObject->userImage, $requestObject->userLastName, $salt, $requestObject->userUserName);
         //insert the user into the database
@@ -100,7 +100,7 @@ EOF;
         $swiftMessage = new Swift_Message();
         // attach the sender to the message
         // this takes the form of an associative array where the email is the key to a real name
-        $swiftMessage->setFrom(["npascetti@gmail.com" => "Nicky"]);
+        $swiftMessage->setFrom(["npascetti@cnm.edu" => "Nicky"]);
         /**
          * attach recipients to the message
          * notice this is an array that can include or omit the recipient's name
