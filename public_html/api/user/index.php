@@ -234,6 +234,7 @@ try {
 		if(empty($requestObject->userEmail) === true) {
 			throw(new \InvalidArgumentException ("No user email present", 405));
 		}
+		/////////why are these if blocks down below here? are they necessary?///////////////
 		//user bio | if null use the user bio in the database
 		if(empty($requestObject->userBio) === true) {
 			$requestObject->userBio = $user->getUserBio();
