@@ -324,28 +324,25 @@ class Reputation implements \JsonSerializable {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 
-		$query = "SELECT reputationId, reputationHubId, reputationLevelId, reputationUserId, reputationPoint FROM reputation WHERE reputationHubId = :reputationHubId";
+		$query = "SELECT SUM(reputationPoint) AS netReputation FROM reputation WHERE reputationHubId = :reputationHubId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["reputationHubId" => $reputationHubId->getBytes()];
+		$parameters = ["reputationUserId" => $reputationHubId->getBytes()];
 		$statement->execute($parameters);
 
-		$reputations = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
-				$reputations[$reputations->key()] = $reputation;
-				$reputations->next();
-			} catch(\Exception $exception) {
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
+		try {
+			$netReputation = 0;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$netReputation = $row["netReputation"];
 			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		$points = 0;
-		for($i = 0; $i < count($reputations); $i++) {
-			$points = $points + $reputations[$i]->getReputationPoint();
-		}
-		return($points);
+
+		return($netReputation);
 	}
 
 	/**
@@ -404,28 +401,25 @@ class Reputation implements \JsonSerializable {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 
-		$query = "SELECT reputationId, reputationHubId, reputationLevelId, reputationUserId, reputationPoint FROM reputation WHERE reputationUserId = :reputationUserId";
+		$query = "SELECT SUM(reputationPoint) AS netReputation FROM reputation WHERE reputationUserId = :reputationUserId";
 		$statement = $pdo->prepare($query);
 
 		$parameters = ["reputationUserId" => $reputationUserId->getBytes()];
 		$statement->execute($parameters);
 
-		$reputations = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
-				$reputations[$reputations->key()] = $reputation;
-				$reputations->next();
-			} catch(\Exception $exception) {
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
+		try {
+			$netReputation = 0;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$netReputation = $row["netReputation"];
 			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		$points = 0;
-		for($i = 0; $i < count($reputations); $i++) {
-			$points = $points + $reputations[$i]->getReputationPoint();
-		}
-		return($points);
+
+		return($netReputation);
 	}
 
 	/**
