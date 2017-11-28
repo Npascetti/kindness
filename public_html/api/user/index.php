@@ -212,7 +212,7 @@ try {
 		//enforce that the XSRF token is present in the header
 		verifyXsrf();
 		//enforce the end user has a JWT token
-		//validateJwtHeader();
+//		validateJwtHeader();
 		//enforce the user is signed in and only trying to edit their own user
 		if(empty($_SESSION["user"]) === true || strtoupper($_SESSION["user"]->getUserId()->toString()) !== $id) {
 			throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
@@ -226,16 +226,26 @@ try {
 		if($user === null) {
 			throw(new RuntimeException("User does not exist", 404));
 		}
-		//user at handle
+		//user userName
 		if(empty($requestObject->userUserName) === true) {
-			throw(new \InvalidArgumentException ("No user at handle", 405));
+			throw(new \InvalidArgumentException ("No user user name present", 405));
 		}
 		//user email is a required field
 		if(empty($requestObject->userEmail) === true) {
 			throw(new \InvalidArgumentException ("No user email present", 405));
 		}
+		//user bio | if null use the user bio in the database
+		if(empty($requestObject->userBio) === true) {
+			$requestObject->userBio = $user->getUserBio();
+		}
+		//user bio | if null use the user bio in the database
+		if(empty($requestObject->userImage) === true) {
+			$requestObject->userImage = $user->getUserImage();
+		}
 		$user->setUserUserName($requestObject->userUserName);
 		$user->setUserEmail($requestObject->userEmail);
+		$user->setUserBio($requestObject->userBio);
+		$user->setUserImage($requestObject->userImage);
 		$user->update($pdo);
 		// update reply
 		$reply->message = "User information updated";
@@ -252,12 +262,6 @@ try {
 		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $user->getUserId()->toString()) {
 			throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
 		}
-//		if ($_SESSION["user"]->getUserId()->toString() !== $user->getUserId()->toString()) {
-//			throw(new \InvalidArgumentException("user ids dont match", 403));
-//		}
-//		if(empty($_SESSION["user"]) === true) {
-//			throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
-//		}
 		validateJwtHeader();
 		//delete the user from the database
 		$user->delete($pdo);
