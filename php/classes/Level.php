@@ -194,7 +194,7 @@ class Level implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getLevelBylevelId(\PDO $pdo, $levelId): ?level {
+	public static function getLevelByLevelId(\PDO $pdo, $levelId): ?level {
 		try {
 			$levelId = self::ValidateUuid($levelId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
