@@ -76,7 +76,7 @@ try {
         }
         $salt = bin2hex(random_bytes(32));
         $hash = hash_pbkdf2("sha512", $requestObject->userPassword, $salt, 262144);
-        $userActivationToken = bin2hex(random_bytes(32));
+        $userActivationToken = bin2hex(random_bytes(16));
         //create the user object and prepare to insert into the database
         $user = new User(generateUuidV4(), $userActivationToken, $requestObject->userBio, $requestObject->userEmail, $requestObject->userFirstName, $hash, $requestObject->userImage, $requestObject->userLastName, $salt, $requestObject->userUserName);
         //insert the user into the database
