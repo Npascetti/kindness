@@ -136,7 +136,7 @@ try {
 			}
 
 			// Enforce the user is signed in and only trying to edit their own hub
-			if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId() !== $hub->getHubUserId()) {
+			if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $hub->getHubUserId()->toString()) {
 				throw(new \InvalidArgumentException("You are not allowed to edit this hub", 403));
 			}
 
@@ -177,7 +177,7 @@ try {
 		}
 
 		// Enforce the user is logged in and only trying to delete their own hub
-		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getProfileId() !== $hub->getHubUserId()) {
+		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $hub->getHubUserId()->toString()) {
 			throw(new \InvalidArgumentException("You are not allowed to delete this hub", 403));
 		}
 
