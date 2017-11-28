@@ -214,7 +214,7 @@ try {
 		//enforce the end user has a JWT token
 		//validateJwtHeader();
 		//enforce the user is signed in and only trying to edit their own user
-		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $id) {
+		if(empty($_SESSION["user"]) === true || strtoupper($_SESSION["user"]->getUserId()->toString()) !== $id) {
 			throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
 		}
 		validateJwtHeader();
@@ -248,10 +248,16 @@ try {
 		if($user === null) {
 			throw (new RuntimeException("User does not exist"));
 		}
-		//enforce the user is signed in and only trying to edit their own user
+//		enforce the user is signed in and only trying to edit their own user
 		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $user->getUserId()->toString()) {
 			throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
 		}
+//		if ($_SESSION["user"]->getUserId()->toString() !== $user->getUserId()->toString()) {
+//			throw(new \InvalidArgumentException("user ids dont match", 403));
+//		}
+//		if(empty($_SESSION["user"]) === true) {
+//			throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
+//		}
 		validateJwtHeader();
 		//delete the user from the database
 		$user->delete($pdo);

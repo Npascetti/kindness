@@ -2,6 +2,7 @@
 require_once(dirname(__DIR__, 3) . "/vendor/autoload.php");
 require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
+require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once(dirname(__DIR__, 3) . "/php/lib/uuid.php");
 require_once ("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\KindHub\User;
@@ -59,6 +60,15 @@ try {
 		//grab user from database and put into a session
 		$user = User::getUserByUserId($pdo, $user->getUserId());
 		$_SESSION["user"] = $user;
+
+		//create the Auth payload
+		$authObject = (object) [
+			"userId" =>$user->getUserId(),
+			"userEmail" => $user->getUserEmail()
+		];
+		// create and set th JWT TOKEN
+		setJwtAndAuthHeader("auth",$authObject);
+
 		$reply->message = "Sign in was successful.";
 	} else {
 		throw(new \InvalidArgumentException("Invalid HTTP method request."));
