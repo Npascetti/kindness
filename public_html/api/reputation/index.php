@@ -33,13 +33,13 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize the search parameters
-	$reputationId = $id = filter_input(INPUT_GET, "reputationId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$reputationHubId = $id = filter_input(INPUT_GET, "reputationHubId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$reputationLevelId = $id = filter_input(INPUT_GET, "reputationLevelId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$reputationUserId = $id = filter_input(INPUT_GET, "reputationUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$reputationId = filter_input(INPUT_GET, "reputationId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$reputationHubId = filter_input(INPUT_GET, "reputationHubId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$reputationLevelId = filter_input(INPUT_GET, "reputationLevelId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$reputationUserId = filter_input(INPUT_GET, "reputationUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	// make sure the id is valid for methods that require it
-	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
+	if(($method === "DELETE" || $method === "PUT") && (empty($reputationId) === true || $reputationId < 0)) {
 		throw(new InvalidArgumentException("id cannot be empty or negative", 405));
 	}
 
@@ -49,13 +49,13 @@ try {
 		setXsrfCookie();
 
 		//get a specific reputation or all repuations and update reply
-		if(empty($id) === false) {
+		if(empty($reputationId) === false) {
 			$reputation = Reputation::getReputationByReputationId($pdo, $reputationId);
 			if($reputation !== null) {
 				$reply->data = $reputation;
 			}
 		} else if(empty($reputationHubId) === false) {
-			$reputation = Reputation::getReputationByReputationHubId($pdo, $reputationHubId)->toArray();
+			$reputation = Reputation::getReputationByReputationHubId($pdo, $reputationHubId);
 			if($reputation !== null) {
 				$reply->data = $reputation;
 			}
@@ -92,22 +92,21 @@ try {
 			throw(new \InvalidArgumentException("No level for reputation.", 405));
 		}
 
-		// make sure reputation hub is available (optional field)
 		if(empty($requestObject->reputationHubId) === true) {
-			throw(new \InvalidArgumentException("No hub for reputation.", 405));
+			throw(new \InvalidArgumentException("No hub for reputation", 405));
 		}
 
 		//perform the actual put or post
 		if($method === "PUT") {
 
 			// retrieve the reputation to update
-			$reputation = Reputation::getReputationByReputationId($pdo, $reputationId);
+			$reputation = Reputation::getReputationByReputationId($pdo, $requestObject->reputationId);
 			if($reputation === null) {
 				throw(new RuntimeException("Reputation does not exist", 404));
 			}
 
 			//enforce the user is signed in and only trying to edit their own reputation
-			if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId() !== $reputation->getReputationUserId()) {
+			if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $reputation->getReputationUserId()->toString()) {
 				throw(new \InvalidArgumentException("You are not allowed to edit this reputation", 403));
 			}
 
@@ -126,7 +125,7 @@ try {
 			}
 
 			// create new reputation and insert it into the database
-			$reputation = new Reputation(generateUuidV4(), $_SESSION["user"]->getReputationUserId(), $requestObject->reputationLevelId, $requestObject->reputationHubId, 1);
+			$reputation = new Reputation(generateUuidV4(), $requestObject->reputationHubId, $requestObject->reputationLevelId, $_SESSION["user"]->getUserId(), $requestObject->reputationPoint);
 			$reputation->insert($pdo);
 
 			// update reply
