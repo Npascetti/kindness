@@ -52,39 +52,39 @@ try {
 		if(empty($hubId) === false) {
 			$hub = Hub::getHubByHubId($pdo, $hubId);
 			if($hub !== null) {
-				$reputation = Reputation::getReputationByReputationHubId($pdo, $hubId);
-				$data = [];
-				$data[] = (object)[
-					"hub" => $hub,
-					"reputation" => $reputation
-				];
-				$reply->data = $data;
+//				$reputation = Reputation::getReputationByReputationHubId($pdo, $hubId);
+//				$data = [];
+//				$data[] = (object)[
+//					"hub" => $hub,
+//					"reputation" => $reputation
+//				];
+				$reply->data = $hub;
 			}
 		}else if(empty($hubUserId) === false) {
 			$hubs = Hub::getHubsByHubUserId($pdo, $hubUserId)->toArray();
 			if($hubs !== null) {
-				$data = [];
-				foreach($hubs as $hub) {
-					$reputation = Reputation::getReputationByReputationHubId($pdo, $hub->getHubId());
-					$data[] = (object)[
-						"hub" => $hub,
-						"reputation" => $reputation
-					];
-				}
-				$reply->data = $data;
+//				$data = [];
+//				foreach($hubs as $hub) {
+//					$reputation = Reputation::getReputationByReputationHubId($pdo, $hub->getHubId());
+//					$data[] = (object)[
+//						"hub" => $hub,
+//						"reputation" => $reputation
+//					];
+//				}
+				$reply->data = $hubs;
 			}
 		} else if(empty($hubName) === false) {
 			$hubs = Hub::getHubsByHubName($pdo, $hubName)->toArray();
 			if($hubs !== null) {
-				$data = [];
-				foreach($hubs as $hub) {
-					$reputation = Reputation::getReputationByReputationHubId($pdo, $hubId);
-					$data[] = (object)[
-						"hub" => $hub,
-						"reputation" => $reputation
-					];
-				}
-				$reply->data = $data;
+//				$data = [];
+//				foreach($hubs as $hub) {
+//					$reputation = Reputation::getReputationByReputationHubId($pdo, $hub->getHubId());
+//					$data[] = (object)[
+//						"hub" => $hub,
+//						"reputation" => $reputation
+//					];
+//				}
+				$reply->data = $hubs;
 			}
 		} else {
 			$hubs = Hub::getAllHubs($pdo)->toArray();
@@ -97,7 +97,7 @@ try {
 						"reputation" => $reputation
 					];
 				}
-				$reply->data = $data;
+				$reply->data = $hubs;
 			}
 		}
 	}
