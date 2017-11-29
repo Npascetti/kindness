@@ -260,7 +260,7 @@ try {
 			throw (new RuntimeException("User does not exist"));
 		}
 //		enforce the user is signed in and only trying to edit their own user
-		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $user->getUserId()->toString()) {
+		if(empty($_SESSION["user"]) === true || strtoupper($_SESSION["user"]->getUserId()->toString()) !== $id) {
 			throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
 		}
 		validateJwtHeader();
