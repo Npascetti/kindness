@@ -324,7 +324,7 @@ class Reputation implements \JsonSerializable {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 
-		$query = "SELECT SUM(reputationPoint) AS netReputation FROM reputation WHERE reputationHubId = :reputationHubId";
+		$query = "SELECT COALESCE(SUM(reputationPoint)) AS netReputation FROM reputation WHERE reputationHubId = :reputationHubId";
 		$statement = $pdo->prepare($query);
 
 		$parameters = ["reputationUserId" => $reputationHubId->getBytes()];
@@ -401,7 +401,7 @@ class Reputation implements \JsonSerializable {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 
-		$query = "SELECT SUM(reputationPoint) AS netReputation FROM reputation WHERE reputationUserId = :reputationUserId";
+		$query = "SELECT COALESCE(SUM(reputationPoint)) AS netReputation FROM reputation WHERE reputationUserId = :reputationUserId";
 		$statement = $pdo->prepare($query);
 
 		$parameters = ["reputationUserId" => $reputationUserId->getBytes()];
