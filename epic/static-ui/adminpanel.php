@@ -1,4 +1,4 @@
-<div class="card bg-primary text-white mb-3 mb-lg-0">
+<div class="card bg-success text-white mb-3 mb-lg-0">
 	<div class="card-header">
 		<div class="h4 mb-0">KindHubs</div>
 	</div>

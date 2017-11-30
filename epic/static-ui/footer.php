@@ -2,8 +2,14 @@
     <div class="container">
         <div class="row">
             <div class="col text-center text-white">
-                Couple Links to Develop
+                Contact
             </div>
+			  <div class="col text-center text-white">
+				  Instagram
+			  </div>
+			  	<div class="col text-center text-white">
+				  FAQ
+			  	</div>
         </div>
     </div>
 </footer>

@@ -18,12 +18,12 @@
         <div class="container-fluid">
 
             <!-- Page Title -->
-            <div class="row mb-3">
-                <div class="col">
-                    <h1>KindHub</h1>
-                    <hr>
-                </div>
-            </div>
+<!--            <div class="row mb-3">-->
+<!--                <div class="col">-->
+<!--                    <h1>KindHub</h1>-->
+<!--                    <hr>-->
+<!--                </div>-->
+<!--            </div>-->
 
             <div class="row">
                 <div class="col-md-6 col-lg-3">
