@@ -394,32 +394,36 @@ class Reputation implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getReputationByReputationUserId(\PDO $pdo, $reputationUserId): int {
+	public static function getReputationByReputationUserId(\PDO $pdo, $reputationUserId): ?\SplFixedArray {
 		try {
 			$reputationUserId = self::validateUuid($reputationUserId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
 
-		$query = "SELECT IFNULL(SUM(reputationPoint), 0) AS netReputation FROM reputation WHERE reputationUserId = :reputationUserId";
+		$query = "SELECT reputationId, reputationHubId, reputationLevelId, reputationUserId, reputationPoint FROM reputation WHERE reputationUserId = :reputationUserId";
 		$statement = $pdo->prepare($query);
 
+		//Sets the parameters and executes the select statement
 		$parameters = ["reputationUserId" => $reputationUserId->getBytes()];
 		$statement->execute($parameters);
 
-		try {
-			$netReputation = 0;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
-				$netReputation = $row["netReputation"];
-			}
-		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
-		}
+		// Creates an SplFixedArray to hold multiple hubs
+		$reputations = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 
-		return($netReputation);
+		// Checks if any hubs in mySQL match the hubUserId given, and creates a new hub object and adds it to the array if it does
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
+				$reputations[$reputations->key()] = $reputation;
+				$reputations->next();
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		// Returns the array of hubs, which is empty if none are found
+		return($reputations);
 	}
 
 	/**

@@ -106,7 +106,7 @@ try {
 			}
 
 			//enforce the user is signed in and only trying to edit their own reputation
-			if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId()->toString() !== $reputation->getReputationUserId()->toString()) {
+			if(empty($_SESSION["user"]) === true || strtoupper($_SESSION["user"]->getUserId()->toString()) !== strtoupper($reputation->getReputationUserId()->toString())) {
 				throw(new \InvalidArgumentException("You are not allowed to edit this reputation", 403));
 			}
 
@@ -138,18 +138,18 @@ try {
 		verifyXsrf();
 
 		// retrieve the Reputation to be deleted
-		$repuation = Reputation::getReputationByReputationId($pdo, $reputationId);
+		$reputation = Reputation::getReputationByReputationId($pdo, $reputationId);
 		if($reputationId === null) {
 			throw(new RuntimeException("Reputation does not exist", 404));
 	}
 
 		//enforce the user is signed in and only trying to delete their own reputation
-		if(empty($_SESSION["user"]) === true || $_SESSION["user"]->getUserId() !== $reputationId->getReputationByreputationUserId()) {
+		if(empty($_SESSION["user"]) === true || strtoupper($_SESSION["user"]->getUserId()->toString()) !== strtoupper($reputation->getReputationUserId())) {
 			throw(new \InvalidArgumentException("You are not allowed to delete this reputation", 403));
 	}
 
 		// delete reputation
-		$reputationId->delete($pdo);
+		$reputation->delete($pdo);
 		// update reply
 		$reply->message = "Reputation deleted Successfully";
 	} else {

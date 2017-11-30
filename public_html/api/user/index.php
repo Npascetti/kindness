@@ -214,7 +214,7 @@ try {
 		//enforce the end user has a JWT token
 //		validateJwtHeader();
 		//enforce the user is signed in and only trying to edit their own user
-		if(empty($_SESSION["user"]) === true || strtoupper($_SESSION["user"]->getUserId()->toString()) !== $id) {
+		if(empty($_SESSION["user"]) === true || strtoupper($_SESSION["user"]->getUserId()->toString()) !== strtoupper($id)) {
 			throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
 		}
 		validateJwtHeader();
@@ -260,7 +260,7 @@ try {
 			throw (new RuntimeException("User does not exist"));
 		}
 //		enforce the user is signed in and only trying to edit their own user
-		if(empty($_SESSION["user"]) === true || strtoupper($_SESSION["user"]->getUserId()->toString()) !== $id) {
+		if(empty($_SESSION["user"]) === true || strtoupper($_SESSION["user"]->getUserId()->toString()) !== strtoupper($id)) {
 			throw(new \InvalidArgumentException("You are not allowed to access this user", 403));
 		}
 		validateJwtHeader();
