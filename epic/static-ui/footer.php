@@ -2,13 +2,13 @@
     <div class="container">
         <div class="row">
             <div class="col text-center text-white">
-                Contact
+					<a href="#" class="badge badge-dark">Contact</a>
             </div>
 			  <div class="col text-center text-white">
-				  Instagram
+				  <a href="#" class="badge badge-dark">Instagram</a>
 			  </div>
 			  	<div class="col text-center text-white">
-				  FAQ
+					<a href="#" class="badge badge-dark">FAQ</a>
 			  	</div>
         </div>
     </div>
