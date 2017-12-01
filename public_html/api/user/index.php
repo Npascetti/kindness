@@ -239,7 +239,7 @@ try {
 		if(empty($requestObject->userBio) === true) {
 			$requestObject->userBio = $user->getUserBio();
 		}
-		//user bio | if null use the user bio in the database
+		//user image | if null use the user image in the database
 		if(empty($requestObject->userImage) === true) {
 			$requestObject->userImage = $user->getUserImage();
 		}
