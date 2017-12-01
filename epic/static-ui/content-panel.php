@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        Featured
+        Hub Locations
     </div>
 <!--    <div class="card-body">-->
 <!--        <h4 class="card-title">Hub List</h4>-->
@@ -13,7 +13,7 @@
 			height="450"
 			frameborder="0" style="border:0"
 			src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBlmUNjDr9JxeRGgZq-wCAKGshRQgEdI6I
-    &q=Space+Needle,Seattle+WA" allowfullscreen>
+    &q=Albuquerque+NM" allowfullscreen>
 		</iframe>
 	</div>
 </div>

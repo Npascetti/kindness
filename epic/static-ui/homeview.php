@@ -44,10 +44,11 @@
 
 </div>
 
-<!-- inject footer -->
-<?php require_once ("footer.php");?>
+	<!-- inject footer -->
+	<?php require_once ("footer.php");?>
 
-<!-- inject modal window -->
-<?php require_once ("signup-modal.php");?>
+	<!-- inject modal window -->
+	<?php require_once ("signin-modal.php");?>
+	<?php require_once ("signup-modal.php");?>
 </body>
 </html>
