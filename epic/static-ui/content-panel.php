@@ -9,11 +9,11 @@
 <!--    </div>-->
 	<div>
 		<iframe
-			width="600"
+			width="100%"
 			height="450"
 			frameborder="0" style="border:0"
 			src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBlmUNjDr9JxeRGgZq-wCAKGshRQgEdI6I
-    &q=Albuquerque+NM" allowfullscreen>
+    &q=Albuquerque+NM" allowfullscreen id="map">
 		</iframe>
 	</div>
 </div>

@@ -11,7 +11,7 @@
             <div class="modal-body">
                 Sign up for KindHub!
             </div>
-			  <div class="modal-header">
+			  	<div class="modal-header">
 				  <form role="form">
 					  <div class="form-group">
 						  <input type="username" class="form-control" placeholder="Username" />
@@ -20,11 +20,10 @@
 						  <input type="lastname" class="form-control" placeholder="Last Name" />
 					  </div>
 				  </form>
-			  </div>
-			  <div class="modal-footer">
-				  <button class="btn btn-primary btn-block">Log In</button>
-			  </div>
+			  	</div>
+			  	<div class="modal-footer">
+					<button class="btn btn-primary btn-block">Log In</button>
+			  	</div>
 		  </div>
-        </div>
-    </div>
+	 </div>
 </div>

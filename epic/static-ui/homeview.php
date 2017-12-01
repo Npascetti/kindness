@@ -32,7 +32,7 @@
                     <?php require_once ("adminpanel.php");?>
 
                 </div>
-                <div class="col-md-6 col-lg-9">
+                <div class="col-md-6 col-lg-6">
 
                     <!-- inject content panel -->
                     <?php require_once ("content-panel.php");?>
