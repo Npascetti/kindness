@@ -1,4 +1,11 @@
 .DS_Store
+/.sync-config.cson
 /.idea
+/node_modules
 /vendor
-/php/classes/Test/phpunit.xml
+/src/**/*.js
+/src/**/*.js.map
+/public_html/dist
+/public_html/index.php
+/npm-debug.log
+/webpack/target.js
