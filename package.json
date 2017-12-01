@@ -56,7 +56,6 @@
   "devDependencies": {
     "@types/node": "^8.0.47",
     "awesome-typescript-loader": "^3.3.0",
-    "bootstrap-loader": "^2.2.0",
     "bootstrap": "^4.0.0-beta.2",
     "css-loader": "^0.28.7",
     "eslint": "^4.11.0",
