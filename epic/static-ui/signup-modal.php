@@ -9,12 +9,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                Sign Up for KindHub
+                Sign up for KindHub!
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+			  <div class="modal-header">
+				  <form role="form">
+					  <div class="form-group">
+						  <input type="username" class="form-control" placeholder="Username" />
+						  <input type="email" class="form-control" placeholder="Email" />
+						  <input type="firstname" class="form-control" placeholder="First Name"/>
+						  <input type="lastname" class="form-control" placeholder="Last Name" />
+					  </div>
+				  </form>
+			  </div>
+			  <div class="modal-footer">
+				  <button class="btn btn-primary btn-block">Log In</button>
+			  </div>
+		  </div>
         </div>
     </div>
 </div>
