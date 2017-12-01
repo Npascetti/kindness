@@ -1,4 +1,4 @@
-<footer class="bg-primary py-3">
+<footer class="bg-primary py-3 pb-auto">
     <div class="container">
         <div class="row">
             <div class="col text-center text-white">

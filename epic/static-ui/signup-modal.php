@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="signUpModalLabel">Sign Up</h5>
+                <h5 class="modal-title" id="signUpModalLabel">Join to create hubs!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,10 +14,9 @@
 			  	<div class="modal-header">
 				  <form role="form">
 					  <div class="form-group">
-						  <input type="username" class="form-control" placeholder="Username" />
+						  <input type="name" class="form-control" placeholder="Full Name" />
 						  <input type="email" class="form-control" placeholder="Email" />
-						  <input type="firstname" class="form-control" placeholder="First Name"/>
-						  <input type="lastname" class="form-control" placeholder="Last Name" />
+						  <input type="password" class="form-control" placeholder="Password" />
 					  </div>
 				  </form>
 			  	</div>
