@@ -7,3 +7,4 @@ window.addEventListener("DOMContentLoaded", event => {
     const platform = platformBrowserDynamic();
     platform.bootstrapModule(AppModule);
 });
+
