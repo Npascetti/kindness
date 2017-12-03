@@ -5,5 +5,5 @@ export class Reputation {
 		public reputationLevelId: string,
 		public reputationUserId: string,
 		public reputationPoint: number,
-	)
+	){}
 }
