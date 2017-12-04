@@ -1,10 +1,12 @@
-//import needed @angularDependencies
+    //import needed @angularDependencies
 import {RouterModule, Routes} from "@angular/router";
 
 //import all needed components
 import {HomeComponent} from "./components/home.component";
+import {NavbarComponent} from "./components/navbar.component";
+import {AdminPanelComponent} from "./components/admin.panel.component";
 
-// import all needed Services
+	 // import all needed Services
 import {CookieService} from "ng2-cookies";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {SessionService} from "./services/session.service";
@@ -23,7 +25,7 @@ import {DeepDiveInterceptor} from "./services/deep.dive.interceptor";
 
 
 //an array of the components that will be passed off to the module
-export const allAppComponents = [HomeComponent]; /*we need our own components */
+export const allAppComponents = [HomeComponent, NavbarComponent, AdminPanelComponent]; /*we need our own components */
 
 //an array of routes that will be passed of to the module
 export const routes: Routes = [
