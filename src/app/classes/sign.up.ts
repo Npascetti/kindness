@@ -1,11 +1,11 @@
 export class SignUp {
     constructor(
-        public profileUserName: string,
+        public userUserName: string,
         public userFirstName: string,
         public userLastName: string,
-        public profileEmail: string,
-        public profilePassword: string,
-        public profilePasswordConfirm: string,
+        public userEmail: string,
+        public userPassword: string,
+        public userPasswordConfirm: string,
         public userImage: string,
         public userBio: string,
 
