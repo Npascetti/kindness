@@ -26,7 +26,7 @@ export class SignUpComponent implements OnInit{
 	@ViewChild("signUpForm") signUpView: any;
 	signUpForm : FormGroup;
 
-	signUp: SignUp = new SignUp(null, null, null, null, null);
+	signUp: SignUp = new SignUp(null, null, null, null, null, null, null, null);
 	status: Status = null;
 
 
