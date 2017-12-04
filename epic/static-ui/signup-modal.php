@@ -8,9 +8,6 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                Sign up for KindHub!
-            </div>
 			  	<div class="modal-header">
 				  <form role="form">
 					  <div class="form-group">
@@ -21,7 +18,7 @@
 				  </form>
 			  	</div>
 			  	<div class="modal-footer">
-					<button class="btn btn-primary btn-block">Log In</button>
+					<button class="btn btn-primary btn-block">Join</button>
 			  	</div>
 		  </div>
 	 </div>
