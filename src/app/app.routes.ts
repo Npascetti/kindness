@@ -5,6 +5,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {HomeComponent} from "./components/home.component";
 import {NavbarComponent} from "./components/navbar.component";
 import {AdminPanelComponent} from "./components/admin.panel.component";
+import {ContentPanelComponent} from "./components/content.panel.component";
 
 	 // import all needed Services
 import {CookieService} from "ng2-cookies";
@@ -25,7 +26,7 @@ import {DeepDiveInterceptor} from "./services/deep.dive.interceptor";
 
 
 //an array of the components that will be passed off to the module
-export const allAppComponents = [HomeComponent, NavbarComponent, AdminPanelComponent]; /*we need our own components */
+export const allAppComponents = [HomeComponent, NavbarComponent, AdminPanelComponent, ContentPanelComponent]; /*we need our own components */
 
 //an array of routes that will be passed of to the module
 export const routes: Routes = [
