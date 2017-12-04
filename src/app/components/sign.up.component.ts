@@ -13,11 +13,10 @@ import {setTimeout} from "timers";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 //declare $ for good old jquery
-declare let $: any;
 
 // set the template url and the selector for the ng powered html tag
 @Component({
-	templateUrl: "./templates/sign-up.html",
+	templateUrl: "./templates/signup-modal.html",
 	selector: "sign-up"
 })
 export class SignUpComponent{

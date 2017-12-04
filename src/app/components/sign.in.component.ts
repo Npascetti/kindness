@@ -11,7 +11,7 @@ import {SignIn} from "../classes/sign.in";
 import {CookieService} from "ng2-cookies";
 
 @Component({
-    templateUrl: "./templates/sign-in.html",
+    templateUrl: "./templates/signin-modal.html",
     selector: "sign-in"
 })
 
