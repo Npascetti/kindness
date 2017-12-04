@@ -20,5 +20,5 @@ declare let $: any;
 	templateUrl: "./templates/sign-up.html",
 	selector: "sign-up"
 })
-export class SignUpComponent implements OnInit{
+export class SignUpComponent{
 }
