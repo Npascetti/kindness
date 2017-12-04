@@ -9,7 +9,6 @@ import {Status} from "../classes/status";
 import {SignInService} from "../services/sign.in.service";
 import {SignIn} from "../classes/sign.in";
 import {CookieService} from "ng2-cookies";
-declare var $: any;
 
 @Component({
     templateUrl: "./templates/sign-in.html",
