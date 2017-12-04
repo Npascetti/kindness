@@ -21,46 +21,4 @@ declare let $: any;
 	selector: "sign-up"
 })
 export class SignUpComponent implements OnInit{
-
-	//
-	@ViewChild("signUpForm") signUpView: any;
-	signUpForm : FormGroup;
-
-	signUp: SignUp = new SignUp(null, null, null, null, null, null, null, null);
-	status: Status = null;
-
-
-	constructor(private formBuilder : FormBuilder, private router: Router, private signUpService: SignUpService) {
-		console.log("Valor Morgalus")
-	}
-
-	ngOnInit()  : void {
-		this.signUpForm = this.formBuilder.group({
-			atHandle: ["", [Validators.maxLength(32), Validators.required]],
-			email: ["", [Validators.maxLength(128), Validators.required]],
-			phoneNumber: ["", [Validators.maxLength(32)]],
-			password:["", [Validators.maxLength(48), Validators.required]],
-			passwordConfirm:["", [Validators.maxLength(48), Validators.required]]
-
-		});
-
-	}
-
-	createSignUp(): void {
-
-		let signUp =  new SignUp(this.signUpForm.value.userName, this.signUpForm.value.firstName, this.signUpForm.value.lastName, this.signUpForm.value.email, this.signUpForm.value.password, this.signUpForm.value.passwordConfirm, this.signUpForm.value.image, this.signUpForm.value.bio);
-
-		this.signUpService.createProfile(signUp)
-			.subscribe(status => {
-				this.status = status;
-
-				if(this.status.status === 200) {
-					alert(status.message);
-					setTimeout(function() {
-						$("#signUp-modal").modal('hide');
-					}, 500);
-					this.router.navigate([""]);
-				}
-			});
-	}
 }
