@@ -8,7 +8,5 @@ export class SignUp {
         public userPasswordConfirm: string,
         public userImage: string,
         public userBio: string,
-
-
     ) {}
 }
