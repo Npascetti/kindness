@@ -12,8 +12,8 @@ import {CookieService} from "ng2-cookies";
 declare var $: any;
 
 @Component({
-    templateUrl: "./templates/signin.html",
-    selector: "signin"
+    templateUrl: "./templates/sign-in.html",
+    selector: "sign-in"
 })
 
 export class SignInComponent {
