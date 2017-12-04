@@ -25,17 +25,17 @@ export class ReputationService {
 		return(this.http.delete<Status>(this.reputationUrl + reputationId));
 	}
 
-	// call to the hub API and edit the hub in question
-	editHub(hub : Hub) : Observable<Status> {
-		return(this.http.put<Status>(this.hubUrl + hub.hubId, hub));
+	// call to the reputation API and edit the reputation in question
+	editReputation(reputation : Reputation) : Observable<Status> {
+		return(this.http.put<Status>(this.reputationUrl + reputation.reputationId, reputation));
 	}
 
 	//grabs a  reputation based on its id
 	getReputation(reputationId : string) : Observable <Reputation> {
-		return (this.http.get<Reputation>(this.reputationUrl+ "?reputationUserId=" + reputationUserId +"&reputationTweetId=" + reputationTweetId))
+		return (this.http.get<Reputation>(this.reputationUrl+ reputationId))
 	}
 
-	//grabs a reputation based on its hub id
+	//grabs a reputation based on its reputation id
 	//TODO ask george about getting this as an int
 	getReputationByReputationHubId (reputationHubId : string) : Observable<Reputation> {
 		return(this.http.get<Reputation>(this.reputationUrl + reputationHubId))
