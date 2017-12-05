@@ -14,6 +14,7 @@ import {SignUpComponent} from "./components/sign.up.component";
 import {CookieService} from "ng2-cookies";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {SessionService} from "./services/session.service";
+import {SignUpService} from "./services/sign.up.service";
 
 
 //import all needed Interceptors
@@ -38,7 +39,7 @@ export const routes: Routes = [
 ];
 
 // an array of services
-const services : any[] = [CookieService, JwtHelperService, SessionService];
+const services : any[] = [CookieService, JwtHelperService, SessionService, SignUpService];
 
 // an array of misc providers
 const providers : any[] = [

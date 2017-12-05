@@ -11,19 +11,95 @@
 				Sign up for KindHub!
 			</div>
 			<div class="modal-header">
-				<form role="form">
+				<form [formGroup]="signUpForm"  (ngSubmit)="createSignUp();" novalidate>
+
+					<!-- user name -->
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="User Name" />
-						<input type="text" class="form-control" placeholder="First Name" />
-						<input type="text" class="form-control" placeholder="Last Name" />
-						<input type="email" class="form-control" placeholder="Email" />
-						<input type="password" class="form-control" placeholder="Password" />
-						<input type="password" class="form-control" placeholder="Confirm Password" />
+						<label for="userName" class="col-sm-2 control-label">User Name</label>
+						<div class="col-sm-10">
+							<input type="text" id="userName" name="userName" formControlName="userName" class="form-control">
+						</div>
 					</div>
+
+					<div class="alert alert-danger" *ngIf="signUpForm.controls.userName?.invalid && signUpForm.controls.userName?.touched">
+						<p *ngIf="signUpForm.controls.userName?.errors.maxlength">User Name is too long</p>
+						<p *ngIf="signUpForm.controls.userName?.errors.required">User Name required</p>
+					</div>
+
+					<!-- users  first name-->
+					<div class="form-group">
+						<label for="firstName" class="col-sm-2 control-label">First Name</label>
+						<div class="col-sm-10">
+							<input type="text" id="firstName" name="firstName" class="form-control input-sm" formControlName="firstName">
+						</div>
+					</div>
+
+					<div class="alert alert-danger" *ngIf="signUpForm.controls.firstName?.invalid && signUpForm.controls.firstName?.touched">
+						<p *ngIf="signUpForm.controls.firstName?.errors.maxlength">Name is too long</p>
+						<p *ngIf="signUpForm.controls.firstName?.errors.required">Name required</p>
+					</div>
+
+
+
+					<!-- users phone number -->
+					<div class="form-group">
+						<label for="lastName" class="col-sm-2 control-label">Last Name</label>
+						<div class="col-sm-10">
+							<input type="text" id="lastName" name="lastName" class="form-control input-sm" formControlName="lastName">
+						</div>
+					</div>
+					<div class="alert alert-danger" *ngIf="signUpForm.controls.lastName?.invalid && signUpForm.controls.lastName?.touched">
+						<p *ngIf="signUpForm.controls.lastName?.errors.maxlength">Name is too long</p>
+						<p *ngIf="signUpForm.controls.lastName?.errors.required">Name required</p>
+					</div>
+
+					<!-- users  email-->
+					<div class="form-group">
+						<label for="email" class="col-sm-2 control-label">Email Address </label>
+						<div class="col-sm-10">
+							<input type="email" id="email" name="email" class="form-control input-sm" formControlName="email">
+						</div>
+					</div>
+
+					<div class="alert alert-danger" *ngIf="signUpForm.controls.email?.invalid && signUpForm.controls.email?.touched">
+						<p *ngIf="signUpForm.controls.email?.errors.maxlength">email is to long</p>
+						<p *ngIf="signUpForm.controls.email?.errors.required">valid email address is required</p>
+					</div>
+
+					<!-- user password -->
+					<div class="form-group">
+						<label for="password" class="col-sm-2 control-label">Password</label>
+						<div class="col-sm-10">
+							<input type="password" id="password" name="password" class="form-control input-sm" formControlName="password">
+						</div>
+					</div>
+					<div class="alert alert-danger" *ngIf="signUpForm.controls.password?.invalid && signUpForm.controls.password?.touched">
+						<p *ngIf="signUpForm.controls.password?.errors.maxlength">Password too long</p>
+						<p *ngIf="signUpForm.controls.password?.errors.required">Valid password required</p>
+					</div>
+
+
+					<!--confirm password -->
+					<div class="form-group">
+						<label for="passwordConfirm" class="col-sm-2 control-label">Password Confirm</label>
+						<div class="col-sm-10">
+							<input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control input-sm" formControlName="passwordConfirm">
+						</div>
+					</div>
+
+					<div class="alert alert-danger" *ngIf="signUpForm.controls.passwordConfirm?.invalid && signUpForm.controls.passwordConfirm?.touched">
+						<p *ngIf="signUpForm.controls.passwordConfirm?.errors.maxlength">Password is too long</p>
+						<p *ngIf="signUpForm.controls.passwordConfirm?.errors.required">Must confirm password</p>
+					</div>
+
+					<!-- Submit button -->
+					<button type="submit" id="submit" name="signUp" class="btn btn-info">Submit</button>
 				</form>
 			</div>
-			<div class="modal-footer">
-				<button class="btn btn-primary btn-block">Log In</button>
+			<div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">
+				<button type="button" class="close" aria-label="Close" (click)="status = null;"><span
+					aria-hidden="true">&times;</span></button>
+				{{ status.message }}
 			</div>
 		</div>
 	</div>

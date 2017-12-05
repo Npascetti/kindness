@@ -22,7 +22,7 @@ declare let $: any;
 })
 export class SignUpComponent implements OnInit {
 
-	@viewchild("signUpForm") signUpView: any;
+	///@viewchild("signUpForm") signUpView: any;
 	signUpForm: FormGroup;
 
 	signUp = new SignUp(null, null, null, null, null, null, null, null);
