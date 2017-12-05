@@ -32,17 +32,17 @@ export class UserService  {
 	}
 
 	// call to the API to grab an array of users based on the user input
-	getUserByUserEmail(userEmail: string) :Observable<User[]> {
-		return(this.http.get<User[]>(this.userUrl + "?userEmail=" + userEmail));
+	getUserByUserEmail(userEmail: string) :Observable<User> {
+		return(this.http.get<User>(this.userUrl + userEmail));
 
 	}
 
 	//call to the user API and grab the corresponding user by its email
-	getUserByUserUserName(userUserName: string) :Observable<User[]> {
-		return(this.http.get<User[]>(this.userUrl + "?userUserName=" + userUserName));
+	getUserByUserUserName(userUserName: string) :Observable<User> {
+		return(this.http.get<User>(this.userUrl + "?userUserName=" + userUserName));
 	}
 
-	getUserByUserActivationToken(userActivationToken: string) :Observable<User[]> {
-		return(this.http.get<User[]>(this.userUrl + "?userActivationToken=" + userActivationToken));
+	getUserByUserActivationToken(userActivationToken: string) :Observable<User> {
+		return(this.http.get<User>(this.userUrl + "?userActivationToken=" + userActivationToken));
 	}
 }
