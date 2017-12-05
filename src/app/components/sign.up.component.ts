@@ -3,7 +3,7 @@
  */
 
 //import needed modules for the sign-up component
-import {Component, OnInit, ViewChild,} from "@angular/core";
+import {Component, OnInit, ViewChild} from "@angular/core";
 import {Observable} from "rxjs/Observable"
 import {Router} from "@angular/router";
 import {Status} from "../classes/status";
@@ -22,13 +22,14 @@ declare let $: any;
 })
 export class SignUpComponent implements OnInit {
 
-	///@viewchild("signUpForm") signUpView: any;
+	@ViewChild("signUpForm") signUpView: any;
 	signUpForm: FormGroup;
 
 	signUp = new SignUp(null, null, null, null, null, null, null, null);
 	status: Status = null;
 
 	constructor(private formBuilder: FormBuilder, private router: Router, private signUpService: SignUpService) {
+		console.log("")
 	}
 
 	ngOnInit(): void {
@@ -47,15 +48,16 @@ export class SignUpComponent implements OnInit {
 			this.signUpForm.value.email, this.signUpForm.value.password, this.signUpForm.value.passwordConfirm,
 			null, null);
 
+		console.log(this.signUp);
 		this.signUpService.createUser(signUp).subscribe(status => {
 			this.status = status;
 
 			if(this.status.status === 200) {
 				alert(status.message);
 				setTimeout(function() {
-					$("#signUp-Modal").modal('hide');
+					$("#signUpModal").modal('hide');
 				}, 500);
-				this.router.navigate([" "]);
+				this.router.navigate([""]);
 			}
 		})
 	}
