@@ -12,7 +12,7 @@ export class SignUpService {
 
 	private signUpUrl = "api/sign-up/";
 
-	createProfile(signUp: SignUp) : Observable<Status> {
+	createUser(signUp: SignUp) : Observable<Status> {
 		return(this.http.post<Status>(this.signUpUrl, signUp));
 	}
 }
