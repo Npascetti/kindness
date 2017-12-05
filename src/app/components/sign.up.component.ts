@@ -38,8 +38,8 @@ export class SignUpComponent implements OnInit {
 			firstName: ["", [Validators.maxLength(64), Validators.required]],
 			lastName: ["", [Validators.maxLength(64), Validators.required]],
 			email: ["", [Validators.maxLength(255), Validators.required]],
-			password: ["", Validators.maxLength(48), Validators.required],
-			passwordConfirm: ["", Validators.maxLength(48), Validators.required],
+			password: ["", [Validators.maxLength(48), Validators.required]],
+			passwordConfirm: ["", [Validators.maxLength(48), Validators.required]]
 		});
 	}
 
