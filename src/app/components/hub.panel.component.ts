@@ -5,6 +5,6 @@ import {Component} from "@angular/core";
 	selector: "hub-panel"
 })
 
-export class AdminPanelComponent {
+export class HubPanelComponent {
 
 }
