@@ -354,7 +354,7 @@ class Reputation implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
 	 **/
-	public static function getReputationByReputationLevelId(\PDO $pdo, $reputationLevelId) : ?Reputation {
+	public static function getReputationByReputationLevelId(\PDO $pdo, $reputationLevelId) : \SplFixedArray {
 		// sanitize the reputationLevelId before searching
 		try {
 			$reputationLevelId = self::validateUuid($reputationLevelId);
@@ -370,19 +370,22 @@ class Reputation implements \JsonSerializable {
 		$parameters = ["reputationLevelId" => $reputationLevelId->getBytes()];
 		$statement->execute($parameters);
 
-		// grab the reputation from mySQL
-		try {
-			$reputation = null;
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-			$row = $statement->fetch();
-			if($row !== false) {
+		// Creates an SplFixedArray to hold multiple hubs
+		$reputations = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+
+		// Checks if any hubs in mySQL match the hubUserId given, and creates a new hub object and adds it to the array if it does
+		while(($row = $statement->fetch()) !== false) {
+			try {
 				$reputation = new Reputation($row["reputationId"], $row["reputationHubId"], $row["reputationLevelId"], $row["reputationUserId"], $row["reputationPoint"]);
+				$reputations[$reputations->key()] = $reputation;
+				$reputations->next();
+			} catch(\Exception $exception) {
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
-		} catch(\Exception $exception) {
-			// if the row couldn't be converted, rethrow it
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
 		}
-		return($reputation);
+		// Returns the array of hubs, which is empty if none are found
+		return($reputations);
 	}
 
 	/**
