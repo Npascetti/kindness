@@ -1,8 +1,8 @@
 import {Component} from "@angular/core";
 
 @Component({
-	templateUrl: "./templates/admin-panel.html",
-	selector: "admin-panel"
+	templateUrl: "./templates/hub-panel.html",
+	selector: "hub-panel"
 })
 
 export class AdminPanelComponent {
