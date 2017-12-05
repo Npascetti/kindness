@@ -40,7 +40,7 @@ export class SignUpComponent implements OnInit {
 			email: ["", [Validators.maxLength(255), Validators.required]],
 			password: ["", Validators.maxLength(48), Validators.required],
 			passwordConfirm: ["", Validators.maxLength(48), Validators.required],
-		})
+		});
 	}
 
 	createSignUp(): void {
@@ -59,6 +59,6 @@ export class SignUpComponent implements OnInit {
 				}, 500);
 				this.router.navigate([""]);
 			}
-		})
+		});
 	}
 }
