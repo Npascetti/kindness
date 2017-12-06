@@ -1,5 +1,8 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Status} from "../classes/status";
+import {Router} from "@angular/router";
+import {UserService} from "../services/user.service";
 
 
 @Component({
@@ -7,11 +10,14 @@ import {Status} from "../classes/status";
 	selector: "edit-profile"
 })
 export class EditProfileComponent{
-	@ViewChild("editProfile") editProfile: any;
-
-	editProfile: EditProfile = new EditProfile(null, null, null, null, null, null);
+	editProfileForm: FormGroup;
 	status: Status = null;
 
+	constructor(private formBuilder: FormBuilder, private userService: UserService) {}
 
+	ngOnInit(): void {
+		this.editProfileForm = this.formBuilder.group({
 
+		})
+	}
 }
