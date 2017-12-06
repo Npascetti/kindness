@@ -21,9 +21,9 @@
 					</div>
 
 					<div class="alert alert-danger"
-						  *ngIf="signUpForm.controls.userName?.invalid && signUpForm.controls.userName?.touched">
-						<p *ngIf="signUpForm.controls.userName?.errors.maxlength">User Name is too long</p>
-						<p *ngIf="signUpForm.controls.userName?.errors.required">User Name required</p>
+						  *ngIf="editProfileForm.controls.userName?.invalid && editProfileForm.controls.userName?.touched">
+						<p *ngIf="editProfileForm.controls.userName?.errors.maxlength">User Name is too long</p>
+						<p *ngIf="editProfileForm.controls.userName?.errors.required">User Name required</p>
 					</div>
 
 					<!-- users  first name-->
@@ -33,9 +33,9 @@
 					</div>
 
 					<div class="alert alert-danger"
-						  *ngIf="signUpForm.controls.firstName?.invalid && signUpForm.controls.firstName?.touched">
-						<p *ngIf="signUpForm.controls.firstName?.errors.maxlength">Name is too long</p>
-						<p *ngIf="signUpForm.controls.firstName?.errors.required">Name required</p>
+						  *ngIf="editProfileForm.controls.firstName?.invalid && editProfileForm.controls.firstName?.touched">
+						<p *ngIf="editProfileForm.controls.firstName?.errors.maxlength">Name is too long</p>
+						<p *ngIf="editProfileForm.controls.firstName?.errors.required">Name required</p>
 					</div>
 
 
@@ -46,9 +46,9 @@
 					</div>
 
 					<div class="alert alert-danger"
-						  *ngIf="signUpForm.controls.lastName?.invalid && signUpForm.controls.lastName?.touched">
-						<p *ngIf="signUpForm.controls.lastName?.errors.maxlength">Name is too long</p>
-						<p *ngIf="signUpForm.controls.lastName?.errors.required">Name required</p>
+						  *ngIf="editProfileForm.controls.lastName?.invalid && editProfileForm.controls.lastName?.touched">
+						<p *ngIf="editProfileForm.controls.lastName?.errors.maxlength">Name is too long</p>
+						<p *ngIf="editProfileForm.controls.lastName?.errors.required">Name required</p>
 					</div>
 
 					<!-- users  email-->
@@ -58,9 +58,9 @@
 					</div>
 
 					<div class="alert alert-danger"
-						  *ngIf="signUpForm.controls.email?.invalid && signUpForm.controls.email?.touched">
-						<p *ngIf="signUpForm.controls.email?.errors.maxlength">email is to long</p>
-						<p *ngIf="signUpForm.controls.email?.errors.required">valid email address is required</p>
+						  *ngIf="editProfileForm.controls.email?.invalid && editProfileForm.controls.email?.touched">
+						<p *ngIf="editProfileForm.controls.email?.errors.maxlength">email is to long</p>
+						<p *ngIf="editProfileForm.controls.email?.errors.required">valid email address is required</p>
 					</div>
 
 					<!-- user password -->
@@ -69,9 +69,9 @@
 								 placeholder="New Password">
 					</div>
 					<div class="alert alert-danger"
-						  *ngIf="signUpForm.controls.password?.invalid && signUpForm.controls.password?.touched">
-						<p *ngIf="signUpForm.controls.password?.errors.maxlength">Password too long</p>
-						<p *ngIf="signUpForm.controls.password?.errors.required">Valid password required</p>
+						  *ngIf="editProfileForm.controls.password?.invalid && editProfileForm.controls.password?.touched">
+						<p *ngIf="editProfileForm.controls.password?.errors.maxlength">Password too long</p>
+						<p *ngIf="editProfileForm.controls.password?.errors.required">Valid password required</p>
 					</div>
 
 
@@ -82,9 +82,9 @@
 					</div>
 
 					<div class="alert alert-danger"
-						  *ngIf="signUpForm.controls.passwordConfirm?.invalid && signUpForm.controls.passwordConfirm?.touched">
-						<p *ngIf="signUpForm.controls.passwordConfirm?.errors.maxlength">Password is too long</p>
-						<p *ngIf="signUpForm.controls.passwordConfirm?.errors.required">Must confirm password</p>
+						  *ngIf="editProfileForm.controls.passwordConfirm?.invalid && editProfileForm.controls.passwordConfirm?.touched">
+						<p *ngIf="editProfileForm.controls.passwordConfirm?.errors.maxlength">Password is too long</p>
+						<p *ngIf="editProfileForm.controls.passwordConfirm?.errors.required">Must confirm password</p>
 					</div>
 
 					<!-- Submit button -->

@@ -22,9 +22,9 @@
 					</div>
 
 					<div class="alert alert-danger"
-						  *ngIf="signUpForm.controls.hubName?.invalid && signUpForm.controls.hubName?.touched">
-						<p *ngIf="signUpForm.controls.hubName?.errors.maxlength">Hub Name is too long</p>
-						<p *ngIf="signUpForm.controls.hubName?.errors.required">Hub Name required</p>
+						  *ngIf="createHubForm.controls.hubName?.invalid && createHubForm.controls.hubName?.touched">
+						<p *ngIf="createHubForm.controls.hubName?.errors.maxlength">Hub Name is too long</p>
+						<p *ngIf="createHubForm.controls.hubName?.errors.required">Hub Name required</p>
 					</div>
 
 					<!-- hub location-->
@@ -36,9 +36,9 @@
 					</div>
 
 					<div class="alert alert-danger"
-						  *ngIf="signUpForm.controls.hubLocation?.invalid && signUpForm.controls.hubLocation?.touched">
-						<p *ngIf="signUpForm.controls.hubLocation?.errors.maxlength">Location is too long</p>
-						<p *ngIf="signUpForm.controls.hubLocation?.errors.required">Location required</p>
+						  *ngIf="createHubForm.controls.hubLocation?.invalid && createHubForm.controls.hubLocation?.touched">
+						<p *ngIf="createHubForm.controls.hubLocation?.errors.maxlength">Location is too long</p>
+						<p *ngIf="createHubForm.controls.hubLocation?.errors.required">Location required</p>
 					</div>
 
 					<!-- Submit button -->
