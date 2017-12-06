@@ -5,4 +5,6 @@ import {Component} from "@angular/core";
     selector: "kindhub-app",
     templateUrl: "./templates/kindhub-app.html"
 })
-export class AppComponent{}
+export class AppComponent{
+
+}

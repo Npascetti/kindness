@@ -9,6 +9,7 @@ import {ContentPanelComponent} from "./components/content.panel.component";
 import {FooterComponent} from "./components/footer.component";
 import {SignInComponent} from "./components/sign.in.component";
 import {SignUpComponent} from "./components/sign.up.component";
+import {ProfilePageComponent} from "./components/profile.page.component";
 
 	 // import all needed Services
 import {CookieService} from "ng2-cookies";
@@ -31,9 +32,10 @@ import {DeepDiveInterceptor} from "./services/deep.dive.interceptor";
 
 
 
+
 //an array of the components that will be passed off to the module
 export const allAppComponents = [HomeComponent, NavbarComponent, HubPanelComponent, ContentPanelComponent, FooterComponent,
-    SignInComponent, SignUpComponent]; /*we need our own components */
+    SignInComponent, SignUpComponent, ProfilePageComponent]; /*we need our own components */
 
 //an array of routes that will be passed of to the module
 export const routes: Routes = [
