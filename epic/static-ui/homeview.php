@@ -41,5 +41,6 @@
 	<!-- inject modal window -->
 	<?php require_once ("signin-modal.php");?>
 	<?php require_once ("signup-modal.php");?>
+	<?php require_once ("hub-modal.php");?>
 </body>
 </html>
