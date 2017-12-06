@@ -13,8 +13,9 @@
 				<li class="list-group-item">Email</li>
 			</ul>
 			<div class="card-body">
-				<a href="#" class="card-link" data-toggle="modal" data-target="#editProfileModal">Edit Profile</a>
 				<a href="#" class="card-link" data-toggle="modal" data-target="#createHubModal">Create Hub</a>
+				<a href="#" class="card-link" data-toggle="modal" data-target="#editHubModal">Edit Hub</a>
+				<a href="#" class="card-link" data-toggle="modal" data-target="#editProfileModal">Edit Profile</a>
 				<a href="#" class="card-link">Delete Hub</a>
 			</div>
 		</div>

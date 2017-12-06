@@ -15,5 +15,6 @@
 
 	<?php require_once ("edit-profile-modal.php");?>
 	<?php require_once ("create-hub-modal.php");?>
+	<?php require_once ("edit-hub-modal.php");?>
 
 </html>
