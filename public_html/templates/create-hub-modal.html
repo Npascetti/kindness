@@ -17,37 +17,39 @@
 					<!-- hub name -->
 					<div class="form-group">
 						<label for="hubName">Hub Name</label>
-						<input type="text" id="hubName" name="hubName" formControlName="hubName" class="form-control" placeholder="Downtown Hub">
+						<input type="text" id="hubName" name="hubName" formControlName="hubName" class="form-control"
+								 placeholder="Downtown Hub">
 					</div>
 
-										<div class="alert alert-danger"
-											  *ngIf="signUpForm.controls.hubName?.invalid && signUpForm.controls.hubName?.touched">
-											<p *ngIf="signUpForm.controls.hubName?.errors.maxlength">Hub Name is too long</p>
-											<p *ngIf="signUpForm.controls.hubName?.errors.required">Hub Name required</p>
-										</div>
+					<div class="alert alert-danger"
+						  *ngIf="signUpForm.controls.hubName?.invalid && signUpForm.controls.hubName?.touched">
+						<p *ngIf="signUpForm.controls.hubName?.errors.maxlength">Hub Name is too long</p>
+						<p *ngIf="signUpForm.controls.hubName?.errors.required">Hub Name required</p>
+					</div>
 
 					<!-- hub location-->
 
 					<div class="form-group">
 						<label for="inputAddress">Address</label>
-						<input type="text" id="inputAddress" class="form-control" formControlName="hubLocation" placeholder="1234 Main St">
+						<input type="text" id="inputAddress" class="form-control" formControlName="hubLocation"
+								 placeholder="1234 Main St">
 					</div>
 
-										<div class="alert alert-danger"
-											  *ngIf="signUpForm.controls.hubLocation?.invalid && signUpForm.controls.hubLocation?.touched">
-											<p *ngIf="signUpForm.controls.hubLocation?.errors.maxlength">Location is too long</p>
-											<p *ngIf="signUpForm.controls.hubLocation?.errors.required">Location required</p>
-										</div>
+					<div class="alert alert-danger"
+						  *ngIf="signUpForm.controls.hubLocation?.invalid && signUpForm.controls.hubLocation?.touched">
+						<p *ngIf="signUpForm.controls.hubLocation?.errors.maxlength">Location is too long</p>
+						<p *ngIf="signUpForm.controls.hubLocation?.errors.required">Location required</p>
+					</div>
 
 					<!-- Submit button -->
 					<button type="submit" id="submit" name="signUp" class="btn btn-info">Submit</button>
 				</form>
 			</div>
-			<!--			<div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">-->
-			<!--				<button type="button" class="close" aria-label="Close" (click)="status = null;"><span-->
-			<!--						aria-hidden="true">&times;</span></button>-->
-			<!--				{{ status.message }}-->
-			<!--			</div>-->
+			<div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">
+				<button type="button" class="close" aria-label="Close" (click)="status = null;"><span
+					aria-hidden="true">&times;</span></button>
+				{{ status.message }}
+			</div>
 		</div>
 	</div>
 </div>

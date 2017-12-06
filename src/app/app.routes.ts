@@ -1,4 +1,4 @@
-    //import needed @angularDependencies
+//import needed @angularDependencies
 import {RouterModule, Routes} from "@angular/router";
 
 //import all needed components
@@ -13,8 +13,11 @@ import {ProfilePageComponent} from "./components/profile.page.component";
 import {ProfilePanelComponent} from "./components/profile.panel.component";
 import {CreateHubModalComponent} from "./components/create.hub.modal.component";
 import {EditProfileComponent} from "./components/edit.profile.component";
+import {AdminpanelComponent} from "./components/adminpanel.component";
+import {DeleteProfileModalComponent} from "./components/delete.profile.modal.component";
+import {EditHubModalComponent} from "./components/edit.hub.modal.component";
 
-	 // import all needed Services
+// import all needed Services
 import {CookieService} from "ng2-cookies";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {SessionService} from "./services/session.service";
@@ -23,28 +26,30 @@ import {SignInService} from "./services/sign.in.service";
 import {HubService} from "./services/hub.service";
 
 
-	 //import all needed Interceptors
+//import all needed Interceptors
 import {APP_BASE_HREF} from "@angular/common";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DeepDiveInterceptor} from "./services/deep.dive.interceptor";
 
-	 //an array of the components that will be passed off to the module
+//an array of the components that will be passed off to the module
 export const allAppComponents = [HomeComponent, NavbarComponent, HubPanelComponent, ContentPanelComponent, FooterComponent,
-    SignInComponent, SignUpComponent, ProfilePageComponent, ProfilePanelComponent, CreateHubModalComponent, EditProfileComponent]; /*we need our own components */
+	SignInComponent, SignUpComponent, ProfilePageComponent, ProfilePanelComponent, CreateHubModalComponent,
+	EditProfileComponent, AdminpanelComponent, DeleteProfileModalComponent, EditHubModalComponent];
+/*we need our own components */
 
 //an array of routes that will be passed of to the module
 export const routes: Routes = [
-    {path: "", component: HomeComponent}
+	{path: "", component: HomeComponent},
 ];
 
 // an array of services
-const services : any[] = [CookieService, JwtHelperService, SessionService, SignUpService, SignInService,
-    HubService];
+const services: any[] = [CookieService, JwtHelperService, SessionService, SignUpService, SignInService,
+	HubService];
 
 // an array of misc providers
-const providers : any[] = [
-    {provide: APP_BASE_HREF, useValue: window["_base_href"]},
-    {provide: HTTP_INTERCEPTORS, useClass: DeepDiveInterceptor, multi: true},
+const providers: any[] = [
+	{provide: APP_BASE_HREF, useValue: window["_base_href"]},
+	{provide: HTTP_INTERCEPTORS, useClass: DeepDiveInterceptor, multi: true},
 
 ];
 
