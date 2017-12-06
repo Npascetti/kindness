@@ -40,6 +40,7 @@ export const allAppComponents = [HomeComponent, NavbarComponent, HubPanelCompone
 //an array of routes that will be passed of to the module
 export const routes: Routes = [
 	{path: "", component: HomeComponent},
+	{path: "/profile", component: ProfilePageComponent}
 ];
 
 // an array of services
