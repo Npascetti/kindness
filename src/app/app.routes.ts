@@ -1,5 +1,5 @@
-//import needed @angularDependencies
 import {RouterModule, Routes} from "@angular/router";
+
 
 //import all needed components
 import {HomeComponent} from "./components/home.component";
@@ -26,7 +26,7 @@ import {SessionService} from "./services/session.service";
 import {SignUpService} from "./services/sign.up.service";
 import {SignInService} from "./services/sign.in.service";
 import {HubService} from "./services/hub.service";
-
+import {UserService} from"./services/user.service";
 
 //import all needed Interceptors
 import {APP_BASE_HREF} from "@angular/common";
@@ -42,12 +42,12 @@ export const allAppComponents = [HomeComponent, NavbarComponent, HubPanelCompone
 //an array of routes that will be passed of to the module
 export const routes: Routes = [
 	{path: "", component: HomeComponent},
-	{path: "/profile", component: ProfilePageComponent}
+	{path: "profile", component: ProfilePageComponent}
 ];
 
 // an array of services
 const services: any[] = [CookieService, JwtHelperService, SessionService, SignUpService, SignInService,
-	HubService];
+	HubService, UserService];
 
 // an array of misc providers
 const providers: any[] = [
