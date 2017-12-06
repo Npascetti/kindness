@@ -9,10 +9,10 @@ import {ContentPanelComponent} from "./components/content.panel.component";
 import {FooterComponent} from "./components/footer.component";
 import {SignInComponent} from "./components/sign.in.component";
 import {SignUpComponent} from "./components/sign.up.component";
+import {ProfilePageComponent} from "./components/profile.page.component";
 import {ProfilePanelComponent} from "./components/profile.panel.component";
 import {CreateHubModalComponent} from "./components/create.hub.modal.component";
 import {EditProfileComponent} from "./components/edit.profile.component";
-import {ProfilePageComponent} from "./components/profile.page.component";
 
 	 // import all needed Services
 import {CookieService} from "ng2-cookies";
