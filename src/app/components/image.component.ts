@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import "rxjs/add/observable/from";
 
 @Component({
-	templateUrl: "./templates/image.php"
+	templateUrl: "./templates/image.html"
 })
 
 export class ImageComponent implements OnInit {
