@@ -1,7 +1,7 @@
 <body>
 	<div class="container"
 	<div class="row">
-		<div class="card mx-auto p-3 mt-3" style="width: 20rem;">
+		<div class="card mx-auto p-3 mt-3 mb-3" style="width: 20rem;">
 			<img class="card-img-top" src="../images/robert.jpg" alt="Card image cap">
 			<div class="card-body">
 				<h4 class="card-title">Username</h4>
