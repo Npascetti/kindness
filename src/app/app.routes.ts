@@ -16,6 +16,7 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 import {SessionService} from "./services/session.service";
 import {SignUpService} from "./services/sign.up.service";
 import {SignInService} from "./services/sign.in.service";
+import {HubService} from "./services/hub.service";
 
 
 	 //import all needed Interceptors
@@ -40,7 +41,8 @@ export const routes: Routes = [
 ];
 
 // an array of services
-const services : any[] = [CookieService, JwtHelperService, SessionService, SignUpService, SignInService];
+const services : any[] = [CookieService, JwtHelperService, SessionService, SignUpService, SignInService,
+    HubService];
 
 // an array of misc providers
 const providers : any[] = [
