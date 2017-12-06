@@ -7,16 +7,45 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-header">
-				<form role="form">
+
+
+			<div class="modal-body">
+				<!-- actual login form -->
+				<form #signInForm="ngForm" class="form-horizontal" name="signInForm" id="signinForm" novalidate
+						(ngSubmit)="signIn();">
+
+					<!-- username goes here -->
 					<div class="form-group">
-						<input type="email" class="form-control" placeholder="Email"/>
-						<input type="password" class="form-control" placeholder="Password" />
+						<label for="signin-email" class="col-sm-2 control-label">Email</label>
+						<div class="col-sm-10">
+							<input type="email" name="signin-email" id="signin-email" required [(ngModel)]=signin.userEmail
+									 #userEmail="ngModel" class="form-control input-sm">
+						</div>
 					</div>
+
+					<!-- password goes here -->
+					<div class="form-group">
+						<label for="signin-password" class=" col-sm-2 control-label">Password</label>
+						<div class="col-sm-10">
+							<input type="password" id="signin-password" name="signin-password" required
+									 [(ngModel)]="signin.userPassword" #userPassword="ngModel"
+									 class="form-control input-sm">
+						</div>
+					</div>
+
+
+					<button type="submit" id="submit" [disabled]="signInForm.invalid" class="btn btn-primary">Sign In
+					</button>
 				</form>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-primary btn-block">Log In</button>
+				<div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">
+					<button type="button" class="close" aria-label="Close" (click)="status = null;"><span
+						aria-hidden="true">&times;</span></button>
+					{{ status.message }}
+
+
+				</div>
+
+
 			</div>
 		</div>
 	</div>

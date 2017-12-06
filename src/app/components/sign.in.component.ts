@@ -9,6 +9,8 @@ import {Status} from "../classes/status";
 import {SignInService} from "../services/sign.in.service";
 import {SignIn} from "../classes/sign.in";
 import {CookieService} from "ng2-cookies";
+import {setTimeout} from "timers";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
     templateUrl: "./templates/signin-modal.html",

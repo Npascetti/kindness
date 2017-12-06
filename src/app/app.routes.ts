@@ -15,9 +15,10 @@ import {CookieService} from "ng2-cookies";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {SessionService} from "./services/session.service";
 import {SignUpService} from "./services/sign.up.service";
+import {SignInService} from "./services/sign.in.service";
 
 
-//import all needed Interceptors
+	 //import all needed Interceptors
 import {APP_BASE_HREF} from "@angular/common";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DeepDiveInterceptor} from "./services/deep.dive.interceptor";
@@ -39,7 +40,7 @@ export const routes: Routes = [
 ];
 
 // an array of services
-const services : any[] = [CookieService, JwtHelperService, SessionService, SignUpService];
+const services : any[] = [CookieService, JwtHelperService, SessionService, SignUpService, SignInService];
 
 // an array of misc providers
 const providers : any[] = [
