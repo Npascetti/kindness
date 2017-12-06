@@ -17,7 +17,26 @@ export class EditProfileComponent{
 
 	ngOnInit(): void {
 		this.editProfileForm = this.formBuilder.group({
+			userName: ["", [Validators.maxLength(128), Validators.required]],
+			firstName: ["", [Validators.maxLength(64), Validators.required]],
+			lastName: ["", [Validators.maxLength(64), Validators.required]],
+			email: ["", [Validators.maxLength(255), Validators.required]],
+			password: ["", [Validators.maxLength(48), Validators.required]],
+			passwordConfirm: ["", [Validators.maxLength(48), Validators.required]]
 
-		})
+		});
+		this.applyFormChanges();
+	}
+
+	applyFormChanges() : void {
+		this.editProfileForm.valueChanges.subscribe(values => {
+			for(let field in values) {
+				this.editProfileForm[field] = values[field];
+			}
+		});
+	}
+
+	editUser() : void {
+		this.userService.editUser(this.)
 	}
 }
