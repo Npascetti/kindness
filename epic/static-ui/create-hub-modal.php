@@ -45,7 +45,7 @@
 					</div>
 
 					<!-- Submit button -->
-					<button type="submit" id="submit" name="signUp" class="btn btn-info">Submit</button>
+					<button type="submit" id="submit" name="signUp" class="btn btn-primary">Submit</button>
 				</form>
 			</div>
 <!--			<div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">-->

@@ -13,6 +13,9 @@
 				<li class="nav-item">
 					<a class="nav-link active mr-3" href="#" data-toggle="modal" data-target="#signUpModal">Sign Up</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link active mr-3" href="#" data-toggle="modal" data-target="#editProfileModal">Profile</a>
+				</li>
 			</ul>
 		</div>
 	</nav>
