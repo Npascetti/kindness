@@ -2,8 +2,8 @@ import {Component} from "@angular/core";
 
 
 @Component({
-	selector: "edit-profile",
-	templateUrl: "./templates/edit-profile-modal.html"
+	templateUrl: "./templates/edit-profile-modal.html",
+	selector: "edit-profile"
 })
 export class EditProfileComponent{
 

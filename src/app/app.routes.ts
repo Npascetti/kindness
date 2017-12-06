@@ -9,9 +9,10 @@ import {ContentPanelComponent} from "./components/content.panel.component";
 import {FooterComponent} from "./components/footer.component";
 import {SignInComponent} from "./components/sign.in.component";
 import {SignUpComponent} from "./components/sign.up.component";
-import {ProfilePageComponent} from "./components/profile.page.component";
+import {ProfilePanelComponent} from "./components/profile.panel.component";
 import {CreateHubModalComponent} from "./components/create.hub.modal.component";
 import {EditProfileComponent} from "./components/edit.profile.component";
+import {ProfilePageComponent} from "./components/profile.page.component";
 
 	 // import all needed Services
 import {CookieService} from "ng2-cookies";
@@ -26,11 +27,6 @@ import {HubService} from "./services/hub.service";
 import {APP_BASE_HREF} from "@angular/common";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DeepDiveInterceptor} from "./services/deep.dive.interceptor";
-	 import {ProfilePanelComponent} from "./components/profile.panel.component";
-	 import {CreateHubModalComponent} from "./components/create.hub.modal.component";
-	 import {EditProfileComponent} from "./components/edit.profile.component";
-	 import {ProfilePageComponent} from "./components/profile.page.component";
-
 
 	 //an array of the components that will be passed off to the module
 export const allAppComponents = [HomeComponent, NavbarComponent, HubPanelComponent, ContentPanelComponent, FooterComponent,
