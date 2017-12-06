@@ -11,7 +11,9 @@ import 'rxjs/add/operator/switchMap';
 export class HubPanelComponent implements OnInit {
 
 	hubs: Object[] = [];
-	constructor(private hubService: HubService) {}
+
+	constructor(private hubService: HubService) {
+	}
 
 	getAllHubs(): void {
 		this.hubService.getAllHubs().subscribe(hubs => this.hubs = hubs);
