@@ -14,3 +14,6 @@ import "jquery";
 import "bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "font-awesome-webpack2";
+import "ng2-file-upload";
+
+
