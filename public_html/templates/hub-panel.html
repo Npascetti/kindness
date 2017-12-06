@@ -2,14 +2,7 @@
 	<div class="card-header">
 		<div class="h5 mb-0">Hubs</div>
 	</div>
-	<div class="card-body">
-		<ul class="list-group list-group-flush">
-			<li class="list-group-item bg-transparent">Downtown</li>
-			<li class="list-group-item bg-transparent">Tingley</li>
-			<li class="list-group-item bg-transparent">NM Heights</li>
-			<li class="list-group-item bg-transparent">Rio Rancho</li>
-			<li class="list-group-item bg-transparent">West Mesa</li>
-			<li class="list-group-item bg-transparent">Old Town</li>
-		</ul>
+	<div *ngFor="let hub of hubs"  class="card-body">
+		<p class="card-text">{{ hub.hubName }}</p>
 	</div>
 </div>
