@@ -13,10 +13,9 @@
 				<li class="nav-item">
 					<a class="nav-link active mr-3" href="#" data-toggle="modal" data-target="#signUpModal">Sign Up</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link active mr-3" href="#" data-toggle="modal" data-target="#editProfileModal">Profile</a>
-				</li>
-			</ul>
+				<form action="profile-page.php">
+					<input type="submit" value="Profile" class="bg-primary text-white">
+				</form>
 		</div>
 	</nav>
 </header>
