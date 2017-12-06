@@ -1,5 +1,4 @@
 import {Component, OnInit} from "@angular/core";
-import {Hub} from "../classes/hub";
 import {HubService} from "../services/hub.service";
 import 'rxjs/add/operator/switchMap';
 
