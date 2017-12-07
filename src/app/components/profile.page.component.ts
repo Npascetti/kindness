@@ -29,7 +29,7 @@ export class ProfilePageComponent implements OnInit{
 			this.getUser(this.route.snapshot.params["id"]);
 	}
 
-	getUser(id: number): void {
+	getUser(id: string): void {
 			this.userService.getUser(id)
 				.subscribe((reply:any) => {
 				this.userData = reply;
