@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import "rxjs/add/observable/from";
 
 @Component({
+	selector: "userImage",
 	templateUrl: "./templates/image.html"
 })
 
