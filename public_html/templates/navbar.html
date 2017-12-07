@@ -14,7 +14,7 @@
 					<a class="nav-link active mr-3" href="#" data-toggle="modal" data-target="#signUpModal">Sign Up</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active mr-3" href="#" data-toggle="modal" data-target="#signOutModal">Sign Out</a>
+					<a class="nav-link active mr-3" href="#" (click)="signOut()">Sign Out</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-item active mr-3" routerLink="profile/{{authObj.auth['userId']}}">Profile</a>
