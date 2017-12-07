@@ -7,7 +7,9 @@
     "phpunit/phpunit": "@stable",
     "lcobucci/jwt": "3.2",
     "ramsey/uuid": "@stable",
-    "roave/better-reflection": "dev-master#a402048"
+    "roave/better-reflection": "dev-master#a402048",
+    "cloudinary/cloudinary_php": "^1.8"
+    
   },
   "scripts": {
     "apigen": "./vendor/bin/apigen generate ./php/classes/*.php --destination doc",

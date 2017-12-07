@@ -47,6 +47,7 @@
     "@angular/router": "^5.1.0",
     "@auth0/angular-jwt": "^1.0.0-beta.9",
     "core-js": "^2.5.1",
+    "@cloudinary/angular": "^2.1.1",
     "jquery": "^3.2.1",
     "jwt-decode": "^2.2.0",
     "ng2-cookies": "^1.0.12",
