@@ -18,7 +18,6 @@ import {DeleteProfileModalComponent} from "./components/delete.profile.modal.com
 import {EditHubModalComponent} from "./components/edit.hub.modal.component";
 import {ImageComponent} from "./components/image.component";
 import {FileSelectDirective} from "ng2-file-upload";
-import {SignOutComponent} from "./components/sign.out.component";
 
 // import all needed Services
 import {CookieService} from "ng2-cookies";
@@ -28,7 +27,7 @@ import {SignUpService} from "./services/sign.up.service";
 import {SignInService} from "./services/sign.in.service";
 import {HubService} from "./services/hub.service";
 import {UserService} from"./services/user.service";
-import {SignOutService} from "./services/sign.out.service";
+
 
 //import all needed Interceptors
 import {APP_BASE_HREF} from "@angular/common";
@@ -38,7 +37,7 @@ import {DeepDiveInterceptor} from "./services/deep.dive.interceptor";
 //an array of the components that will be passed off to the module
 export const allAppComponents = [HomeComponent, NavbarComponent, HubPanelComponent, ContentPanelComponent, FooterComponent,
 	SignInComponent, SignUpComponent, ProfilePageComponent, ProfilePanelComponent, CreateHubModalComponent,
-	EditProfileComponent, AdminpanelComponent, DeleteProfileModalComponent, EditHubModalComponent, ImageComponent, FileSelectDirective, SignOutComponent];
+	EditProfileComponent, AdminpanelComponent, DeleteProfileModalComponent, EditHubModalComponent, ImageComponent, FileSelectDirective];
 /*we need our own components */
 
 //an array of routes that will be passed of to the module
@@ -50,7 +49,7 @@ export const routes: Routes = [
 
 // an array of services
 const services: any[] = [CookieService, JwtHelperService, SessionService, SignUpService, SignInService,
-	HubService, UserService, SignOutService];
+	HubService, UserService];
 
 // an array of misc providers
 const providers: any[] = [
