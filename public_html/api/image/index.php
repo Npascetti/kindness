@@ -8,7 +8,7 @@ use Edu\Cnm\KindHub\{
 	User
 };
 /**
- * @author Michael Jordan mj@mjcodes.com
+ * @author Michael Jordan mj@mjcodes.com, Nick Pascetti <npascetti@gmail.com>
  **/
 //verify the session, start if inactive
 if(session_status() !== PHP_SESSION_ACTIVE) {
