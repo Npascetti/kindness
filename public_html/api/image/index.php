@@ -8,8 +8,6 @@ use Edu\Cnm\KindHub\{
 	User
 };
 /**
- * Api for the cloudinary images that will magically work with out a class YATA
- *
  * @author Michael Jordan mj@mjcodes.com
  **/
 //verify the session, start if inactive
@@ -32,19 +30,26 @@ try {
 	\Cloudinary::config(["cloud_name" => $cloudinary->cloudName, "api_key" => $cloudinary->apiKey, "api_secret" => $cloudinary->apiSecret]);
 
 	if($method === "POST") {
-		verifyXsrf();
+
+		//set XSRF token
+		setXsrfCookie();
+
+		if(empty($_SESSION["user"]) === true) {
+			throw (new \InvalidArgumentException("you are not allowed to access this user", 403));
+		}
 
 		//cloudinary api stuff
 
-
-		\Cloudinary::config(["cloud_name" => $cloudinary->cloudName, "api_key" => $cloudinary->apiKey, "api_secret" => $cloudinary->apiSecret]);
 		//assigning variables to the user image name, MIME type, and image extension
-		$tempUserFileName = $_FILES["dog"]["tmp_name"];
+		$tempUserFileName = $_FILES["shannon"]["tmp_name"];
 		//upload image to cloudinary and get public id
 		$cloudinaryResult = \Cloudinary\Uploader::upload($tempUserFileName, ["width"=>500, "crop"=>"scale"]);
 		//after sending the image to Cloudinary, grab the public id and create a new image
+		$user = User::getUserByUserId($pdo, $_SESSION["user"]->getUserId());
 		$reply->data = $cloudinaryResult["public_id"];
-		$reply->message = "Image upload ok";
+		$user->setUserImage($cloudinaryResult["secure_url"]);
+		$user->update($pdo);
+		$reply->message = "Image upload successful";
 	} else{
 		throw (new InvalidArgumentException("Invalid HTTP method request"));
 	}
