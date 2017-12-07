@@ -4,7 +4,7 @@ import {SignOutService} from "../services/sign.out.service";
 import {Router} from "@angular/router";
 
 @Component({
-	templateUrl: "./templates/sign-out.html",
+	templateUrl: "./templates/signout-modal.html",
 	selector: "sign-out"
 })
 
