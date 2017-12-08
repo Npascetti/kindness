@@ -54,9 +54,7 @@ export class SignUpComponent implements OnInit {
 
 			if(this.status.status === 200) {
 				alert(status.message);
-				setTimeout(function() {
-					$("#signUpModal").modal('hide');
-				}, 500);
+				$("#signUpModal").modal('hide');
 				this.router.navigate([""]);
 			}
 		});

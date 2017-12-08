@@ -10,6 +10,7 @@ import {Status} from "../classes/status";
 import {SignInService} from "../services/sign.in.service";
 import {SignIn} from "../classes/sign.in";
 import {CookieService} from "ng2-cookies";
+import {JwtHelperService} from "@auth0/angular-jwt";
 declare let $: any;
 
 @Component({
@@ -19,11 +20,15 @@ declare let $: any;
 
 export class SignInComponent {
 	@ViewChild("signInForm") signInForm: any;
+	authObj: any = {};
+	url: string;
+
 
 	signIn: SignIn = new SignIn(null, null);
 	status: Status = null;
 	//cookie: any = {};
-	constructor(private signInService: SignInService, private router: Router, private cookieService : CookieService) {
+	constructor(private jwtHelperService: JwtHelperService, private signInService: SignInService, private router: Router,
+					private cookieService : CookieService) {
 	}
 
 
@@ -34,13 +39,19 @@ export class SignInComponent {
 
 			if(status.status === 200) {
 
-				this.router.navigate([""]);
 				//location.reload(true);
 				this.signInForm.reset();
-				setTimeout(function(){$("#signin-modal").modal('hide');},1000);
+				$("#signInModal").modal('hide');
 			} else {
 				console.log("failed login")
 			}
+			this.authObj = this.jwtHelperService.decodeToken(localStorage.getItem("jwt-token"));
+			this.url = "profile/" + this.authObj.auth["userId"];
+			this.router.navigate([this.url]);
 		});
+	}
+
+	getJwtProfileId() : any {
+		this.authObj = this.jwtHelperService.decodeToken(localStorage.getItem("jwt-token"));
 	}
 }
