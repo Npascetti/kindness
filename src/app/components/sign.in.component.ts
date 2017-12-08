@@ -39,15 +39,15 @@ export class SignInComponent {
 
 			if(status.status === 200) {
 
-				this.authObj = this.jwtHelperService.decodeToken(localStorage.getItem("jwt-token"));
-				this.url = "profile/" + this.authObj.auth["userId"];
-				this.router.navigate([this.url]);
 				//location.reload(true);
 				this.signInForm.reset();
-				setTimeout(function(){$("#signInModal").modal('hide');},1000);
+				$("#signInModal").modal('hide');
 			} else {
 				console.log("failed login")
 			}
+			this.authObj = this.jwtHelperService.decodeToken(localStorage.getItem("jwt-token"));
+			this.url = "profile/" + this.authObj.auth["userId"];
+			this.router.navigate([this.url]);
 		});
 	}
 
