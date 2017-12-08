@@ -42,6 +42,7 @@ try {
 
 		//cloudinary api stuff
 		//assigning variables to the user image name, MIME type, add image extension
+		//when testing with REST client, uploaded image exchanges . before extension for _, i.e., shannon.jpg becomes shannon_jpg
 		$tempUserFileName = $_FILES["image"]["tmp_name"];
 		//upload image to cloudinary and get public id
 		$cloudinaryResult = \Cloudinary\Uploader::upload($tempUserFileName, ["width"=>500, "crop"=>"scale"]);
