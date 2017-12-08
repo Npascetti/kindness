@@ -3,9 +3,9 @@ require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
 require_once(dirname(__DIR__, 3) . "/php/lib/uuid.php");
 require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
+
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 use Edu\Cnm\KindHub\{
-
 	User
 };
 /**
@@ -28,6 +28,7 @@ try {
 
 	$cloudinary = json_decode($config["cloudinary"]);
 
+
 	\Cloudinary::config(["cloud_name" => $cloudinary->cloudName, "api_key" => $cloudinary->apiKey, "api_secret" => $cloudinary->apiSecret]);
 
 	if($method === "POST") {
@@ -40,9 +41,8 @@ try {
 		}
 
 		//cloudinary api stuff
-
-		//assigning variables to the user image name, MIME type, and image extension
-		$tempUserFileName = $_FILES["shannon"]["tmp_name"];
+		//assigning variables to the user image name, MIME type, add image extension
+		$tempUserFileName = $_FILES["image"]["tmp_name"];
 		//upload image to cloudinary and get public id
 		$cloudinaryResult = \Cloudinary\Uploader::upload($tempUserFileName, ["width"=>500, "crop"=>"scale"]);
 		//after sending the image to Cloudinary, grab the public id and create a new image
