@@ -13,6 +13,10 @@
     <!-- inject navbar -->
     <?php require_once("navbar.php"); ?>
 
+	<div class="container">
+		<img src="../images/kindhubbanner.jpg" class="img-fluid" alt="Responsive image">
+	</div>
+
     <!-- begin Home Page layout -->
     <main class="my-5">
         <div class="container-fluid">
