@@ -2,6 +2,8 @@ a {
 	font-family: 'Inconsolata', monospace;
 }
 
-.nav-background {
-	background: url('/public_html/assets/images/kindhubbanner.jpg');
+body, html {
+	height: 100%;
 }
+
+
