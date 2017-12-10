@@ -12,21 +12,18 @@
 
 			<div class="modal-body">
 				<!-- actual login form -->
-				<form #signInForm="ngForm" name="signInForm" id="signinForm" novalidate
-						(ngSubmit)="createSignIn();">
+				<form [formGroup]="signInForm" novalidate (ngSubmit)="createSignIn();">
 
 					<!-- username goes here -->
 					<div class="form-group">
 						<label for="signin-email" class="control-label">Email</label>
-						<input type="email" name="signin-email" id="signin-email" required [(ngModel)]=signIn.userEmail
-								 #email="ngModel" class="form-control input-sm">
+						<input type="text" name="signin-email" id="signin-email" formControlName= "userEmail" class="form-control input-sm">
 					</div>
 
 					<!-- password goes here -->
 					<div class="form-group">
 						<label for="signin-password" class="control-label">Password</label>
-						<input type="password" id="signin-password" name="signin-password" required
-								 [(ngModel)]="signIn.userPassword" #password="ngModel"
+						<input type="password" id="signin-password" name="signin-password" formControlName="password"
 								 class="form-control">
 					</div>
 
