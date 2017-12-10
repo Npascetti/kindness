@@ -26,12 +26,7 @@ export class SignInComponent implements OnInit{
 	url: string;
 	signInForm: FormGroup;
 
-	ngOnInit() : void {
-		this.signInForm = this.formBuilder.group({
-			userEmail:["", [Validators.maxLength(128), Validators.required]],
-			password: ["", [Validators.maxLength(48), Validators.required]]
-		});
-	}
+
 
 
 	//signIn: SignIn = new SignIn(null, null);
@@ -41,10 +36,18 @@ export class SignInComponent implements OnInit{
 					private cookieService : CookieService, private formBuilder: FormBuilder) {
 	}
 
+	ngOnInit() : void {
+		this.signInForm = this.formBuilder.group({
+			userEmail:["", [Validators.maxLength(128), Validators.required]],
+			password: ["", [Validators.maxLength(48), Validators.required]]
+		});
+	}
+
 
 
 	createSignIn(): void {
-		let signin : SignIn =new SignIn (this.signInForm.value.userEmail, this.signInForm.value.password)
+		let signin : SignIn =new SignIn (this.signInForm.value.userEmail, this.signInForm.value.password);
+		console.log(signin);
 		this.signInService.postSignIn(signin).subscribe(status => {
 			this.status = status;
 
