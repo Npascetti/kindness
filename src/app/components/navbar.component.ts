@@ -13,10 +13,14 @@ declare const $: any;
 	selector: "navbar"
 })
 
-export class NavbarComponent implements OnChanges, OnInit{
+export class NavbarComponent implements OnInit{
+	token: string = localStorage.getItem("jwt-token");
+
 	user:User = new User(null, null, null, null, null, null, null, null, null) ;
 
+
 	authObj: any = {};
+
 
 	constructor (
 		private jwtHelperService: JwtHelperService, private signInService: SignInService, private cookieService: CookieService, private router: Router
@@ -26,16 +30,20 @@ export class NavbarComponent implements OnChanges, OnInit{
 		this.getJwtProfileId();
 	}
 
-	ngOnChanges() : void {
-			this.getJwtProfileId();
-	}
-
 	getJwtProfileId() : any {
-		this.authObj = this.jwtHelperService.decodeToken(localStorage.getItem("jwt-token"));
+			//console.log(this.token);
+		if(this.token){
+
+			let tokenExpired = this.jwtHelperService.isTokenExpired(this.token);
+			 if(tokenExpired === false){
+			 	this.authObj = this.jwtHelperService.decodeToken(this.token);
+			 	}
+			//console.log(tokenExpired);
+
+		}
 	}
 
 	// signOut() : void {
-	// 		console.log("fuck your mom");
 	// 		this.signInService.signOut().subscribe(status => {
 	// 			this.status = status;
 	// 			if(status.status === 200) {

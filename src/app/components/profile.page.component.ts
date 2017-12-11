@@ -4,6 +4,7 @@ import {User} from "../classes/user";
 import {UserService} from "../services/user.service";
 import {ActivatedRoute} from "@angular/router";
 
+
 //enable Jquery $ alias
 declare const $: any;
 
