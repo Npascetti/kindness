@@ -29,6 +29,5 @@ export class HubPanelComponent implements OnInit {
 	getHub(hubId: string): void {
 		this.hubService.getHub(hubId)
 			.subscribe(hub => this.hub = hub);
-		console.log(this.hub);
 	}
 }
