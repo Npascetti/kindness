@@ -1,9 +1,7 @@
+body {
+	background-image: url('../public_html/assets/images/abq.jpg');
+}
+
 a {
-	font-family: 'Inconsolata', monospace;
+	color: white;
 }
-
-body, html {
-	height: 100%;
-}
-
-
