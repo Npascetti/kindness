@@ -6,3 +6,13 @@ a {
 	color: white;
 }
 
+#brand {
+	font-size: 1.8em;
+}
+.nav-link {
+	font-size: 0.8em;
+}
+
+.badge {
+	font-size: 0.5em;
+}
