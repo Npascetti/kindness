@@ -3,8 +3,8 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="signInModalLabel">Sign In</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<h5 class="modal-title text-white" id="signInModalLabel">Sign In</h5>
+				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -16,19 +16,19 @@
 
 					<!-- username goes here -->
 					<div class="form-group">
-						<label for="signin-email" class="control-label">Email</label>
-						<input type="text" name="signin-email" id="signin-email" formControlName= "userEmail" class="form-control input-sm">
+						<label for="signin-email" class="control-label text-white">Email</label>
+						<input type="text" name="signin-email" id="signin-email" formControlName= "userEmail" class="form-control input-sm text-white">
 					</div>
 
 					<!-- password goes here -->
 					<div class="form-group">
-						<label for="signin-password" class="control-label">Password</label>
+						<label for="signin-password" class="control-label text-white">Password</label>
 						<input type="password" id="signin-password" name="signin-password" formControlName="password"
-								 class="form-control">
+								 class="form-control text-white">
 					</div>
 
 
-					<button type="submit" id="submit" [disabled]="signInForm.invalid" class="btn btn-info">submit
+					<button type="submit" id="submit" [disabled]="signInForm.invalid" class="btn btn-dark text-white">submit
 					</button>
 				</form>
 				<div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">

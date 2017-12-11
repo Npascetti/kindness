@@ -16,3 +16,21 @@ a {
 .badge {
 	font-size: 0.5em;
 }
+
+.modal-content, .form-control, .btn {
+	background-color: transparent !important;
+	border-color: white !important;
+}
+
+.card, .card-header {
+	border-color: white !important;
+}
+
+/*body.modal-open {*/
+	/*-webkit-filter: blur(1px);*/
+	/*-moz-filter: blur(1px);*/
+	/*-o-filter: blur(1px);*/
+	/*-ms-filter: blur(1px);*/
+	/*filter: blur(1px);*/
+/*}*/
+
