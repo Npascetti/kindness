@@ -1,11 +1,11 @@
 <div class="card bg-transparent text-white mb-3 mb-lg-0">
 	<div class="card-header">
-		<div class="h6 mb-0 text-center">Hubs</div>
+		<div class="h6 mb-0 text-center">Find A Hub</div>
 	</div>
 	<div *ngFor="let object of hubs" class="card-body">
-		<p class="card-text">{{ object.hub.hubName }}, {{ object.hub.hubLocation }}
+		<p class="card-text text-white">{{ object.hub.hubName }}, {{ object.hub.hubLocation }}
 			<a class="btn btn-dark" href="#" data-target="#hubModal" data-toggle="modal"
-				(click)="getHub(object.hub.hubId)">Information</a></p>
+				(click)="getHub(object.hub.hubId)">Hub Info</a></p>
 	</div>
 </div>
 <div class="modal fade" id="hubModal" tabindex="-1" role="dialog" aria-labelledby="hubModal"
@@ -13,13 +13,13 @@
 	<div class="modal-dialog" role="document">
 		<div *ngFor="let object of hub" class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">{{object.hub.hubName}}</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<h5 class="modal-title text-white">{{object.hub.hubName}}</h5>
+				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-header">
-				<div class="modal-body">
+				<div class="modal-body text-white">
 					<p>{{object.hub.hubLocation}}</p>
 					<p>{{object.reputation}}</p>
 				</div>

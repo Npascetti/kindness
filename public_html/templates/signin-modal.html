@@ -27,8 +27,8 @@
 								 class="form-control text-white">
 					</div>
 
-
-					<button type="submit" id="submit" [disabled]="signInForm.invalid" class="btn btn-dark text-white">submit
+					<!--took this out of button: [disabled]="signInForm.invalid"-->
+					<button type="submit" id="submit" class="btn btn-dark">submit
 					</button>
 				</form>
 				<div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">

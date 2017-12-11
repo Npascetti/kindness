@@ -1,5 +1,7 @@
 body {
 	background-image: url('../public_html/assets/images/abq.jpg');
+	background-attachment: fixed;
+	overflow:scroll;
 }
 
 a {
@@ -33,4 +35,8 @@ a {
 	/*-ms-filter: blur(1px);*/
 	/*filter: blur(1px);*/
 /*}*/
+
+.btn {
+	background-color: black !important;
+}
 
