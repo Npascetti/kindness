@@ -25,12 +25,12 @@ const JwtHelper = JwtModule.forRoot({
 	}
 });
 
-NgModule({
+@NgModule({
 	imports: [BrowserModule, HttpClientModule, JwtHelper, ReactiveFormsModule, FormsModule, routing],
 	declarations: [...moduleDeclarations, ...allAppComponents],
 	bootstrap: [AppComponent],
 	providers: [appRoutingProviders, AuthService]
-});
+})
 
 
 export class AppModule {
