@@ -34,7 +34,7 @@ try {
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
 	//sanitize input
-	$hubId = filter_input(INPUT_GET, "hubId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$hubId = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$hubUserId = filter_input(INPUT_GET, "hubUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$hubName = filter_input(INPUT_GET, "hubName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
@@ -43,7 +43,7 @@ try {
 		throw(new InvalidArgumentException("hubId cannot be empty or negative", 405));
 	}
 
-	// Handle a get request, if a field is provided, gets hubs based off of that, if not gets all hubs
+	// Handle a get request, if a field is provided gets hubs based off of that, if not, gets all hubs
 	if($method === "GET") {
 		// sets the xsrf cookie
 		setXsrfCookie();
