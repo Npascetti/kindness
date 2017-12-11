@@ -51,6 +51,8 @@ a:hover, a:focus {
 	color: white;
 }
 
-
+body {
+	font-family: 'Helvetica', sans-serif !important;
+}
 
 
