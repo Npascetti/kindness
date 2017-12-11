@@ -40,3 +40,17 @@ a {
 	background-color: black !important;
 }
 
+.nav > li > a:hover, .nav > li > a:focus {
+	background-color: black;
+	text-decoration: none;
+}
+
+a:hover, a:focus {
+	background-color: black !important;
+	text-decoration: none !important;
+	color: white;
+}
+
+
+
+

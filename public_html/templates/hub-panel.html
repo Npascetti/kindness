@@ -3,7 +3,7 @@
 		<div class="h6 mb-0 text-center">Find A Hub</div>
 	</div>
 	<div *ngFor="let object of hubs" class="card-body">
-		<p class="card-text text-white">{{ object.hub.hubName }}, {{ object.hub.hubLocation }}
+		<p class="card-text text-black">{{ object.hub.hubName }}, {{ object.hub.hubLocation }}
 			<a class="btn btn-dark" href="#" data-target="#hubModal" data-toggle="modal"
 				(click)="getHub(object.hub.hubId)">Hub Info</a></p>
 	</div>
