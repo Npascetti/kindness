@@ -14,36 +14,40 @@ import {ActivatedRoute, Params} from "@angular/router";
 export class EditProfileComponent implements OnInit{
 	editProfileForm: FormGroup;
 	status: Status = null;
-	user: User = new User(null, null, null, null, null, null, null, null, null);
+	editUser: User = new User(null, null, null, null, null, null, null, null, null);
 
 	constructor(private formBuilder: FormBuilder, private userService: UserService, private route: ActivatedRoute) {}
 
 	ngOnInit(): void {
 		this.route.params.forEach((params : Params) => {
-			let userId = params["userId"];
+			let userId = params["id"];
+			console.log(userId);
 			this.userService.getUser(userId)
 				.subscribe(user => {
-					this.user = user;
-					this.editProfileForm.patchValue(user);
+					this.editUser = user;
+					this.editProfileForm.patchValue(this.editUser);
 				});
 		});
+		console.log(this.editUser);
 		this.editProfileForm = this.formBuilder.group({
 			userName: ["", [Validators.maxLength(128), Validators.required]],
 			firstName: ["", [Validators.maxLength(64), Validators.required]],
 			lastName: ["", [Validators.maxLength(64), Validators.required]],
 			email: ["", [Validators.maxLength(255), Validators.required]],
-			password: ["", [Validators.maxLength(48), Validators.required]],
-			passwordConfirm: ["", [Validators.maxLength(48), Validators.required]]
-
 		});
-		this.editUser();
+		this.applyFormChanges();
 	}
 
-	editUser() : void {
+	applyFormChanges() : void {
 		this.editProfileForm.valueChanges.subscribe(values => {
 			for(let field in values) {
 				this.editProfileForm[field] = values[field];
 			}
 		});
+	}
+
+	editProfile() : void {
+		this.userService.editUser(this.editUser)
+			.subscribe(status => this.status = status);
 	}
 }

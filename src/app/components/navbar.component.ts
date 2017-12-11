@@ -17,8 +17,7 @@ export class NavbarComponent implements OnInit {
 	token: string = localStorage.getItem("jwt-token");
 
 	user: User = new User(null, null, null, null, null, null, null, null, null);
-
-
+	status: Status = null;
 	authObj: any = {};
 
 
@@ -34,29 +33,30 @@ export class NavbarComponent implements OnInit {
 
 			let tokenExpired = this.jwtHelperService.isTokenExpired(this.token);
 			if(tokenExpired === false) {
-				 return this.jwtHelperService.decodeToken(this.token);
+				return this.jwtHelperService.decodeToken(this.token);
 			}
-		} return false
+		}
+		return false
 	}
 
 	loadProfile(): void {
 		let token = this.getJwtProfileId();
-		if (token !== false) {
+		if(token !== false) {
 			let userId = token.auth.userId;
 			this.router.navigate(["/profile/", userId])
 		}
 	}
 
-	// signOut() : void {
-	// 		this.signInService.signOut().subscribe(status => {
-	// 			this.status = status;
-	// 			if(status.status === 200) {
-	// 				this.cookieService.deleteAll();
-	// 				localStorage.clear();
-	// 				this.router.navigate([""]);
-	// 				location.reload();
-	// 				console.log("goodbye");
-	// 			}
-	// 		});
-	// }
+	signOut(): void {
+		this.signInService.signOut().subscribe(status => {
+			this.status = status;
+			if(status.status === 200) {
+				this.cookieService.deleteAll();
+				localStorage.clear();
+				this.router.navigate([""]);
+				location.reload();
+				console.log("goodbye");
+			}
+		});
+	}
 }

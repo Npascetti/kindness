@@ -4,7 +4,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title text-white" id="editProfileModalLabel">Edit Profile</h5>
-				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -12,84 +12,59 @@
 				Edit your KindHub profile.
 			</div>
 			<div class="modal-header">
-				<form [formGroup]="editProfileForm" (ngSubmit)="editUser();" novalidate>
+				<form id="editProfileForm" [formGroup]="editProfileForm" (submit)="editProfile();" novalidate>
 
 					<!-- user name -->
 					<div class="form-group">
-						<input type="text" id="userName" name="userName" formControlName="userName" class="form-control text-white"
+						<input type="text" id="userName" name="userName" formControlName="userName"
+								 class="form-control text-white"
 								 placeholder="Username">
-					</div>
-
-					<div class="alert alert-danger"
-						  *ngIf="editProfileForm.controls.userName?.invalid && editProfileForm.controls.userName?.touched">
-						<p *ngIf="editProfileForm.controls.userName?.errors.maxlength">User Name is too long</p>
-						<p *ngIf="editProfileForm.controls.userName?.errors.required">User Name required</p>
+						<div class="alert alert-danger"
+							  *ngIf="editProfileForm.controls.userName?.invalid && editProfileForm.controls.userName?.touched">
+							<p *ngIf="editProfileForm.controls.userName?.errors.maxlength">User Name is too long</p>
+							<p *ngIf="editProfileForm.controls.userName?.errors.required">User Name required</p>
+						</div>
 					</div>
 
 					<!-- users  first name-->
 					<div class="form-group">
 						<input type="text" id="firstName" name="firstName" class="form-control text-white"
 								 formControlName="firstName" placeholder="First Name">
+						<div class="alert alert-danger"
+							  *ngIf="editProfileForm.controls.firstName?.invalid && editProfileForm.controls.firstName?.touched">
+							<p *ngIf="editProfileForm.controls.firstName?.errors.maxlength">Name is too long</p>
+							<p *ngIf="editProfileForm.controls.firstName?.errors.required">Name required</p>
+						</div>
 					</div>
-
-					<div class="alert alert-danger"
-						  *ngIf="editProfileForm.controls.firstName?.invalid && editProfileForm.controls.firstName?.touched">
-						<p *ngIf="editProfileForm.controls.firstName?.errors.maxlength">Name is too long</p>
-						<p *ngIf="editProfileForm.controls.firstName?.errors.required">Name required</p>
-					</div>
-
 
 					<!-- users last name -->
 					<div class="form-group">
 						<input type="text" id="lastName" name="lastName" class="form-control text-white "
 								 formControlName="lastName" placeholder="Last Name">
-					</div>
-
-					<div class="alert alert-danger"
-						  *ngIf="editProfileForm.controls.lastName?.invalid && editProfileForm.controls.lastName?.touched">
-						<p *ngIf="editProfileForm.controls.lastName?.errors.maxlength">Name is too long</p>
-						<p *ngIf="editProfileForm.controls.lastName?.errors.required">Name required</p>
+						<div class="alert alert-danger"
+							  *ngIf="editProfileForm.controls.lastName?.invalid && editProfileForm.controls.lastName?.touched">
+							<p *ngIf="editProfileForm.controls.lastName?.errors.maxlength">Name is too long</p>
+							<p *ngIf="editProfileForm.controls.lastName?.errors.required">Name required</p>
+						</div>
 					</div>
 
 					<!-- users  email-->
 					<div class="form-group">
 						<input type="email" id="email" name="email" class="form-control text-white" formControlName="email"
 								 placeholder="Email">
+						<div class="alert alert-danger"
+							  *ngIf="editProfileForm.controls.email?.invalid && editProfileForm.controls.email?.touched">
+							<p *ngIf="editProfileForm.controls.email?.errors.maxlength">email is to long</p>
+							<p *ngIf="editProfileForm.controls.email?.errors.required">valid email address is required</p>
+						</div>
 					</div>
-
-					<div class="alert alert-danger"
-						  *ngIf="editProfileForm.controls.email?.invalid && editProfileForm.controls.email?.touched">
-						<p *ngIf="editProfileForm.controls.email?.errors.maxlength">email is to long</p>
-						<p *ngIf="editProfileForm.controls.email?.errors.required">valid email address is required</p>
-					</div>
-
-					<!-- user password -->
-					<div class="form-group">
-						<input type="password" id="password" name="password" class="form-control text-white" formControlName="password"
-								 placeholder="New Password">
-					</div>
-					<div class="alert alert-danger"
-						  *ngIf="editProfileForm.controls.password?.invalid && editProfileForm.controls.password?.touched">
-						<p *ngIf="editProfileForm.controls.password?.errors.maxlength">Password too long</p>
-						<p *ngIf="editProfileForm.controls.password?.errors.required">Valid password required</p>
-					</div>
-
-
-					<!--confirm password -->
-					<div class="form-group">
-						<input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control text-white"
-								 formControlName="passwordConfirm" placeholder="Confirm Password">
-					</div>
-
-					<div class="alert alert-danger"
-						  *ngIf="editProfileForm.controls.passwordConfirm?.invalid && editProfileForm.controls.passwordConfirm?.touched">
-						<p *ngIf="editProfileForm.controls.passwordConfirm?.errors.maxlength">Password is too long</p>
-						<p *ngIf="editProfileForm.controls.passwordConfirm?.errors.required">Must confirm password</p>
-					</div>
-
 					<!-- Submit button -->
-					<button type="submit" id="submit" name="signUp" class="btn btn-dark">Submit</button>
+					<button type="submit" [disabled]="editProfileForm.invalid" name="submit" class="btn btn-info">Submit</button>
 				</form>
+				<div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">
+					<button type="button" class="close" aria-label="Close" (click)="status = null;"><span aria-hidden="true">&times;</span></button>
+					{{ status.message }}
+				</div>
 			</div>
 		</div>
 	</div>
