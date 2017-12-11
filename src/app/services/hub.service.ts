@@ -30,13 +30,12 @@ export class HubService {
 	}
 
 	// call to the hub API and get a hub object based on its Id
-	getHub(hubId : string) : Observable<Hub> {
-		return(this.http.get<Hub>(this.hubUrl + hubId));
-
+	getHub(id : string) : Observable<Hub[]> {
+		return(this.http.get<Hub[]>(this.hubUrl + id));
 	}
 
 	// call to the API and get an array of hubs based off the userId
-	getHubbyUserId(hubUserId : string) : Observable<Hub[]> {
+	getHubByUserId(hubUserId : string) : Observable<Hub[]> {
 		return(this.http.get<Hub[]>(this.hubUrl + hubUserId));
 
 	}

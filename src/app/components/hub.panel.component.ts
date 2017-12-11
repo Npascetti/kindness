@@ -1,6 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {HubService} from "../services/hub.service";
 import 'rxjs/add/operator/switchMap';
+import {Hub} from "../classes/hub";
+import {User} from "../classes/user";
 
 
 @Component({
@@ -10,6 +12,7 @@ import 'rxjs/add/operator/switchMap';
 
 export class HubPanelComponent implements OnInit {
 
+	hub: Object[] = [];
 	hubs: Object[] = [];
 
 	constructor(private hubService: HubService) {
@@ -21,5 +24,11 @@ export class HubPanelComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getAllHubs();
+	}
+
+	getHub(hubId: string): void {
+		this.hubService.getHub(hubId)
+			.subscribe(hub => this.hub = hub);
+		console.log(this.hub);
 	}
 }
