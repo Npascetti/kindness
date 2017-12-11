@@ -6,6 +6,7 @@ import {AppComponent} from "./app.component";
 import {allAppComponents, appRoutingProviders, routing} from "./app.routes";
 import {JwtModule} from "@auth0/angular-jwt";
 import {Status} from "./classes/status";
+import {AuthService} from "./services/auth.service";
 
 
 const moduleDeclarations = [AppComponent];
@@ -27,6 +28,6 @@ const JwtHelper = JwtModule.forRoot({
     imports:      [BrowserModule, HttpClientModule, JwtHelper, ReactiveFormsModule, FormsModule, routing],
     declarations: [...moduleDeclarations, ...allAppComponents],
     bootstrap:    [AppComponent],
-    providers:    [appRoutingProviders]
+    providers:    [appRoutingProviders, AuthService]
 })
 export class AppModule {}

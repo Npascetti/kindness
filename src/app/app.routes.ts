@@ -1,5 +1,5 @@
-import {RouterModule, Routes} from "@angular/router";
-
+import {RouterModule, Routes, CanActivate} from "@angular/router";
+import {AuthGuardService as AuthGuard} from './services/auth.guard.service';
 
 //import all needed components
 import {HomeComponent} from "./components/home.component";
@@ -19,6 +19,7 @@ import {EditHubModalComponent} from "./components/edit.hub.modal.component";
 import {ImageComponent} from "./components/image.component";
 import {FileSelectDirective} from "ng2-file-upload";
 
+
 // import all needed Services
 import {CookieService} from "ng2-cookies";
 import {JwtHelperService} from "@auth0/angular-jwt";
@@ -27,6 +28,7 @@ import {SignUpService} from "./services/sign.up.service";
 import {SignInService} from "./services/sign.in.service";
 import {HubService} from "./services/hub.service";
 import {UserService} from"./services/user.service";
+
 
 
 //import all needed Interceptors
@@ -43,8 +45,11 @@ export const allAppComponents = [HomeComponent, NavbarComponent, HubPanelCompone
 //an array of routes that will be passed of to the module
 export const routes: Routes = [
 	{path: "", component: HomeComponent},
-	{path: "profile", component: ProfilePageComponent},
-	{path: "profile/:id", component: ProfilePageComponent}
+	// {path: "profile", component: ProfilePageComponent},
+	{path: "profile/:id", component: ProfilePanelComponent},
+    {path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard]},
+    { path: '**', redirectTo: '' }
+
 ];
 
 // an array of services

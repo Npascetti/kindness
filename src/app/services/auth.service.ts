@@ -3,6 +3,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 
 
+
 @Injectable()
 
 export class AuthService {
@@ -15,7 +16,15 @@ export class AuthService {
 	constructor(private jwtHelperService: JwtHelperService, private http: HttpClient) {}
 
 	//token : string = this.jwtHelperService.tokenGetter();
+    public isAuthenticated(): boolean {
+        const token = localStorage.getItem('token');
+        // Check whether the token is expired and return
+        // true or false
+        return !this.jwtHelperService.isTokenExpired(token);
+    }
+
 	loggedIn() {
+
 
 
 
