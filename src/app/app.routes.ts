@@ -28,7 +28,8 @@ import {SignUpService} from "./services/sign.up.service";
 import {SignInService} from "./services/sign.in.service";
 import {HubService} from "./services/hub.service";
 import {UserService} from"./services/user.service";
-
+import {AuthService} from "./services/auth.service";
+import {AuthGuardService} from "./services/auth.guard.service";
 
 
 //import all needed Interceptors
@@ -46,15 +47,15 @@ export const allAppComponents = [HomeComponent, NavbarComponent, HubPanelCompone
 export const routes: Routes = [
 	{path: "", component: HomeComponent},
 	// {path: "profile", component: ProfilePageComponent},
-	{path: "profile/:id", component: ProfilePanelComponent},
-    {path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard]},
+	//{path: "profile/:id", component: ProfilePanelComponent},
+    {path: 'profile/:id', component: ProfilePageComponent, canActivate: [AuthGuard]},
     { path: '**', redirectTo: '' }
 
 ];
 
 // an array of services
 const services: any[] = [CookieService, JwtHelperService, SessionService, SignUpService, SignInService,
-	HubService, UserService];
+	HubService, UserService, AuthService, AuthGuardService];
 
 // an array of misc providers
 const providers: any[] = [

@@ -13,33 +13,37 @@ declare const $: any;
 	selector: "navbar"
 })
 
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
 	token: string = localStorage.getItem("jwt-token");
 
-	user:User = new User(null, null, null, null, null, null, null, null, null) ;
+	user: User = new User(null, null, null, null, null, null, null, null, null);
 
 
 	authObj: any = {};
 
 
-	constructor (
-		private jwtHelperService: JwtHelperService, private signInService: SignInService, private cookieService: CookieService, private router: Router
-	){}
-
-	ngOnInit() : void {
-		this.getJwtProfileId();
+	constructor(private jwtHelperService: JwtHelperService, private signInService: SignInService, private cookieService: CookieService, private router: Router) {
 	}
 
-	getJwtProfileId() : any {
-			//console.log(this.token);
-		if(this.token){
+	ngOnInit(): void {
+	}
+
+	getJwtProfileId(): any {
+		//console.log(this.token);
+		if(this.token) {
 
 			let tokenExpired = this.jwtHelperService.isTokenExpired(this.token);
-			 if(tokenExpired === false){
-			 	this.authObj = this.jwtHelperService.decodeToken(this.token);
-			 	}
-			//console.log(tokenExpired);
+			if(tokenExpired === false) {
+				 return this.jwtHelperService.decodeToken(this.token);
+			}
+		} return false
+	}
 
+	loadProfile(): void {
+		let token = this.getJwtProfileId();
+		if (token !== false) {
+			let userId = token.auth.userId;
+			this.router.navigate(["/profile/", userId])
 		}
 	}
 
