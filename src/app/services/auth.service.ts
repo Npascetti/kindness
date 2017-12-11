@@ -17,27 +17,14 @@ export class AuthService {
 
 	//token : string = this.jwtHelperService.tokenGetter();
 	public isAuthenticated(): boolean {
-		const token = localStorage.getItem('token');
+		const token = localStorage.getItem('jwt-token');
 		// Check whether the token is expired and return
 		// true or false
 		return !this.jwtHelperService.isTokenExpired(token);
 	}
 
-	loggedIn() {
 
-
-
-
-		if (this.token) {
-			return false;
-		}
-
-		const tokenExpired: boolean = this.jwtHelperService.isTokenExpired(this.token);
-
-		return !tokenExpired
-	}
-
-	decodeJwt() : any {
+	/* decodeJwt() : any {
 		let isLoggedIn : boolean = this.loggedIn();
 
 		if (!isLoggedIn) {
@@ -48,6 +35,6 @@ export class AuthService {
 		console.log(authObject);
 
 		return authObject;
-	}
+	} */
 
 }
