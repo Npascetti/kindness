@@ -34,6 +34,7 @@ export class EditProfileComponent implements OnInit{
 			firstName: ["", [Validators.maxLength(64), Validators.required]],
 			lastName: ["", [Validators.maxLength(64), Validators.required]],
 			email: ["", [Validators.maxLength(255), Validators.required]],
+			bio: ["", [Validators.maxLength(3000)]],
 		});
 		this.applyFormChanges();
 	}

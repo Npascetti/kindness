@@ -58,6 +58,17 @@
 							<p *ngIf="editProfileForm.controls.email?.errors.required">valid email address is required</p>
 						</div>
 					</div>
+
+					<!--users bio-->
+					<div class="form-group">
+						<input type="text" id="bio" name="bio" class="form-control text-white "
+								 formControlName="bio" placeholder="Bio">
+						<div class="alert alert-danger"
+							  *ngIf="editProfileForm.controls.bio?.invalid && editProfileForm.controls.bio?.touched">
+							<p *ngIf="editProfileForm.controls.bio?.errors.maxlength">Bio is too long</p>
+						</div>
+					</div>
+
 					<!-- Submit button -->
 					<button type="submit" [disabled]="editProfileForm.invalid" name="submit" class="btn btn-info">Submit</button>
 				</form>
