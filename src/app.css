@@ -76,7 +76,10 @@ body {
 }
 
 .modal-backdrop {
-	background-color: dimgrey;
+	background-image: url('../public_html/assets/images/blurimage.jpg');
+	background-repeat: round;
+
+	opacity: 100 !important;
 }
 
 
