@@ -9,7 +9,6 @@ import {Router} from "@angular/router";
 import {Status} from "../classes/status";
 import {SignUpService} from "../services/sign.up.service";
 import {SignUp} from "../classes/sign.up";
-import {setTimeout} from "timers";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 //declare $ for good old jquery
