@@ -1,5 +1,6 @@
 body {
 	background-image: url('../public_html/assets/images/abq.jpg');
+	/*background-image: url('../public_html/assets/images/abq2.png');*/
 	background-attachment: fixed;
 	overflow:scroll;
 	background-size: cover;
@@ -81,6 +82,10 @@ body {
 	background-size: cover;
 
 	opacity: 100 !important;
+}
+
+ul {
+	list-style: none;
 }
 
 
