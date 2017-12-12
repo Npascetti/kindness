@@ -1,9 +1,9 @@
 
 <form class="form-horizontal" name="imageUpload" (submit)="uploadImage();">
 	<div class="form-group">
-		<label for="postImage" class="modal-labels">Upload an image</label>
-		<input type="file" name="image" id="postImage" ng2FileSelect [uploader]="uploader" />
+		<label for="postImage" class="modal-labels text-white">Upload an image</label>
+		<input type="file" name="image" class="text-white" id="postImage" ng2FileSelect [uploader]="uploader" />
 	</div>
 	<button type="submit" class="btn btn-dark btn-lg"><i class="fa fa-file-image-o" aria-hidden="true"></i> Upload Image</button>
 </form>
-<p>Cloudinary Public Id: {{ cloudinarySecureUrl }}</p>
+<p class="text-white">Cloudinary Public Id: {{ cloudinarySecureUrl }}</p>
