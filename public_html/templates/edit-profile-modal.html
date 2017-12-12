@@ -15,10 +15,10 @@
 				<form [formGroup]="editProfileForm" (ngSubmit)="editProfile();" novalidate>
 
 					<!-- user name -->
-					<label for="editUserName">Username</label>
+					<label for="editUserName" class="text-white">Username</label>
 					<div class="form-group">
 						<input type="text" id="editUserName" name="userName" formControlName="userName"
-								 class="form-control text-white">
+								 class="form-control text-white" placeholder="Username">
 						<div class="alert alert-danger"
 							  *ngIf="editProfileForm.controls.userName?.invalid && editProfileForm.controls.userName?.touched">
 							<p *ngIf="editProfileForm.controls.userName?.errors.maxlength">User Name is too long</p>
@@ -26,10 +26,10 @@
 					</div>
 
 					<!-- users  first name-->
-					<label for="editFirstName">First Name</label>
+					<label for="editFirstName" class="text-white">First Name</label>
 					<div class="form-group">
 						<input type="text" id="editFirstName" name="firstName" class="form-control text-white"
-								 formControlName="firstName">
+								 formControlName="firstName" placeholder="First Name">
 						<div class="alert alert-danger"
 							  *ngIf="editProfileForm.controls.firstName?.invalid && editProfileForm.controls.firstName?.touched">
 							<p *ngIf="editProfileForm.controls.firstName?.errors.maxlength">Name is too long</p>
@@ -37,10 +37,10 @@
 					</div>
 
 					<!-- users last name -->
-					<label for="editLastName">Last Name</label>
+					<label for="editLastName" class="text-white">Last Name</label>
 					<div class="form-group">
 						<input type="text" id="editLastName" name="userLastName" class="form-control text-white "
-								 formControlName="lastName">
+								 formControlName="lastName" placeholder="Last Name">
 						<div class="alert alert-danger"
 							  *ngIf="editProfileForm.controls.lastName?.invalid && editProfileForm.controls.lastName?.touched">
 							<p *ngIf="editProfileForm.controls.lastName?.errors.maxlength">Name is too long</p>
@@ -48,19 +48,19 @@
 					</div>
 
 					<!-- users  email-->
-					<label for="editEmail">Email</label>
+					<label for="editEmail" class="text-white">Email</label>
 					<div class="form-group">
-						<input type="email" id="editEmail" name="editEmail" class="form-control text-white" formControlName="email">
+						<input type="email" id="editEmail" name="editEmail" class="form-control text-white" formControlName="email" placeholder="E-mail">
 						<div class="alert alert-danger"
 							  *ngIf="editProfileForm.controls.email?.invalid && editProfileForm.controls.email?.touched">
 							<p *ngIf="editProfileForm.controls.email?.errors.maxlength">email is to long</p>
 						</div>
 					</div>
 					<!--users bio-->
-					<label for="editBio">Bio</label>
+					<label for="editBio" class="text-white">Bio</label>
 					<div class="form-group">
 						<input type="text" id="editBio" name="bio" class="form-control text-white "
-								 formControlName="bio">
+								 formControlName="bio" placeholder="Bio">
 						<div class="alert alert-danger"
 							  *ngIf="editProfileForm.controls.bio?.invalid && editProfileForm.controls.bio?.touched">
 							<p *ngIf="editProfileForm.controls.bio?.errors.maxlength">Bio is too long</p>
@@ -68,7 +68,7 @@
 					</div>
 
 					<!-- Submit button -->
-					<button type="submit" [disabled]="editProfileForm.invalid" name="submit" class="btn btn-info">Submit
+					<button type="submit" [disabled]="editProfileForm.invalid" name="submit" class="btn btn-dark">Submit
 					</button>
 				</form>
 				<div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">
