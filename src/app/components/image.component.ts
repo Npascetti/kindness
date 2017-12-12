@@ -23,7 +23,7 @@ export class ImageComponent implements OnInit {
 	ngOnInit(): void {
 		this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any) => {
 			let reply = JSON.parse(response);
-			this.cloudinarySecureUrl = reply.data;
+			this.cloudinarySecureUrl = reply.data.data;
 			this.cloudinarySecureUrlObservable = Observable.from(this.cloudinarySecureUrl);
 		};
 	}
