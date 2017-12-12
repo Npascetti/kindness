@@ -28,12 +28,20 @@ a {
 	border-color: white !important;
 }
 
-/*body.modal-open {*/
+/*body.modal-open .my-5 {*/
 	/*-webkit-filter: blur(1px);*/
 	/*-moz-filter: blur(1px);*/
 	/*-o-filter: blur(1px);*/
 	/*-ms-filter: blur(1px);*/
 	/*filter: blur(1px);*/
+/*}*/
+
+/*#signInModal {*/
+	/*-webkit-filter: blur(0px) !important;*/
+	/*-moz-filter: blur(0px) !important;*/
+	/*-o-filter: blur(0px) !important;*/
+	/*-ms-filter: blur(0px) !important;*/
+	/*filter: blur(0px) !important;*/
 /*}*/
 
 .btn {
@@ -54,5 +62,25 @@ a:hover, a:focus {
 body {
 	font-family: 'Helvetica', sans-serif !important;
 }
+
+.lead {
+	font-size: 1em;
+}
+
+.display-3 {
+	font-size: 3em;
+}
+
+.size {
+	font-size:0.8em;
+}
+
+.modal-backdrop {
+	background-color: dimgrey;
+}
+
+
+
+
 
 
