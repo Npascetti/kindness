@@ -2,6 +2,7 @@ body {
 	background-image: url('../public_html/assets/images/abq.jpg');
 	background-attachment: fixed;
 	overflow:scroll;
+	background-size: cover;
 }
 
 a {
@@ -77,14 +78,12 @@ body {
 
 .modal-backdrop {
 	background-image: url('../public_html/assets/images/blurimage.jpg');
-	background-repeat: round;
+	background-size: cover;
 
 	opacity: 100 !important;
 }
 
-/*.close {*/
-	/*color: black;*/
-/*}*/
+
 
 
 
