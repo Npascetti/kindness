@@ -48,7 +48,7 @@ try {
 		$cloudinaryResult = \Cloudinary\Uploader::upload($tempUserFileName, ["width"=>500, "crop"=>"scale"]);
 		//after sending the image to Cloudinary, grab the public id and create a new image
 		$user = User::getUserByUserId($pdo, $_SESSION["user"]->getUserId());
-		$reply->data = $cloudinaryResult["public_id"];
+		$reply->data = $cloudinaryResult["secure_url"];
 		$user->setUserImage($cloudinaryResult["secure_url"]);
 		$user->update($pdo);
 		$reply->message = "Image upload successful";
