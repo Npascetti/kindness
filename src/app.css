@@ -30,22 +30,6 @@ a {
 	border-color: white !important;
 }
 
-/*body.modal-open .my-5 {*/
-	/*-webkit-filter: blur(1px);*/
-	/*-moz-filter: blur(1px);*/
-	/*-o-filter: blur(1px);*/
-	/*-ms-filter: blur(1px);*/
-	/*filter: blur(1px);*/
-/*}*/
-
-/*#signInModal {*/
-	/*-webkit-filter: blur(0px) !important;*/
-	/*-moz-filter: blur(0px) !important;*/
-	/*-o-filter: blur(0px) !important;*/
-	/*-ms-filter: blur(0px) !important;*/
-	/*filter: blur(0px) !important;*/
-/*}*/
-
 .btn {
 	background-color: black !important;
 }
