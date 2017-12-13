@@ -3,6 +3,7 @@ require_once(dirname(__DIR__, 3) . "/vendor/autoload.php");
 require_once(dirname(__DIR__, 3) . "/php/classes/autoload.php");
 require_once(dirname(__DIR__, 3) . "/php/lib/xsrf.php");
 require_once(dirname(__DIR__, 3) . "/php/lib/uuid.php");
+require_once(dirname(__DIR__, 3) . "/php/lib/geocode.php");
 require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
 
 use Edu\Cnm\KindHub\ {
@@ -37,8 +38,8 @@ try {
 	$hubId = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$hubUserId = filter_input(INPUT_GET, "hubUserId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$hubName = filter_input(INPUT_GET, "hubName", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-
-//	make sure the id is valid for methods that require it
+	$hubPoint = filter_input(INPUT_GET, "hubPoint", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+//      make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($hubId) === true)) {
 		throw(new InvalidArgumentException("hubId cannot be empty or negative", 405));
 	}
@@ -86,7 +87,17 @@ try {
 				}
 				$reply->data = $data;
 			}
-		} else {
+		} else if ($hubPoint === "yes"){
+
+			$hubs =  Hub::getAllHubs($pdo)->toArray();
+			$data = [];
+
+			foreach ($hubs as $hub) {
+				$data[] = getLatLongByAddress($hub->getHubLocation());
+			}
+			$reply->data = $data;
+		}
+		else {
 			$hubs = Hub::getAllHubs($pdo)->toArray();
 			if($hubs !== null) {
 				$data = [];
