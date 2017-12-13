@@ -78,7 +78,7 @@ body {
 }
 
 .modal-backdrop {
-	background-image: url('../public_html/assets/images/blurimage.jpg');
+	background-image: url('../public_html/assets/images/abstract-geometric-background.png');
 	background-size: cover;
 
 	opacity: 100 !important;
