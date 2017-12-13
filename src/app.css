@@ -1,6 +1,6 @@
 body {
-	background-image: url('../public_html/assets/images/abq.jpg');
-	/*background-image: url('../public_html/assets/images/abq2.png');*/
+	/*background-image: url('../public_html/assets/images/abq.jpg');*/
+	background-image: url('../public_html/assets/images/abstract-geometric-background.png');
 	background-attachment: fixed;
 	overflow:scroll;
 	background-size: cover;
