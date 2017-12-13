@@ -49,7 +49,7 @@ export const routes: Routes = [
 	// {path: "profile", component: ProfilePageComponent},
 	//{path: "profile/:id", component: ProfilePanelComponent},
     {path: 'profile/:id', component: ProfilePageComponent, canActivate: [AuthGuard]},
-    { path: '**', redirectTo: '' }
+    {path: '**', redirectTo: '' }
 
 ];
 

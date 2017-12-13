@@ -7,6 +7,8 @@ import "rxjs/add/operator/switchMap";
 import 'rxjs/add/observable/of';
 import {HubService} from "../services/hub.service";
 import {Hub} from "../classes/hub";
+import {Point} from "../classes/point";
+
 import {forEach} from "@angular/router/src/utils/collection";
 
 
@@ -19,9 +21,9 @@ export class ContentPanelComponent implements OnInit {
     // empty array of lat/long points
     // public positions: any = [];
     hub: Hub = new Hub(null, null, null, null);
-    hubs: any = [];
+    hubs: Hub[] = [];
     data: Observable<Array<Hub[]>>;
-    hubData: Hub[] = [];
+    hubData: Point[] = [];
 
     constructor(private hubService: HubService) {
     }
@@ -34,7 +36,7 @@ export class ContentPanelComponent implements OnInit {
         //         this.hubData = hubData;
         //     });
         //  });
-        this.showMarkersFromObservable();
+        this.getAllHubPoints();
         //  // for (let i = 0 ; i < this.hubs.length; i++) {
         //  //     console.log(this.hubs[i].hubLocation);
         //  // }
@@ -43,34 +45,19 @@ export class ContentPanelComponent implements OnInit {
 
     // this is a dummy example. In your app this is where you should bring
     // in all the location points through your service
-    getAllHubs(): any {
-        // let hubAddress: string;
+    getAllHubPoints(): void {
         this.hubService.getHubPoints()
-            .subscribe(hubData => {
-                this.hubData = hubData;
-                for (let i = 0; i < this.hubs.length; i++) {
-                    console.log(this.hubs[i].hubLocation);
-                }
-                console.log(hubData);
-                return hubData;
-            });
-
+            .subscribe( hubData => this.hubData = hubData);
     }
 
     // this is an example that uses an Observable - much like
     // the call to your service. This works, and is called when
     // the button is pushed...
-    showMarkersFromObservable() {
-        console.log(this.hubData);
-        Observable.of(this.getAllHubs()) // Think this as http call
-            .subscribe(hubData => {
-                this.hubData = hubData;
-                // console.log(this.hubData);
-                // console.log('fuck me');
-                // console.log(this.hubData);
-            });
+    // showMarkersFromObservable() {
+        // Observable.of(this.getAllHubs()) // Think this as http call
+        //     .subscribe(hubs => this.hubs = hubs);
 
-    }
+    // }
 
     // getRandomMarkers() : any {
     //     let randomLat: number, randomLng: number;
