@@ -1,4 +1,4 @@
-<div class="card bg-transparent text-white">
+<div class="card bg-transparent text-white map-card">
 	<div class="card-header text-center h6">
 		Locations
 	</div>
@@ -8,7 +8,7 @@
 	<!--        <button class="btn btn-primary" data-toggle="modal" data-target="#signUpModal">Click Me!</button>-->
 	<!--    </div>-->
 	<div>
-		<ngui-map center="Albuquerque, NM">
+		<ngui-map center="Albuquerque, NM" class="map-gui">
 			<marker *ngFor="let fucks of hubData" [position]="fucks"></marker>
 		</ngui-map>
 	</div>
