@@ -4,7 +4,7 @@ import {Status} from "../classes/status";
 import {Hub} from "../classes/hub";
 import {Point} from "../classes/point";
 import {Observable} from "rxjs/Observable";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 
 @Injectable ()
 export class HubService {
@@ -55,7 +55,7 @@ export class HubService {
 
     //call to the API and get an array of all the hubs in the database
     getHubPoints() : Observable<Point[]> {
-        return(this.http.get<Point[]>(this.hubUrl + "hubPoint=yes"));
+        return(this.http.get<Point[]>(this.hubUrl, {params: new HttpParams().set("hubPoint", "yes")}));
 
     }
 
